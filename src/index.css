@@ -1,1 +1,62 @@
 @import "tailwindcss";
+
+@layer utilities {
+  @keyframes slide-in-right {
+      0% {
+        transform: translateX(100%);
+        
+      }
+  
+      100% {
+        transform: translateX(0%);
+        
+      }
+    }
+  
+    @keyframes slide-in-left {
+      0% {
+        transform: translateX(-100%);
+        
+      }
+  
+      100% {
+        transform: translateX(0%);
+        
+      }
+    }
+  
+    .animate-slide-in-right {
+      animation: slide-in-right 2s ease forwards;
+    }
+  
+    .animate-slide-in-left {
+      animation: slide-in-left 2s ease forwards; }
+
+
+            ::-webkit-scrollbar {
+              width: 8px;
+            }
+      
+            ::-webkit-scrollbar-track {
+              background: #f1f1f1;
+            }
+      
+            ::-webkit-scrollbar-thumb {
+              background: #73FBFD;
+              border-radius: 4px;
+              border-color: #555;
+              
+            }
+      
+            ::-webkit-scrollbar-thumb:hover {
+              background: #555;
+            }   
+}
+
+@layer base {
+  
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
