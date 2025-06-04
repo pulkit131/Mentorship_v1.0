@@ -5,7 +5,7 @@ import "@fontsource/inter";
 
 const About = () => {
   return (
-    <section className="font-inter py-20 bg-gradient-to-b from-white to-emerald-300 min-h-screen">
+    <section id="about" className="font-inter py-20 bg-gradient-to-b from-white to-emerald-300 min-h-screen">
       <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center h-full min-h-[80vh]">
         <div>
           <h2 className="text-4xl font-bold text-gray-900 mb-6">
