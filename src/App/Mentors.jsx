@@ -42,11 +42,12 @@ const mentors = [
 const starIcon =
   "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Plain_Yellow_Star.png/32px-Plain_Yellow_Star.png";
 
-const MentorShowcase = () => {
+const Mentors = () => {
   return (
-    <div className="relative mx-auto bg-white w-[1074px] h-[627px] mt-[100px]">
-
-
+    <div
+      id="mentors"
+      className="relative mx-auto bg-white w-[1074px] h-[627px] mt-[100px]"
+    >
       {/* Title */}
       <h2 className="text-[32px] font-bold text-center mb-6 w-[745px] mx-auto">
         Connect with Industry-Proven Mentors
@@ -54,8 +55,8 @@ const MentorShowcase = () => {
 
       {/* Subheading */}
       <p className="text-[26px] text-green-700 text-center font-[400] mb-12 w-[1053px] mx-auto">
-        Gain insights from experts who've recently secured positions at leading tech
-        companies and know what it takes to succeed in today's job market.
+        Gain insights from experts who've recently secured positions at leading
+        tech companies and know what it takes to succeed in today's job market.
       </p>
 
       {/* Mentor List */}
@@ -80,7 +81,8 @@ const MentorShowcase = () => {
 
             {/* Company + Skills */}
             <div className="text-sm text-center w-[340px]">
-              <span className="font-bold">{mentor.company}</span> - {mentor.skills}
+              <span className="font-bold">{mentor.company}</span> -{" "}
+              {mentor.skills}
             </div>
 
             {/* Rating & Sessions */}
@@ -103,4 +105,4 @@ const MentorShowcase = () => {
   );
 };
 
-export default MentorShowcase;
+export default Mentors;
