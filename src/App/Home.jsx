@@ -189,51 +189,65 @@ const Home = () => {
 
             {/* Reviews Box */}
             <ScrollReveal delay={700}>
-              <div className="overflow-hidden py-2 flex flex-row items-center justify-center bg-white rounded-4xl max-w-4xl max-h-fit md:h-[144px] md:max-h-[144px] mx-auto mt-10">
-                <button onClick={handleprev} className="cursor-pointer">
-                  <ChevronLeft className="text-black" />
+              <div className="overflow-hidden py-2 flex flex-row items-center justify-center bg-gradient-to-tr from-blue-400/80 via-emerald-200/80 to-white/90 rounded-3xl shadow-xl max-w-4xl mx-auto mt-6 md:mt-10 transition-all duration-700">
+                {/* Prev Arrow */}
+                <button
+                  onClick={handleprev}
+                  className="group rounded-full p-2 bg-white/80 hover:bg-blue-100 transition-colors duration-300 shadow hover:shadow-lg mx-1 sm:mx-2 flex-shrink-0"
+                  aria-label="Previous review"
+                >
+                  <ChevronLeft className="h-7 w-7 text-emerald-600 group-hover:text-blue-600 transition-colors" />
                 </button>
 
+                {/* Review Card */}
                 <div
                   key={currentUser.id}
-                  className={`flex flex-col gap-3 justify-center items-center md:py-2 md:flex-row  bg-[#D4EEFF] rounded-3xl w-full max-w-5xl max-h-fit md:max-h-[128px] py-1 px-4 transition-transform duration-500 ease-in-out ${
-                    direction === "right"
-                      ? "animate-slide-in-right"
-                      : "animate-slide-in-left"
-                  }`}
+                  className={`
+        flex flex-col md:flex-row gap-3 justify-center items-center
+        bg-white/90 rounded-2xl w-0 flex-grow px-2 sm:px-4 py-3 shadow-lg
+        min-w-0 transition-all duration-700 ease-in-out
+        ${direction === "right" ? "animate-slide-in-right" : "animate-slide-in-left"}
+      `}
                 >
-                  <div id="user" className="flex items-center gap-3 w-1/3">
+                  <div id="user" className="flex items-center gap-3 w-full md:w-1/3 min-w-0">
                     <img
                       src={currentUser.Profile}
                       alt={currentUser.name}
-                      className="w-auto h-24 object-cover border-2 border-white"
+                      className="w-16 h-16 md:w-20 md:h-24 object-cover border-4 border-emerald-300 rounded-full shadow flex-shrink-0"
                     />
-                    <div className="text-black md:-mt-8 ">
-                      <h3 className="text-lg font-semibold">
-                        {currentUser.name}
-                      </h3>
-                      <p className="text-sm font-medium">{currentUser.role}</p>
-                      <p className="text-sm font-medium">
-                        {currentUser.company}
-                      </p>
+                    <div className="text-gray-900 min-w-0">
+                      <h3 className="text-base md:text-lg font-semibold truncate">{currentUser.name}</h3>
+                      <p className="text-xs md:text-sm font-medium text-emerald-700 truncate">{currentUser.role}</p>
+                      <p className="text-xs md:text-sm font-medium text-blue-700 truncate">{currentUser.company}</p>
                     </div>
                   </div>
-
                   <div
                     id="user-review"
-                    className="flex flex-col md:justify-center max-h-[128px] text-md font-medium items-start text-black"
+                    className="flex flex-col md:justify-center text-sm md:text-md font-medium items-start text-gray-800 w-full md:w-2/3 min-w-0 overflow-hidden"
                   >
                     {currentUser.review.map((line, idx) => (
-                      <p key={idx}>"{line}"</p>
+                      <p
+                        key={idx}
+                        className="italic break-words whitespace-pre-line max-w-full"
+                        style={{ wordBreak: "break-word" }}
+                      >
+                        "{line}"
+                      </p>
                     ))}
                   </div>
                 </div>
 
-                <button onClick={handlenext} className=" cursor-pointer">
-                  <ChevronRight className="text-black" />
+                {/* Next Arrow */}
+                <button
+                  onClick={handlenext}
+                  className="group rounded-full p-2 bg-white/80 hover:bg-blue-100 transition-colors duration-300 shadow hover:shadow-lg mx-1 sm:mx-2 flex-shrink-0"
+                  aria-label="Next review"
+                >
+                  <ChevronRight className="h-7 w-7 text-emerald-600 group-hover:text-blue-600 transition-colors" />
                 </button>
               </div>
             </ScrollReveal>
+
           </div>
         </section>
       </div>
