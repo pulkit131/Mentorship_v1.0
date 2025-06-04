@@ -96,7 +96,9 @@ const Mentors = () => {
             </div>
 
             {/* Button */}
-            <button className="w-full md:w-auto h-10 sm:h-12 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition mt-2 md:mt-0">
+            <button
+              className="w-full md:w-44 h-10 sm:h-12 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition mt-2 md:mt-0"
+            >
               Book Session
             </button>
           </div>
