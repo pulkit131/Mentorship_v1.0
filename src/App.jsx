@@ -5,6 +5,8 @@ import Home from "./App/Home";
 import Mentors from "./App/Mentors";
 import FAQ from "./App/FAQ";
 import About from "./App/About";
+import BookSessionForm from "./App/BookSessionForm";
+import PremiumPlan from "./App/PremiumPlan";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -15,6 +17,8 @@ function App() {
         <Navbar />
         <Home />
         <Mentors />
+        <BookSessionForm/>
+        <PremiumPlan />
         <FAQ />
         <About/>
       </div>

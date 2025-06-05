@@ -46,26 +46,41 @@ const mentors = [
 
 const Mentors = () => {
   return (
-    <section className=" py-20 bg-gradient-to-t from-white to-emerald-500">
-      <div
-        id="mentors"
-        className="relative mx-auto bg-white max-w-5xl w-full px-2 sm:px-4 md:px-8 py-8 mt-10 rounded-2xl"
-      >
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-4 sm:mb-6 max-w-2xl mx-auto">
-          Connect with Industry-Proven Mentors
-        </h2>
+    <section
+      className="py-20"
+      style={{
+        background: `linear-gradient(
+          180deg,
+          rgba(71, 155, 102, 1),
+          rgba(121, 182, 143, 1),
+          rgba(165, 206, 180, 1),
+          rgba(255, 255, 255, 1),
+          rgba(235, 240, 255, 1),
+          rgba(191, 219, 254, 1)
+        )`,
+      }}
+    >
+      <div id="mentors" className="max-w-5xl mx-auto px-4">
+        <div className="text-center mb-4 sm:mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">
+            Connect with Industry-Proven Mentors
+          </h2>
+        </div>
 
-        <p className="text-base sm:text-xl md:text-2xl text-green-700 text-center font-normal mb-8 sm:mb-12 max-w-3xl mx-auto">
-          Gain insights from experts who've recently secured positions at
-          leading tech companies and know what it takes to succeed in today's
-          job market.
-        </p>
+        <div className="text-center mb-10 px-4">
+          <p className="text-[22px] leading-[25px] text-emerald-900 text-center px-4 max-w-[900px] mx-auto">
+            Gain insights from experts who’ve recently secured positions at
+            leading tech companies
+            <br />
+            and know what it takes to succeed in today’s job market.
+          </p>
+        </div>
 
         <div className="flex flex-col gap-4 sm:gap-6 w-full max-w-4xl mx-auto">
           {mentors.map((mentor, index) => (
             <div
               key={index}
-              className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-0 bg-blue-50 rounded-xl px-4 py-4 transition-transform duration-300 hover:scale-105 shadow-md"
+              className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-0 bg-white rounded-xl px-4 py-4 transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:-translate-y-1"
             >
               <div className="flex items-center gap-3 md:w-1/4">
                 <img
@@ -97,11 +112,20 @@ const Mentors = () => {
                 <p className="text-xs">{mentor.sessions}</p>
               </div>
 
-              <button className="w-full md:w-44 h-10 sm:h-12 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors mt-2 md:mt-0">
+              <button className="w-[198px] h-[48px] bg-blue-600 text-white text-sm font-medium rounded-[14px] hover:bg-blue-700 transition duration-300">
                 Book Session
               </button>
             </div>
           ))}
+        </div>
+
+        <div className="text-center mt-10">
+          <button
+            className="w-[336px] h-[50px] bg-blue-600 text-white text-base font-semibold rounded-[14px] hover:bg-blue-700 transition duration-300"
+            style={{ marginTop: "20px" }}
+          >
+            All Mentors
+          </button>
         </div>
       </div>
     </section>
