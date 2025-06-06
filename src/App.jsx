@@ -19,8 +19,8 @@ function App() {
         <Mentors />
         <BookSessionForm/>
         <PremiumPlan />
-        <FAQ />
         <About/>
+        <FAQ />
       </div>
     </>
   );
