@@ -46,8 +46,13 @@ const mentors = [
 
 const Mentorship = () => {
   return (
+<<<<<<< HEAD
     <section className="py-20 min-h-screen bg-gradient-to-b from-[#21e6c1] via-white via-80% to-blue-200">
       <div id="mentors" className="max-w-5xl mx-auto px-2 sm:px-4">
+=======
+    <section className="py-20 bg-gradient-to-b from-emerald-500 via-white to-blue-200 border-0 shadow-none">
+      <div id="mentors" className="max-w-5xl mx-auto px-4">
+>>>>>>> 2945d261d87bf38cc2e06fa0db9b3bc96d27cb79
         <div className="text-center mb-4 sm:mb-6">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
             Connect with Industry-Proven Mentors

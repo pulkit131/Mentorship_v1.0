@@ -7,6 +7,7 @@ import FAQ from "./App/FAQ";
 import About from "./App/About";
 import BookSessionForm from "./App/BookSessionForm";
 import PremiumPlan from "./App/PremiumPlan";
+import Support from "./App/Support";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -21,6 +22,10 @@ function App() {
         <PremiumPlan />
         <About/>
         <FAQ />
+<<<<<<< HEAD
+=======
+        <Support />
+>>>>>>> 2945d261d87bf38cc2e06fa0db9b3bc96d27cb79
       </div>
     </>
   );
