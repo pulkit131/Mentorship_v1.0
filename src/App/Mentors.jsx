@@ -46,20 +46,7 @@ const mentors = [
 
 const Mentors = () => {
   return (
-    <section
-      className="py-20"
-      style={{
-        background: `linear-gradient(
-          180deg,
-          rgba(71, 155, 102, 1),
-          rgba(121, 182, 143, 1),
-          rgba(165, 206, 180, 1),
-          rgba(255, 255, 255, 1),
-          rgba(235, 240, 255, 1),
-          rgba(191, 219, 254, 1)
-        )`,
-      }}
-    >
+    <section className="py-20 bg-gradient-to-b from-emerald-500 via-white to-blue-200 border-0 shadow-none">
       <div id="mentors" className="max-w-5xl mx-auto px-4">
         <div className="text-center mb-4 sm:mb-6">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">

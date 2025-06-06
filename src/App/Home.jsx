@@ -103,12 +103,12 @@ const Home = () => {
   }
 
   return (
-    <div className="bg-gradient-to-br from-blue-600 to-emerald-500 min-w-screen min-h-screen overflow-hidden">
+    <div className="min-w-screen min-h-screen overflow-hidden border-none shadow-none">
       <div>
         {/* Hero Section */}
         <section
           id="hero"
-          className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-green-600 text-white py-20 md:py-32 overflow-hidden"
+          className="relative bg-gradient-to-b from-blue-700 via-blue-500 to-emerald-500 text-white py-20 md:py-32 overflow-hidden transition-all"
         >
           <div className="absolute inset-0 bg-black opacity-10"></div>
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -188,7 +188,7 @@ const Home = () => {
             </div>
 
             {/* Reviews Box */}
-            <ScrollReveal delay={700}>
+            <ScrollReveal delay={300}>
               <div className="overflow-hidden py-2 flex flex-row items-center justify-center bg-gradient-to-tr from-blue-400/80 via-emerald-200/80 to-white/90 rounded-3xl shadow-xl max-w-4xl mx-auto mt-6 md:mt-10 transition-all duration-700">
                 {/* Prev Arrow */}
                 <button
