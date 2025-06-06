@@ -8,6 +8,7 @@ import About from "./App/About";
 import BookSessionForm from "./App/BookSessionForm";
 import PremiumPlan from "./App/PremiumPlan";
 import Support from "./App/Support";
+import Footer from "./App/Footer";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -23,6 +24,7 @@ function App() {
         <About/>
         <FAQ />
         <Support />
+        <Footer/>
       </div>
     </>
   );
