@@ -43,11 +43,7 @@ const FAQ = () => {
     <div id="faq">
       {/* FAQ Section */}
 
-<<<<<<< HEAD
       <section className="py-20 bg-gradient-to-t from-white to-emerald-300">
-=======
-      <section className="py-20 bg-gradient-to-b from-emerald-300 to-white">
->>>>>>> 2945d261d87bf38cc2e06fa0db9b3bc96d27cb79
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
