@@ -16,7 +16,7 @@ const Navbar = () => {
     <nav className="bg-white shadow-lg sticky top-0 z-40 transition-all duration-300">
       <div className="w-full px-4 sm:px-2 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          <div className="flex-shrink-0" >
+          <div className="flex-shrink-0">
             <h1 className="text-3xl font-bold text-[#018EE2]">
               Mentorship Connect
             </h1>
@@ -24,7 +24,11 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-10">
+            <div className="
+    ml-10 flex items-baseline space-x-10
+    min-[767px]:max-[970px]:items-center
+    min-[767px]:max-[970px]:space-x-4
+  ">
               <button
                 onClick={() => scrollToSection("hero")}
                 className="hover:text-blue-600 py-2 text-base font-medium transition-colors duration-300"
@@ -39,7 +43,7 @@ const Navbar = () => {
               </button>
               <button
                 onClick={() => scrollToSection("about")}
-                className="hover:text-blue-600 py-2 text-base font-medium transition-colors duration-300"
+                className="hover:text-blue-600 py-2 text-base font-medium transition-colors duration-300 min-[767px]:max-[970px]:whitespace-nowrap"
               >
                 About Us
               </button>
@@ -57,13 +61,17 @@ const Navbar = () => {
               </button>
               <button
                 onClick={() => scrollToSection("booking")}
-                className="bg-[#018EE2] text-white text-xl rounded-full 
-    px-6 py-4 
-    max-w-xs w-full sm:max-w-sm sm:w-auto 
-    flex items-center justify-center 
-    hover:bg-blue-700 transform hover:scale-105 
-    transition duration-300"
-
+                className="
+        bg-[#018EE2] text-white text-xl rounded-full 
+        px-6 py-4 
+        max-w-xs w-full sm:max-w-sm sm:w-auto 
+        flex items-center justify-center 
+        hover:bg-blue-700 transform hover:scale-105 
+        transition duration-300
+        min-[767px]:max-[970px]:px-3
+        min-[767px]:max-[970px]:py-2
+        min-[767px]:max-[970px]:text-base
+      "
               >
                 Book Session
               </button>
