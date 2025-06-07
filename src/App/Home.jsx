@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import Headset from "../assets/headset.png";
 import Up from "../assets/up-stocks.png";
-import Scholar from "../assets/scholar.png";
+import Scholar from "../assets/user.png";
 import Henry from "../assets/henry.png";
 
 const userReviews = [
