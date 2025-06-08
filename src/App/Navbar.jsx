@@ -26,8 +26,8 @@ const Navbar = () => {
           <div className="hidden md:block">
             <div className="
     ml-10 flex items-baseline space-x-10
-    min-[767px]:max-[970px]:items-center
-    min-[767px]:max-[970px]:space-x-4
+    min-[767px]:max-[972px]:items-center
+    min-[767px]:max-[972px]:space-x-3
   ">
               <button
                 onClick={() => scrollToSection("hero")}
@@ -43,7 +43,7 @@ const Navbar = () => {
               </button>
               <button
                 onClick={() => scrollToSection("about")}
-                className="hover:text-blue-600 py-2 text-base font-medium transition-colors duration-300 min-[767px]:max-[970px]:whitespace-nowrap"
+                className="hover:text-blue-600 py-2 text-base font-medium transition-colors duration-300 min-[767px]:max-[972px]:whitespace-nowrap"
               >
                 About Us
               </button>
@@ -68,9 +68,9 @@ const Navbar = () => {
         flex items-center justify-center 
         hover:bg-blue-700 transform hover:scale-105 
         transition duration-300
-        min-[767px]:max-[970px]:px-3
-        min-[767px]:max-[970px]:py-2
-        min-[767px]:max-[970px]:text-base
+        min-[767px]:max-[972px]:px-3
+        min-[767px]:max-[972px]:py-2
+        min-[767px]:max-[972px]:text-base
       "
               >
                 Book Session
