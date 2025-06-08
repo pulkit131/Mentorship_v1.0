@@ -2,7 +2,7 @@ import React from "react";
 import { FaLinkedinIn, FaFacebookF, FaTwitter } from "react-icons/fa";
 
 const Footer = () => (
-  <footer className="bg-[#181f2c] w-full pt-14 pb-8">
+  <footer className="bg-[#0A142F] w-full pt-14 pb-8">
     <div className="w-full flex flex-col items-center">
       <div className="w-full max-w-[1200px] px-4 flex flex-col md:flex-row md:justify-between gap-8">
         {/* Services */}
@@ -34,7 +34,7 @@ const Footer = () => (
           </ul>
         </div>
         {/* Newsletter */}
-        <div className="w-full md:w-[340px] bg-[#232b3b] rounded-[8px] p-6 flex flex-col gap-3 mt-8 md:mt-0">
+        <div className="w-full md:w-[340px] bg-[#172042] rounded-[8px] p-6 flex flex-col gap-3 mt-8 md:mt-0">
           <h3 className="font-bold text-base text-white mb-1">Subscribe to our Newsletter!</h3>
           <input
             type="text"
@@ -60,13 +60,13 @@ const Footer = () => (
         </div>
         {/* Social icons */}
         <div className="flex gap-4">
-          <a href="#" aria-label="LinkedIn" className="rounded-full bg-[#232b3b] p-2 hover:bg-[#2196f3] transition-colors">
+          <a href="#" aria-label="LinkedIn" className="rounded-full bg-[#172042] p-2 hover:bg-[#2196f3] transition-colors">
             <FaLinkedinIn className="text-xl text-[#bfc8db] hover:text-white" />
           </a>
-          <a href="#" aria-label="Facebook" className="rounded-full bg-[#232b3b] p-2 hover:bg-[#2196f3] transition-colors">
+          <a href="#" aria-label="Facebook" className="rounded-full bg-[#172042] p-2 hover:bg-[#2196f3] transition-colors">
             <FaFacebookF className="text-xl text-[#bfc8db] hover:text-white" />
           </a>
-          <a href="#" aria-label="Twitter" className="rounded-full bg-[#232b3b] p-2 hover:bg-[#2196f3] transition-colors">
+          <a href="#" aria-label="Twitter" className="rounded-full bg-[#172042] p-2 hover:bg-[#2196f3] transition-colors">
             <FaTwitter className="text-xl text-[#bfc8db] hover:text-white" />
           </a>
         </div>
