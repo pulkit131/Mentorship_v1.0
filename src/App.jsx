@@ -9,11 +9,13 @@ import BookSessionForm from "./App/BookSessionForm";
 import PremiumPlan from "./App/PremiumPlan";
 import Support from "./App/Support";
 
+import { BrowserRouter } from "react-router-dom";
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
+    <BrowserRouter>
       <div className="overflow-x-hidden">
         <Navbar />
         <Home />
@@ -23,7 +25,7 @@ function App() {
         <About/>
         <FAQ />
         <Support />
-      </div>
+      </div></BrowserRouter>
     </>
   );
 }
