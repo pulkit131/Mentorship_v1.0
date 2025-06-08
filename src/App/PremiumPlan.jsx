@@ -11,7 +11,7 @@ const PremiumPlan = () => {
         Get unlimited access to mentors, priority booking, and exclusive
         resources.
       </p>
-      <div className="bg-[#dbeafe] rounded-[32px] sm:rounded-[43px] w-full max-w-md sm:max-w-lg flex flex-col items-center px-4 sm:px-8 pt-8 pb-6 justify-between shadow-lg">
+<div className="bg-[#dbeafe] rounded-[32px] sm:rounded-[43px] w-full max-w-md sm:max-w-lg flex flex-col items-center px-4 sm:px-8 pt-8 pb-6 justify-between shadow-2xl">
         <div className="text-center">
           <h2 className="text-xl sm:text-2xl font-semibold text-black mb-1">
             Premium Plan
@@ -19,7 +19,7 @@ const PremiumPlan = () => {
           <p className="text-3xl sm:text-4xl font-bold text-[#0025f6]">₹500</p>
           <p className="text-xs sm:text-sm text-black mb-1">per month</p>
         </div>
-        <div className="flex flex-col gap-3 w-full px-1 mt-3">
+        <div className="flex flex-col gap-2 w-full px-1 mt-3">
           {[
             "Unlimited mentorship sessions",
             "Priority booking & support",
@@ -30,7 +30,7 @@ const PremiumPlan = () => {
               key={index}
               className="flex items-start gap-3 text-black text-sm sm:text-base font-medium"
             >
-              <img src={TickBox} alt="TickBox" className="w-5 h-6 mt-1" />
+              <img src={TickBox} alt="TickBox" className="w-6 h-8" />
               <span>{text}</span>
             </div>
           ))}
