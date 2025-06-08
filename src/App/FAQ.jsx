@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { ChevronDown } from "lucide-react";
 
 const faqs = [
@@ -31,16 +31,17 @@ const faqs = [
 
 const FAQ = () => {
   const [openAnswer, setOpenAnswer] = useState({});
+  const answerRefs = useRef([]);
 
   const toggleAnswer = (id) => {
-    setOpenAnswer((e) => ({
-      ...e,
-      [id]: !e[id],
+    setOpenAnswer((prev) => ({
+      ...prev,
+      [id]: !prev[id],
     }));
   };
 
   return (
-    <section className="py-10 min-h-screen bg-gradient-to-t from-white to-emerald-300">
+    <section id = "faq" className="py-10 min-h-screen bg-gradient-to-t from-white to-emerald-300">
       <div className="max-w-2xl mx-auto px-4">
         <div className="text-center mb-8">
           <h2 className="text-3xl font-semibold font-sans text-gray-900 mb-6 leading-tight">
@@ -52,27 +53,48 @@ const FAQ = () => {
         </div>
         <div className="flex flex-col gap-4 w-full">
           {faqs.map((faq, index) => (
-            <div
-              key={index}
-              className="flex items-center justify-between w-full bg-white border-2 border-black rounded-[2rem] shadow px-6 py-3"
-              style={{
-                minHeight: "56px",
-              }}
-            >
-              <span className="font-semibold text-gray-900 text-lg sm:text-xl font-sans tracking-tight">
-                {faq.question}
-              </span>
-              <button
-                onClick={() => toggleAnswer(index)}
-                className="ml-4 flex items-center justify-center w-8 h-8 rounded-full bg-[#2563eb] hover:bg-[#1d4ed8] transition"
-                aria-label={openAnswer[index] ? "Collapse" : "Expand"}
+            <div key={index} className="w-full overflow-hidden rounded-[2rem] shadow border-2 border-black bg-white">
+              {/* Question Row */}
+              <div
+                className="flex items-center justify-between w-full px-6 py-3"
+                style={{
+                  minHeight: "56px",
+                }}
               >
-                <ChevronDown
-                  className={`text-white w-5 h-5 transition-transform duration-300 ${
-                    openAnswer[index] ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
+                <span className="font-semibold text-gray-900 text-lg sm:text-xl font-sans tracking-tight">
+                  {faq.question}
+                </span>
+                <button
+                  onClick={() => toggleAnswer(index)}
+                  className="ml-4 flex items-center justify-center w-8 h-8 rounded-full bg-[#2563eb] hover:bg-[#1d4ed8] transition"
+                  aria-label={openAnswer[index] ? "Collapse" : "Expand"}
+                >
+                  <ChevronDown
+                    className={`text-white w-5 h-5 transition-transform duration-300 ${openAnswer[index] ? "rotate-180" : ""
+                      }`}
+                  />
+                </button>
+              </div>
+              {/* Animated Dropdown */}
+              <div
+                ref={(el) => (answerRefs.current[index] = el)}
+                style={{
+                  maxHeight: openAnswer[index]
+                    ? (answerRefs.current[index]?.scrollHeight ?? 0) + 48 + "px"
+                    : "0px",
+                  opacity: openAnswer[index] ? 1 : 0,
+                  paddingTop: openAnswer[index] ? "1.5rem" : "0rem",  // 1.5rem = py-6 top
+                  paddingBottom: openAnswer[index] ? "1.5rem" : "0rem", // 1.5rem = py-6 bottom
+                  transition:
+                    "max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.4s, padding-top 0.4s, padding-bottom 0.4s",
+                  willChange: "max-height, opacity, padding-top, padding-bottom",
+                }}
+                className="overflow-hidden text-gray-800 text-base sm:text-lg font-sans font-normal px-6"
+              >
+                {faq.answer}
+              </div>
+
+
             </div>
           ))}
         </div>
