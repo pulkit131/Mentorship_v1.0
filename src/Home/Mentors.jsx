@@ -46,7 +46,7 @@ const mentors = [
 
 const Mentorship = () => {
   return (
-    <section className="py-20 min-h-screen bg-gradient-to-b from-[#21e6c1] via-white via-80% to-blue-200">
+    <section className="py-20 bg-gradient-to-b from-emerald-500 via-white to-blue-200 border-0 shadow-none">
       <div id="mentors" className="max-w-5xl mx-auto px-2 sm:px-4">
         <div className="text-center mb-4 sm:mb-6">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
@@ -56,7 +56,8 @@ const Mentorship = () => {
 
         <div className="text-center mb-10 px-4">
           <p className="text-lg sm:text-xl md:text-2xl text-[#1b7f5a] font-medium leading-snug max-w-2xl mx-auto">
-            Gain insights from experts who’ve recently secured positions at leading tech companies
+            Gain insights from experts who’ve recently secured positions at
+            leading tech companies
             <br className="hidden sm:block" />
             and know what it takes to succeed in today’s job market.
           </p>
@@ -77,12 +78,18 @@ const Mentorship = () => {
                   className="rounded-full w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 border-2 border-blue-100"
                 />
                 <div className="min-w-0">
-                  <p className="font-semibold text-gray-900 truncate">{mentor.name}</p>
-                  <p className="text-sm text-[#1976d2] truncate">{mentor.role}</p>
+                  <p className="font-semibold text-gray-900 truncate">
+                    {mentor.name}
+                  </p>
+                  <p className="text-sm text-[#1976d2] truncate">
+                    {mentor.role}
+                  </p>
                   <p className="text-sm text-gray-700 truncate">
                     <span className="font-semibold">{mentor.company}</span>
                   </p>
-                  <p className="text-xs text-gray-500 truncate">{mentor.skills}</p>
+                  <p className="text-xs text-gray-500 truncate">
+                    {mentor.skills}
+                  </p>
                 </div>
               </div>
 
@@ -90,7 +97,9 @@ const Mentorship = () => {
               <div className="flex flex-row items-center gap-4 md:w-1/3 min-w-0 justify-center md:justify-start">
                 <div className="flex items-center gap-1">
                   <img src={StarImage} alt="star" className="w-4 h-4" />
-                  <span className="text-green-600 font-semibold">{mentor.rating} / 5.0</span>
+                  <span className="text-green-600 font-semibold">
+                    {mentor.rating} / 5.0
+                  </span>
                 </div>
                 <span className="text-xs text-gray-500">{mentor.sessions}</span>
               </div>
@@ -104,9 +113,7 @@ const Mentorship = () => {
         </div>
 
         <div className="flex justify-center mt-12">
-          <button
-            className="w-full max-w-xs md:max-w-md h-[44px] bg-[#1976d2] text-white text-base font-semibold rounded-xl hover:bg-[#1251a3] transition duration-150 shadow"
-          >
+          <button className="w-full max-w-xs md:max-w-md h-[44px] bg-[#1976d2] text-white text-base font-semibold rounded-xl hover:bg-[#1251a3] transition duration-150 shadow">
             All Mentors
           </button>
         </div>
