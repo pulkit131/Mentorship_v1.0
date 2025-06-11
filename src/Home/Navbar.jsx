@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { auth, provider } from "../firebase/config";
 import { signInWithPopup, signOut } from "firebase/auth";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 const Navbar = () => {
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-const [isAuth, setIsAuth] = useState(
+  const [isAuth, setIsAuth] = useState(
     JSON.parse(localStorage.getItem("isAuth")) || false
   );
   const scrollToSection = (sectionId) => {
@@ -15,46 +18,53 @@ const [isAuth, setIsAuth] = useState(
     // Close mobile menu when navigating
     setIsMenuOpen(false);
   };
-   function handleLogin() {
-      signInWithPopup(auth, provider)
-        .then((result) => {
-          setIsAuth(true);
-          localStorage.setItem("isAuth", true);
-          Swal.fire({
-            title: "Logged In Successully",
-            icon: "success",
-            confirmButtonText: "Cool!",
-          });
-        })
-        .catch(function (error) {
-          console.error(error);
-          Swal.fire({
-            title: `Login Failed`,
-            icon: "error",
-            confirmButtonText: "Okay",
-          });
+  function handleLogin() {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const user = result.user;
+
+        setIsAuth(true);
+        localStorage.setItem("isAuth", true);
+        localStorage.setItem("userEmail", user.email);
+
+        Swal.fire({
+          title: "Logged In Successfully",
+          icon: "success",
+          confirmButtonText: "Cool!",
         });
-    }
-async function handleLogout() {
-  try {
-    await signOut(auth); // Wait for logout to complete
-    setIsAuth(false);
-    localStorage.setItem("isAuth", false);
-    Swal.fire({
-      title: "Logged Out Successfully!",
-      icon: "success",
-      confirmButtonText: "Okay",
-    });
-  } catch (error) {
-    console.error("Logout failed:", error);
-    Swal.fire({
-      title: "Logout Failed",
-      text: error.message,
-      icon: "error",
-      confirmButtonText: "Okay",
-    });
+      })
+      .catch(function (error) {
+        console.error(error);
+        Swal.fire({
+          title: `Login Failed`,
+          icon: "error",
+          confirmButtonText: "Okay",
+        });
+      });
   }
-}
+
+  async function handleLogout() {
+    try {
+      await signOut(auth); // Wait for logout to complete
+      setIsAuth(false);
+      localStorage.setItem("isAuth", false);
+      localStorage.setItem("userEmail", "");
+      Swal.fire({
+        title: "Logged Out Successfully!",
+        icon: "success",
+        confirmButtonText: "Okay",
+      });
+      navigate("/");
+    } catch (error) {
+      console.error("Logout failed:", error);
+      Swal.fire({
+        title: "Logout Failed",
+        text: error.message,
+        icon: "error",
+        confirmButtonText: "Okay",
+      });
+    }
+  }
 
   return (
     <nav className="bg-white shadow-lg sticky top-0 z-40 transition-all duration-300">
@@ -105,17 +115,28 @@ async function handleLogout() {
               >
                 Book Session
               </button>
-               {isAuth ? (
-              <>
-                <button onClick={handleLogout} className="auth">
-                  <i className="bi bi-box-arrow-right"></i> Logout{" "}
+              {isAuth && (
+                <>
+                  <button
+                    onClick={() => navigate("/mydashboard")}
+                    className="auth"
+                  >
+                    <i className="bi bi-box-arrow-right"></i> Dashboard{" "}
+                  </button>
+                </>
+              )}
+
+              {isAuth ? (
+                <>
+                  <button onClick={handleLogout} className="auth">
+                    <i className="bi bi-box-arrow-right"></i> Logout{" "}
+                  </button>
+                </>
+              ) : (
+                <button onClick={handleLogin} className="auth">
+                  <i className="bi bi-google"></i> Login
                 </button>
-              </>
-            ) : (
-              <button onClick={handleLogin} className="auth">
-                <i className="bi bi-google"></i> Login
-              </button>
-            )}
+              )}
             </div>
           </div>
 
@@ -186,20 +207,20 @@ async function handleLogout() {
               >
                 Book Session
               </button>
-               {isAuth ? (
-              <>
-                <NavLink to="/create" className="link">
-                  Create
-                </NavLink>
-                <button onClick={handleLogout} className="auth">
-                  <i className="bi bi-box-arrow-right"></i> Logout{" "}
+              {isAuth ? (
+                <>
+                  <NavLink to="/create" className="link">
+                    Create
+                  </NavLink>
+                  <button onClick={handleLogout} className="auth">
+                    <i className="bi bi-box-arrow-right"></i> Logout{" "}
+                  </button>
+                </>
+              ) : (
+                <button onClick={handleLogin} className="auth">
+                  <i className="bi bi-google"></i> Login
                 </button>
-              </>
-            ) : (
-              <button onClick={handleLogin} className="auth">
-                <i className="bi bi-google"></i> Login
-              </button>
-            )}
+              )}
             </div>
           </div>
         )}

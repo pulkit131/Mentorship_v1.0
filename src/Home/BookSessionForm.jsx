@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import { auth, provider, db } from "../firebase/config";
 import { signInWithPopup } from "firebase/auth";
 import { addDoc, collection, doc, getDoc, updateDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 const mentors = ["Sarah Johnson", "Mike Chen", "Emily Rodriguez", "David Kim"];
 const mentorMap = {
@@ -23,6 +24,7 @@ const timeMap = {
 };
 
 const BookSessionForm = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     contact: "",
@@ -30,7 +32,6 @@ const BookSessionForm = () => {
     mentor: "",
     time: "",
   });
-
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
@@ -65,9 +66,7 @@ const BookSessionForm = () => {
       });
       return;
     }
-
     const slotData = slotSnap.data();
-
     if (slotData.isBooked) {
       Swal.fire({
         title: "Slot Already Booked",
@@ -84,15 +83,15 @@ const BookSessionForm = () => {
         bookedBy: formData.email,
       });
       await addDoc(collection(db, "users"), formData);
-
+      localStorage.setItem("userEmail", formData.email);
       Swal.fire({
         title: "Session Booked!",
         text: "Your session has been successfully reserved.",
         icon: "success",
         confirmButtonText: "Awesome!",
       });
-
       setFormData({ name: "", contact: "", email: "", mentor: "", time: "" });
+      navigate("/mydashboard");
     } catch (err) {
       Swal.fire({
         title: "Booking Failed",
@@ -113,6 +112,7 @@ const BookSessionForm = () => {
           email: user.email || "",
         }));
         localStorage.setItem("isAuth", true);
+        localStorage.setItem("userEmail", user.email);
         Swal.fire({
           title: "Logged In Successfully",
           icon: "success",
