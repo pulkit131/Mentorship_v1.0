@@ -1,32 +1,57 @@
 import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import Navbar from "./App/Navbar";
-import Home from "./App/Home";
-import Mentors from "./App/Mentors";
-import FAQ from "./App/FAQ";
-import About from "./App/About";
-import BookSessionForm from "./App/BookSessionForm";
-import PremiumPlan from "./App/PremiumPlan";
-import Support from "./App/Support";
+import Navbar from "./Home/Navbar";
+import Home from "./Home/Home";
+import Mentors from "./Home/Mentors";
+import FAQ from "./Home/FAQ";
+import About from "./Home/About";
+import BookSessionForm from "./Home/BookSessionForm";
 
-import { BrowserRouter } from "react-router-dom";
+import Support from "./Home/Support";
+
+import Bookings from "./Dashboard/Bookings";
+import MentorsID from "./Mentors/MentorsID";
+
 function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <>
-    <BrowserRouter>
-      <div className="overflow-x-hidden">
-        <Navbar />
-        <Home />
-        <Mentors />
-        <BookSessionForm/>
-        <PremiumPlan />
-        <About/>
-        <FAQ />
-        <Support />
-      </div></BrowserRouter>
-    </>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div className="overflow-x-hidden">
+              <Home />
+              <Mentors />
+              <BookSessionForm />
+
+              <About />
+              <FAQ />
+              <Support />
+            </div>
+          }
+        />
+        <Route
+          path="/myDashboard"
+          element={
+            <div>
+              <Bookings />
+            </div>
+          }
+        />
+        <Route
+          path="/mentors"
+          element={
+            <div>
+              <MentorsID />
+            </div>
+          }
+        />
+      </Routes>
+    </Router>
   );
 }
 

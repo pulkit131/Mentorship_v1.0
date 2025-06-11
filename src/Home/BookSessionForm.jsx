@@ -135,9 +135,13 @@ const BookSessionForm = () => {
           Book Your Free Session
         </h1>
         <p className="text-green-700 text-center mb-8 text-base sm:text-lg">
-          Take the first step towards your dream career. Book a free mentorship session today
+          Take the first step towards your dream career. Book a free mentorship
+          session today
         </p>
-        <form onSubmit={handleSubmit} className="bg-white rounded-3xl shadow-lg px-4 sm:px-8 py-8 flex flex-col gap-4">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white rounded-3xl shadow-lg px-4 sm:px-8 py-8 flex flex-col gap-4"
+        >
           {/* Name and Contact */}
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="relative flex-1">
@@ -186,10 +190,16 @@ const BookSessionForm = () => {
               >
                 <FcGoogle className="w-6 h-6" />
               </button>
-              <button type="button" className="p-2 bg-gray-100 rounded-full hover:bg-gray-200 transition">
+              <button
+                type="button"
+                className="p-2 bg-gray-100 rounded-full hover:bg-gray-200 transition"
+              >
                 <FaApple className="w-6 h-6" />
               </button>
-              <button type="button" className="p-2 bg-gray-100 rounded-full hover:bg-gray-200 transition">
+              <button
+                type="button"
+                className="p-2 bg-gray-100 rounded-full hover:bg-gray-200 transition"
+              >
                 <MdEmail className="w-6 h-6" />
               </button>
             </div>
@@ -237,7 +247,8 @@ const BookSessionForm = () => {
             Book Now
           </button>
           <p className="text-center text-gray-700 text-sm mt-2">
-            No Registration Required | Completely Free | 1-Hour interactive Session
+            No Registration Required | Completely Free | 1-Hour interactive
+            Session
           </p>
         </form>
       </div>
