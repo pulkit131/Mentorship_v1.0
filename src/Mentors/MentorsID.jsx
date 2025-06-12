@@ -7,8 +7,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../firebase/config";
-import BookingCard from "../Dashboard/UserBookingCard";
-
+import MentorBookingCard from "../Dashboard/MentorBookingCard"
 const mentorMap = {
   "Sarah Johnson": "sarah-01",
   "Mike Chen": "mike-01",
@@ -19,7 +18,6 @@ const mentorMap = {
 const idToMentorName = Object.fromEntries(
   Object.entries(mentorMap).map(([name, id]) => [id, name])
 );
-
 const MentorDashboard = () => {
   const { id: mentorId } = useParams();
   const [sessions, setSessions] = useState([]);
@@ -56,18 +54,18 @@ const MentorDashboard = () => {
     fetchSessions();
   }, [mentorId, mentorName]);
 
-  const handleDelete = async (slotId) => {
-    try {
-      const slotRef = doc(db, "mentors", mentorId, "slots", slotId);
-      await updateDoc(slotRef, {
-        isBooked: false,
-        bookedBy: "",
-      });
-      setSessions((prev) => prev.filter((session) => session.id !== slotId));
-    } catch (error) {
-      console.error("Error unbooking slot:", error);
-    }
-  };
+  // const handleDelete = async (slotId) => {
+  //   try {
+  //     const slotRef = doc(db, "mentors", mentorId, "slots", slotId);
+  //     await updateDoc(slotRef, {
+  //       isBooked: false,
+  //       bookedBy: "",
+  //     });
+  //     setSessions((prev) => prev.filter((session) => session.id !== slotId));
+  //   } catch (error) {
+  //     console.error("Error unbooking slot:", error);
+  //   }
+  // };
 
   if (!mentorName) {
     return (
@@ -82,16 +80,16 @@ const MentorDashboard = () => {
   return (
     <div className="min-w-screen min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 p-6 flex flex-col items-center">
       <div className="w-full max-w-5xl bg-white rounded-2xl shadow-xl p-8">
-        <h1 className="text-3xl font-bold text-purple-600 mb-6 tracking-tight">
+        <h1 className="text-3xl font-bold text-blue-600 mb-6 tracking-tight">
           Bookings for {mentorName}
         </h1>
         <div className="flex flex-col md:flex-row flex-wrap gap-6">
           {sessions.map((session) => (
-            <BookingCard
+            <MentorBookingCard
               key={session.id}
               name={session.bookedBy || "Unknown"}
-              time={session.id}
-              onDelete={() => handleDelete(session.id)}
+               time={session.id}
+              // onDelete={() => handleDelete(session.id)}
             />
           ))}
           {sessions.length === 0 && (

@@ -72,7 +72,6 @@ const Dashboard = () => {
       console.error(`Invalid time format: ${time}`);
       return;
     }
-
     try {
       // 1. Delete booking from users collection
       await deleteDoc(doc(db, "users", id));
