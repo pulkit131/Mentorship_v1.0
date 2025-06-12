@@ -11,7 +11,7 @@ import BookSessionForm from "./Home/BookSessionForm";
 import Support from "./Home/Support";
 
 import Bookings from "./Dashboard/Bookings";
-import MentorsID from "./Mentors/MentorsID";
+import MentorDashboard from "./Mentors/MentorsID";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -43,10 +43,10 @@ function App() {
           }
         />
         <Route
-          path="/mentors"
+          path="/mentors/:id"
           element={
             <div>
-              <MentorsID />
+              <MentorDashboard />
             </div>
           }
         />
