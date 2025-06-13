@@ -1,6 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+const mentors = [
+  { name: "Sarah Johnson", route: "sarah-01" },
+  { name: "Mike Chen", route: "mike-01" },
+  { name: "Emily Rodriguez", route: "emily-01" },
+  { name: "David Kim", route: "david-01" },
+];
+
 const Mentorlist = () => {
   const navigate = useNavigate();
 
@@ -18,38 +25,17 @@ const Mentorlist = () => {
           id="mentor-buttons"
           className="flex flex-col md:flex-row gap-3 mt-6"
         >
-          <button
-            className="w-full bg-blue-600 rounded-2xl p-4 text-lg text-white font-medium transition-all duration-300s cursor-pointer hover:bg-blue-800 hover:-translate-y-2"
-            onClick={() => {
-              navigate("/mentors/sarah-01");
-            }}
-          >
-            Sarah Johnson
-          </button>
-          <button
-            className="w-full bg-blue-600 rounded-2xl p-4 text-lg text-white font-medium transition-all duration-300s cursor-pointer hover:bg-blue-800 hover:-translate-y-2"
-            onClick={() => {
-              navigate("/mentors/mike-01");
-            }}
-          >
-            Mike Chen
-          </button>
-          <button
-            className="w-full bg-blue-600 rounded-2xl p-4 text-lg text-white font-medium transition-all duration-300s cursor-pointer hover:bg-blue-800 hover:-translate-y-2"
-            onClick={() => {
-              navigate("/mentors/emily-01");
-            }}
-          >
-            Emily Rodriguez
-          </button>
-          <button
-            className="w-full bg-blue-600 rounded-2xl p-4 text-lg text-white font-medium transition-all duration-300s cursor-pointer hover:bg-blue-800 hover:-translate-y-2"
-            onClick={() => {
-              navigate("/mentors/david-01");
-            }}
-          >
-            David Kim
-          </button>
+          {mentors.map((mentor, index) => (
+            <button
+              key={index}
+              className="w-full bg-blue-600 rounded-2xl p-4 text-lg text-white font-medium transition-all duration-300 cursor-pointer hover:bg-blue-800 hover:-translate-y-2"
+              onClick={() => {
+                navigate(`/mentors/${mentor.route}`);
+              }}
+            >
+              {mentor.name}
+            </button>
+          ))}
         </div>
       </div>
     </div>
