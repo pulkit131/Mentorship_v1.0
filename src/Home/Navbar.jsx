@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { auth, provider } from "../firebase/config";
 import { signInWithPopup, signOut } from "firebase/auth";
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { LogOutIcon, LogInIcon } from "lucide-react";
 
 const Navbar = () => {
+   const [userId, setUserId] = useState(localStorage.getItem("userId") || "");
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAuth, setIsAuth] = useState(
@@ -20,6 +21,15 @@ const Navbar = () => {
     // Close mobile menu when navigating
     setIsMenuOpen(false);
   };
+  const [showMentors,setShowMentors]=useState(false);
+  useEffect(() => {
+  if (userId === "9m1CekNjkERX5mLZWcQIdZGiXdG3") {
+    setShowMentors(true);
+  } else {
+    setShowMentors(false);
+  }
+}, [userId]);
+
   function handleLogin() {
     signInWithPopup(auth, provider)
       .then((result) => {
@@ -28,7 +38,7 @@ const Navbar = () => {
         setIsAuth(true);
         localStorage.setItem("isAuth", true);
         localStorage.setItem("userEmail", user.email);
-
+      localStorage.setItem("userId",user.uid );
         Swal.fire({
           title: "Logged In Successfully",
           icon: "success",
@@ -51,6 +61,8 @@ const Navbar = () => {
       setIsAuth(false);
       localStorage.setItem("isAuth", false);
       localStorage.setItem("userEmail", "");
+      
+      localStorage.setItem("userId", "");
       Swal.fire({
         title: "Logged Out Successfully!",
         icon: "success",
@@ -86,6 +98,17 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
+              {showMentors && (
+                <>
+                  <button
+                    onClick={() => navigate("/mentors")}
+                    className="cursor-pointer text-gray-700 font-medium hover:text-blue-600 transition-all duration-300"
+                  >
+                    <i className="bi bi-box-arrow-right cursor-pointer"></i>{" "}
+                     Mentor-Bookings
+                  </button>
+                </>
+              )}
               <button
                 onClick={() => scrollToSection("hero")}
                 className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-300 cursor-pointer"
@@ -122,6 +145,7 @@ const Navbar = () => {
               >
                 Book Session
               </button> */}
+              
               {isAuth && (
                 <>
                   <button

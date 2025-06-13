@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
+import ProtectedRoute from "./Components/ProtectedRoutes"
 import Navbar from "./Home/Navbar";
 import Home from "./Home/Home";
 import Mentors from "./Home/Mentors";
@@ -43,21 +43,23 @@ function App() {
           }
         />
         <Route
-          path="/mentors"
-          element={
-            <div>
-              <Mentorlist />
-            </div>
-          }
-        />
-        <Route
-          path="/mentors/:id"
-          element={
-            <div>
-              <MentorsID />
-            </div>
-          }
-        />
+  path="/mentors"
+  element={
+    <ProtectedRoute>
+      <Mentorlist />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/mentors/:id"
+  element={
+    <ProtectedRoute>
+      <MentorsID />
+    </ProtectedRoute>
+  }
+/>
+
       </Routes>
     </Router>
   );

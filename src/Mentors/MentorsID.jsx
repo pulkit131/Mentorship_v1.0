@@ -89,7 +89,7 @@ const MentorDashboard = () => {
               key={session.id}
               name={session.bookedBy || "Unknown"}
                time={session.id}
-              // onDelete={() => handleDelete(session.id)}
+              onDelete={() => handleDelete(session.id)}
             />
           ))}
           {sessions.length === 0 && (
