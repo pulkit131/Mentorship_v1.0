@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "./App.css";
+
 import Navbar from "./Home/Navbar";
 import Home from "./Home/Home";
 import Mentors from "./Home/Mentors";
@@ -11,8 +11,8 @@ import BookSessionForm from "./Home/BookSessionForm";
 import Support from "./Home/Support";
 
 import Bookings from "./Dashboard/Bookings";
-import MentorDashboard from "./Mentors/MentorsID";
-
+import MentorsID from "./Mentors/MentorsID";
+import Mentorlist from "./Mentors/Mentorlist";
 function App() {
   const [count, setCount] = useState(0);
 
@@ -43,10 +43,18 @@ function App() {
           }
         />
         <Route
+          path="/mentors"
+          element={
+            <div>
+              <Mentorlist />
+            </div>
+          }
+        />
+        <Route
           path="/mentors/:id"
           element={
             <div>
-              <MentorDashboard />
+              <MentorsID />
             </div>
           }
         />

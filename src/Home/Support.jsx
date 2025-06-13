@@ -4,7 +4,10 @@ import PhoneIcon from "../assets/phone.png";
 
 const SupportSection = () => {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-start bg-gradient-to-t from-blue-200 to-white px-4">
+    <div
+      id="contact"
+      className="min-h-screen flex flex-col items-center justify-start bg-gradient-to-t from-blue-200 to-white px-4"
+    >
       <div className="w-full max-w-[1200px] text-center mt-10 md:mt-[120px] md:w-[1200px]">
         <h1 className="text-[28px] font-semibold text-black mb-3 leading-tight w-full mx-auto md:text-[40px] md:w-[801px]">
           Connect with Industry-Proven Mentors

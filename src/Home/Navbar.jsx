@@ -4,6 +4,8 @@ import { auth, provider } from "../firebase/config";
 import { signInWithPopup, signOut } from "firebase/auth";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { LogOutIcon, LogInIcon } from "lucide-react";
+
 const Navbar = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -71,7 +73,12 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
-            <h1 className="text-2xl font-bold text-blue-600">
+            <h1
+              className="text-2xl font-bold text-blue-600 cursor-pointer"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
               Mentorship Connect
             </h1>
           </div>
@@ -81,60 +88,67 @@ const Navbar = () => {
             <div className="ml-10 flex items-baseline space-x-4">
               <button
                 onClick={() => scrollToSection("hero")}
-                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-300"
+                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-300 cursor-pointer"
               >
                 Home
               </button>
               <button
                 onClick={() => scrollToSection("mentors")}
-                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-300"
+                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-300 cursor-pointer"
               >
                 Mentors
               </button>
               <button
                 onClick={() => scrollToSection("about")}
-                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-300"
+                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-300 cursor-pointer"
               >
                 About Us
               </button>
               <button
                 onClick={() => scrollToSection("faq")}
-                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-300"
+                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-300 cursor-pointer"
               >
                 FAQ
               </button>
               <button
                 onClick={() => scrollToSection("contact")}
-                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-300"
+                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-300 cursor-pointer"
               >
                 Contact
               </button>
-              <button
+              {/* <button
                 onClick={() => scrollToSection("booking")}
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-300"
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 cursor-pointer"
               >
                 Book Session
-              </button>
+              </button> */}
               {isAuth && (
                 <>
                   <button
                     onClick={() => navigate("/mydashboard")}
-                    className="auth"
+                    className="cursor-pointer text-gray-700 font-medium hover:text-blue-600 transition-all duration-300"
                   >
-                    <i className="bi bi-box-arrow-right"></i> Dashboard{" "}
+                    <i className="bi bi-box-arrow-right cursor-pointer"></i>{" "}
+                    Dashboard{" "}
                   </button>
                 </>
               )}
 
               {isAuth ? (
                 <>
-                  <button onClick={handleLogout} className="auth">
-                    <i className="bi bi-box-arrow-right"></i> Logout{" "}
+                  <button
+                    onClick={handleLogout}
+                    className="flex flex-row gap-1 items-center text-red-600 hover:text-lg font-medium transition-all duration-300 cursor-pointer"
+                  >
+                    Logout <LogOutIcon className="h-5 w-5" />
                   </button>
                 </>
               ) : (
-                <button onClick={handleLogin} className="auth">
-                  <i className="bi bi-google"></i> Login
+                <button
+                  onClick={handleLogin}
+                  className="flex flex-row gap-1 items-center text-gray-700 hover:text-blue-600 hover:text-lg font-medium transition-all duration-300 cursor-pointer"
+                >
+                  Login <LogInIcon className="h-5 w-5" />
                 </button>
               )}
             </div>
@@ -201,24 +215,41 @@ const Navbar = () => {
               >
                 Contact
               </button>
-              <button
+              {/* <button
                 onClick={() => scrollToSection("booking")}
                 className="block bg-blue-600 text-white px-3 py-2 text-base font-medium w-full text-left rounded-lg hover:bg-blue-700 transition-colors duration-300"
               >
                 Book Session
-              </button>
+              </button> */}
+              {isAuth && (
+                <>
+                  <button
+                    onClick={() => navigate("/mydashboard")}
+                    className="cursor-pointer text-gray-700 px-3 py-2 font-medium hover:text-blue-600 transition-all duration-300"
+                  >
+                    <i className="bi bi-box-arrow-right cursor-pointer"></i>{" "}
+                    Dashboard{" "}
+                  </button>
+                </>
+              )}
               {isAuth ? (
                 <>
-                  <NavLink to="/create" className="link">
+                  {/* <NavLink to="/create" className="link">
                     Create
-                  </NavLink>
-                  <button onClick={handleLogout} className="auth">
-                    <i className="bi bi-box-arrow-right"></i> Logout{" "}
+                  </NavLink> */}
+                  <button
+                    onClick={handleLogout}
+                    className="flex flex-row gap-1 items-center px-3 py-2 text-gray-700 hover:text-red-600 hover:text-lg font-medium transition-colors duration-300 cursor-pointer"
+                  >
+                    Logout <LogOutIcon />
                   </button>
                 </>
               ) : (
-                <button onClick={handleLogin} className="auth">
-                  <i className="bi bi-google"></i> Login
+                <button
+                  onClick={handleLogin}
+                  className="flex flex-row gap-1 items-center px-3 py-2 text-gray-700 hover:text-blue-600 hover:text-lg font-medium transition-colors duration-300 cursor-pointer"
+                >
+                  Login <LogInIcon />
                 </button>
               )}
             </div>
