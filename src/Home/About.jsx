@@ -6,6 +6,8 @@ import tick2 from "../Assets/ticks/tick2.png";
 import tick3 from "../Assets/ticks/tick3.png";
 import successImg from "../Assets/successStories.png";
 import "@fontsource/inter";
+import './About.css';
+
 
 const About = () => {
   const ticks = [tick1, tick2, tick3];
@@ -20,11 +22,11 @@ const About = () => {
       </h2>
       <div
         id="about-container"
-        className="xl:-translate-x-20 xl:mx-auto xl:overflow-x-hidden "
+        className="xl:mx-auto xl:overflow-x-hidden lg:ml-[-220px]"
       >
         <div
           id="whitebox"
-          className="sticky bg-white max-w-6xl lg:max-w-3xl xl:max-h-auto lg:min-w-3xl mx-auto md:grid md:grid-cols-2 lg:grid-cols-1 items-center h-full min-h-[80vh] lg:min-h-[60vh] rounded-2xl xl:mx-auto lg:mx-auto xl:-translate-x-20 lg:items-start"
+          className="sticky bg-white max-w-6xl lg:max-w-3xl xl:max-h-auto lg:min-w-3xl mx-auto md:grid md:grid-cols-2 lg:grid-cols-1 items-center h-full min-h-[80vh] lg:min-h-[40vh] rounded-2xl xl:mx-auto  xl:-translate-x-20 lg:items-start"
         >
           <div className="md:p-12 p-6">
             <h2 className="md:hidden text-4xl font-bold text-gray-900 mb-6">
@@ -68,7 +70,7 @@ const About = () => {
               alt="Mentorship session"
               className="rounded-2xl w-full md:h-full md:object-cover "
             />
-            <div className="md:absolute md:top-60 md:-translate-x-1/2 md:-translate-y-1/2 md:transform absolute top-4 right-1/12 left-1/5 transform -translate-x-0.3 -translate-y-1/2 z-10">
+            <div className="md:absolute md:top-60 md:-translate-x-1/2 md:-translate-y-1/2 md:transform absolute top-4 right- left-8 transform -translate-x-0.3 -translate-y-1/2 z-10">
               <img
                 src={successImg}
                 alt="Success Stories Badge"
@@ -77,9 +79,9 @@ const About = () => {
             </div>
           </div>
         </div>
-        <div
+        <div 
           id="img-lg"
-          className="hidden lg:block sticky  mt-10 p-6 mx-atuo transform translate-x-175 -translate-y-1/2 "
+          className="hidden lg:block sticky mt-10 p-6 mx-auto -translate-y-5 translate-x-20"
         >
           <img
             src={aboutImg}
