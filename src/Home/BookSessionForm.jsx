@@ -38,12 +38,20 @@ const BookSessionForm = () => {
       [e.target.name]: e.target.value,
     }));
   };
-
+const [userId, setUserId] = useState(localStorage.getItem("userId") || "");
   const handleSubmit = async (e) => {
     e.preventDefault();
     const mentorId = mentorMap[formData.mentor];
     const slotId = timeMap[formData.time];
-
+    if(!userId)
+    {
+      Swal.fire({
+        title: "Please Login First",
+        icon: "warning",
+        confirmButtonText: "Okay",
+      });
+      return;
+    }
     if (!mentorId || !slotId) {
       Swal.fire({
         title: "Incomplete Selection",
@@ -113,6 +121,7 @@ const BookSessionForm = () => {
         }));
         localStorage.setItem("isAuth", true);
         localStorage.setItem("userEmail", user.email);
+        localStorage.setItem("userId",user.uid );
         Swal.fire({
           title: "Logged In Successfully",
           icon: "success",
