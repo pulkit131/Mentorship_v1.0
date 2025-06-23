@@ -1,5 +1,5 @@
 import React from "react";
-import mentor1 from "../assets/mentor/mentor1.png";
+import mentor1 from "../assets/mentor/khan.png";
 import mentor2 from "../assets/mentor/mentor2.png";
 import mentor3 from "../assets/mentor/mentor3.png";
 import mentor4 from "../assets/mentor/mentor4.png";
@@ -7,10 +7,10 @@ import vector from "../assets/vector.png";
 
 const mentors = [
   {
-    name: "Sarah Johnson",
-    profession: "Data Scientist",
-    company: "Microsoft",
-    description: "Machine Learning, Python, Analytics",
+    name: "Hameedhullah Khan Pathan",
+    profession: "Software Developer",
+    company: "Trellix",
+    description: "Cybersecurity, Robotics, Data Loss Prevention",
     rating: "4.8",
     sessions: "120+ successful sessions",
     img: mentor1,
@@ -55,13 +55,18 @@ const mentors = [
 
 export default function MentorsSection() {
   return (
-    <section id="mentors" className="w-full min-h-screen bg-gradient-to-t from-blue-200 to-white flex flex-col items-center py-10 px-2">
+    <section
+      id="mentors"
+      className="w-full min-h-screen bg-gradient-to-t from-blue-200 to-white flex flex-col items-center py-10 px-2"
+    >
       <div className="w-full max-w-[1053px] mx-auto mb-3">
         <h2 className="font-semibold text-[40px] text-center leading-[47px] mb-2">
           Connect with Industry-Proven Mentors
         </h2>
         <p className="font-normal text-[22px] text-[#2AB74A] text-center leading-[31px] mb-6">
-          Gain insights from experts who’ve recently secured positions at leading tech companies<br />
+          Gain insights from experts who’ve recently secured positions at
+          leading tech companies
+          <br />
           and know what it takes to succeed in today’s job market.
         </p>
       </div>
@@ -78,8 +83,8 @@ export default function MentorsSection() {
                 alt={mentor.name}
                 className="rounded-full w-[70px] h-[70px] object-cover mr-[18px]"
               />
-              <div className="w-[139px] h-[37px] mt-[5px] flex flex-col justify-center">
-                <div className="font-semibold text-[17px] leading-[20px]">
+              <div className="w-[139px] h-[45px] mt-[5px] flex flex-col justify-center">
+                <div className="font-semibold text-[17px] leading-[20px] break-words">
                   {mentor.name}
                 </div>
                 <div className="text-[#1976d2] text-[15px] font-semibold leading-[18px]">
@@ -90,9 +95,10 @@ export default function MentorsSection() {
                 </div>
               </div>
             </div>
-            <div className="w-full text-[15px] font-semibold mt-3 text-center ml-[6px] mb-[2px]">
+            <div className="w-full text-[15px] font-semibold mt-3 text-center ml-[6px] mb-[2px] min-h-[40px]">
               {mentor.description}
             </div>
+
             <div className="flex items-center w-full mt-2 mb-2 ml-[6px]">
               <img src={vector} alt="star" className="w-4 h-4 mr-1" />
               <span className="text-[14px] font-normal mr-2">
