@@ -84,13 +84,37 @@ const Home = () => {
   }
 
   const currentUser = userReviews[currentIndex];
-
-  function scrollToSection(id) {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+const scrollToSection = (sectionId) => {
+  console.log("scrollToSection called with:", sectionId); // This should always log
+  
+  const element = document.getElementById(sectionId);
+  const navbar = document.querySelector('nav');
+  
+  console.log("Element found:", element);
+  console.log("Navbar found:", navbar);
+  
+  if (element && navbar) {
+    const navbarHeight = navbar.offsetHeight;
+    const elementTop = element.getBoundingClientRect().top;
+    const currentScroll = window.pageYOffset;
+    const targetY = elementTop + currentScroll - navbarHeight;
+    
+    console.log({
+      sectionId,
+      navbarHeight,
+      elementTop,
+      currentScroll,
+      targetY
+    });
+    
+    window.scrollTo({ top: targetY, behavior: "smooth" });
+  } else {
+    console.log("Element or navbar not found!");
   }
+  setIsMenuOpen(false);
+};
+
+
 
   return (
     <div className="bg-gradient-to-b from-blue-700 via-blue-500 to-emerald-500 min-w-screen min-h-screen overflow-hidden">

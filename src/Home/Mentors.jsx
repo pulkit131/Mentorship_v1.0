@@ -7,50 +7,32 @@ import vector from "../assets/vector.png";
 
 const mentors = [
   {
-    name: "Sarah Johnson",
-    profession: "Data Scientist",
-    company: "Microsoft",
-    description: "Machine Learning, Python, Analytics",
+    name: "Hameedullah Khan Pathan",
+    profession: "Software Developer",
+    company: "Trellix",
+    description: "DLP, cybersecurity, robotics",
     rating: "4.8",
     sessions: "120+ successful sessions",
     img: mentor1,
   },
   {
-    name: "David Lee",
-    profession: "Backend Engineer",
-    company: "Amazon",
+    name: "Navyaa Sharma",
+    profession: "Software Engineer",
+    company: "Google",
     description: "Node.js, AWS, System Design",
     rating: "4.9",
     sessions: "140+ successful sessions",
     img: mentor2,
   },
   {
-    name: "Priya Singh",
-    profession: "UI/UX Designer",
-    company: "Google",
+    name: "Ravi Kumar",
+    profession: "Software Developer",
+    company: "Zscaler",
     description: "Figma, Design Systems, UX Research",
     rating: "4.7",
     sessions: "100+ successful sessions",
     img: mentor3,
-  },
-  {
-    name: "Alex Kim",
-    profession: "Frontend Developer",
-    company: "Meta",
-    description: "React, TypeScript, Web Performance",
-    rating: "4.8",
-    sessions: "110+ successful sessions",
-    img: mentor4,
-  },
-  {
-    name: "Sarah Johnson",
-    profession: "Data Scientist",
-    company: "Microsoft",
-    description: "Machine Learning, Python, Analytics",
-    rating: "4.8",
-    sessions: "120+ successful sessions",
-    img: mentor2,
-  },
+  }
 ];
 
 export default function MentorsSection() {
@@ -79,10 +61,10 @@ export default function MentorsSection() {
                 className="rounded-full w-[70px] h-[70px] object-cover mr-[18px]"
               />
               <div className="w-[139px] h-[37px] mt-[5px] flex flex-col justify-center">
-                <div className="font-semibold text-[17px] leading-[20px]">
+                <div className="font-semibold text-[15px] leading-[20px]">
                   {mentor.name}
                 </div>
-                <div className="text-[#1976d2] text-[15px] font-semibold leading-[18px]">
+                <div className="text-[#1976d2] text-[13px] font-semibold leading-[18px]">
                   {mentor.profession}
                 </div>
                 <div className=" text-[14px] font-bold leading-[16px]">
@@ -93,15 +75,16 @@ export default function MentorsSection() {
             <div className="w-full text-[15px] font-semibold mt-3 text-center ml-[6px] mb-[2px]">
               {mentor.description}
             </div>
-            <div className="flex items-center w-full mt-2 mb-2 ml-[6px]">
-              <img src={vector} alt="star" className="w-4 h-4 mr-1" />
-              <span className="text-[14px] font-normal mr-2">
-                {mentor.rating} / 5.0
-              </span>
-              <span className="text-[14px] font-normal ml-10">
-                {mentor.sessions}
-              </span>
-            </div>
+            <div className="flex items-center w-full mt-2 mb-2 ml-[6px] gap-x-4">
+  <img src={vector} alt="star" className="w-4 h-4" />
+  <span className="text-[14px] font-normal">
+    {mentor.rating} / 5.0
+  </span>
+  <span className="text-[14px] font-normal">
+    {mentor.sessions}
+  </span>
+</div>
+
             <button className="w-full mt-[10px] bg-[#2AB74A] text-white font-semibold text-[18px] rounded-[10px] py-3 hover:bg-[#21a347] h-[48px]">
               Book Session
             </button>

@@ -1,77 +1,176 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { auth, provider } from "../firebase/config";
+import { signInWithPopup, signOut } from "firebase/auth";
+import Swal from "sweetalert2";
+import { LogOutIcon, LogInIcon } from "lucide-react";
 
 const Navbar = () => {
+  const [userId, setUserId] = useState(localStorage.getItem("userId") || "");
+  const navigate = useNavigate();
+  const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAuth, setIsAuth] = useState(
+    JSON.parse(localStorage.getItem("isAuth")) || false
+  );
+  const [showMentors, setShowMentors] = useState(false);
 
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+  useEffect(() => {
+    if (userId === "9m1CekNjkERX5mLZWcQIdZGiXdG3") {
+      setShowMentors(true);
+    } else {
+      setShowMentors(false);
     }
-    // Close mobile menu when navigating
-    setIsMenuOpen(false);
+  }, [userId]);
+
+const scrollToSection = (sectionId) => {
+  const element = document.getElementById(sectionId);
+  const navbar = document.querySelector('nav'); // or your navbar selector
+  const yOffset = navbar ? -navbar.offsetHeight : -80; // fallback
+  if (element) {
+    const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+    window.scrollTo({ top: y, behavior: "smooth" });
+  }
+};
+
+
+  function handleLogin() {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const user = result.user;
+        setIsAuth(true);
+        localStorage.setItem("isAuth", true);
+        localStorage.setItem("userEmail", user.email);
+        localStorage.setItem("userId", user.uid);
+        Swal.fire({
+          title: "Logged In Successfully",
+          icon: "success",
+          confirmButtonText: "Cool!",
+        });
+      })
+      .catch(function (error) {
+        console.error(error);
+        Swal.fire({
+          title: `Login Failed`,
+          icon: "error",
+          confirmButtonText: "Okay",
+        });
+      });
+  }
+
+  async function handleLogout() {
+    try {
+      await signOut(auth);
+      setIsAuth(false);
+      localStorage.setItem("isAuth", false);
+      localStorage.setItem("userEmail", "");
+      localStorage.setItem("userId", "");
+      Swal.fire({
+        title: "Logged Out Successfully!",
+        icon: "success",
+        confirmButtonText: "Okay",
+      });
+      navigate("/");
+    } catch (error) {
+      console.error("Logout failed:", error);
+      Swal.fire({
+        title: "Logout Failed",
+        text: error.message,
+        icon: "error",
+        confirmButtonText: "Okay",
+      });
+    }
+  }
+
+  const handleNavigation = (sectionId) => {
+    if (location.pathname === "/mydashboard") {
+      navigate("/");
+      setTimeout(() => scrollToSection(sectionId), 50);
+    } else {
+      scrollToSection(sectionId);
+    }
   };
 
   return (
     <nav className="bg-white shadow-lg sticky top-0 z-40 transition-all duration-300">
-      <div className="w-full px-4 sm:px-2 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
-            <h1 className="text-3xl font-bold text-[#018EE2]">
+            <h1
+              className="text-2xl font-bold text-blue-600 cursor-pointer"
+              onClick={() => navigate("/")}
+            >
               Mentorship Connect
             </h1>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:block">
-            <div className="
-    ml-10 flex items-baseline space-x-10
-    min-[767px]:max-[972px]:items-center
-    min-[767px]:max-[972px]:space-x-3
-  ">
+          <div className="hidden min-[1035px]:block">
+            <div className="ml-10 flex items-baseline space-x-4">
+              {showMentors && (
+                <button
+                  onClick={() => navigate("/mentors")}
+                  className="cursor-pointer text-gray-700 font-medium hover:text-blue-600 transition-all duration-300"
+                >
+                  <i className="bi bi-box-arrow-right cursor-pointer"></i> Mentor-Bookings
+                </button>
+              )}
               <button
-                onClick={() => scrollToSection("hero")}
+                onClick={() => handleNavigation("hero")}
                 className="hover:text-blue-600 py-2 text-base font-medium transition-colors duration-300"
               >
                 Home
               </button>
               <button
-                onClick={() => scrollToSection("mentors")}
+                onClick={() => handleNavigation("mentors")}
                 className="hover:text-blue-600 py-2 text-base font-medium transition-colors duration-300"
               >
                 Mentors
               </button>
               <button
-                onClick={() => scrollToSection("about")}
+                onClick={() => handleNavigation("about")}
                 className="hover:text-blue-600 py-2 text-base font-medium transition-colors duration-300 min-[767px]:max-[972px]:whitespace-nowrap"
               >
                 About Us
               </button>
               <button
-                onClick={() => scrollToSection("faq")}
+                onClick={() => handleNavigation("faq")}
                 className="hover:text-blue-600 py-2 text-base font-medium transition-colors duration-300"
               >
                 FAQ
               </button>
               <button
-                onClick={() => scrollToSection("contact")}
+                onClick={() => handleNavigation("contact")}
                 className="hover:text-blue-600 py-2 text-base font-medium transition-colors duration-300"
               >
                 Contact
               </button>
+              {isAuth && (
+                <button
+                  onClick={() => navigate("/mydashboard")}
+                  className="cursor-pointer text-gray-700 font-medium hover:text-blue-600 transition-all duration-300"
+                >
+                  <i className="bi bi-box-arrow-right cursor-pointer"></i> Dashboard
+                </button>
+              )}
+              {isAuth ? (
+                <button
+                  onClick={handleLogout}
+                  className="flex flex-row gap-1 items-center text-red-600 hover:text-lg font-medium transition-all duration-300 cursor-pointer"
+                >
+                  Logout <LogOutIcon className="h-5 w-5" />
+                </button>
+              ) : (
+                <button
+                  onClick={handleLogin}
+                  className="flex flex-row gap-1 items-center text-gray-700 hover:text-blue-600 hover:text-lg font-medium transition-all duration-300 cursor-pointer"
+                >
+                  Login <LogInIcon className="h-5 w-5" />
+                </button>
+              )}
               <button
-                onClick={() => scrollToSection("booking")}
-                className="
-        bg-[#018EE2] text-white text-xl rounded-full 
-        px-6 py-4 
-        max-w-xs w-full sm:max-w-sm sm:w-auto 
-        flex items-center justify-center 
-        hover:bg-blue-700 transform hover:scale-105 
-        transition duration-300
-        min-[767px]:max-[972px]:px-3
-        min-[767px]:max-[972px]:py-2
-        min-[767px]:max-[972px]:text-base
-      "
+                onClick={() => handleNavigation("booking")}
+                className="bg-[#018EE2] text-white text-xl rounded-full px-6 py-4 max-w-xs w-full sm:max-w-sm sm:w-auto flex items-center justify-center hover:bg-blue-700 transform hover:scale-105 transition duration-300 min-[767px]:max-[972px]:px-3 min-[767px]:max-[972px]:py-2 min-[767px]:max-[972px]:text-base"
               >
                 Book Session
               </button>
@@ -79,7 +178,7 @@ const Navbar = () => {
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden">
+          <div className="min-[1035px]:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="text-gray-700 hover:text-blue-600 focus:outline-none focus:text-blue-600 transition-colors duration-300"
@@ -107,40 +206,63 @@ const Navbar = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden">
+          <div className="min-[1035px]:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
               <button
-                onClick={() => scrollToSection("hero")}
+                onClick={() => handleNavigation("hero")}
                 className="block text-gray-700 hover:text-blue-600 px-3 py-2 text-base font-medium w-full text-left transition-colors duration-300"
               >
                 Home
               </button>
               <button
-                onClick={() => scrollToSection("mentors")}
+                onClick={() => handleNavigation("mentors")}
                 className="block text-gray-700 hover:text-blue-600 px-3 py-2 text-base font-medium w-full text-left transition-colors duration-300"
               >
                 Mentors
               </button>
               <button
-                onClick={() => scrollToSection("about")}
+                onClick={() => handleNavigation("about")}
                 className="block text-gray-700 hover:text-blue-600 px-3 py-2 text-base font-medium w-full text-left transition-colors duration-300"
               >
                 About Us
               </button>
               <button
-                onClick={() => scrollToSection("faq")}
+                onClick={() => handleNavigation("faq")}
                 className="block text-gray-700 hover:text-blue-600 px-3 py-2 text-base font-medium w-full text-left transition-colors duration-300"
               >
                 FAQ
               </button>
               <button
-                onClick={() => scrollToSection("contact")}
+                onClick={() => handleNavigation("contact")}
                 className="block text-gray-700 hover:text-blue-600 px-3 py-2 text-base font-medium w-full text-left transition-colors duration-300"
               >
                 Contact
               </button>
+              {isAuth && (
+                <button
+                  onClick={() => navigate("/mydashboard")}
+                  className="cursor-pointer text-gray-700 px-3 py-2 font-medium hover:text-blue-600 transition-all duration-300"
+                >
+                  <i className="bi bi-box-arrow-right cursor-pointer"></i> Dashboard
+                </button>
+              )}
+              {isAuth ? (
+                <button
+                  onClick={handleLogout}
+                  className="flex flex-row gap-1 items-center px-3 py-2 text-gray-700 hover:text-red-600 hover:text-lg font-medium transition-colors duration-300 cursor-pointer"
+                >
+                  Logout <LogOutIcon />
+                </button>
+              ) : (
+                <button
+                  onClick={handleLogin}
+                  className="flex flex-row gap-1 items-center px-3 py-2 text-gray-700 hover:text-blue-600 hover:text-lg font-medium transition-colors duration-300 cursor-pointer"
+                >
+                  Login <LogInIcon />
+                </button>
+              )}
               <button
-                onClick={() => scrollToSection("booking")}
+                onClick={() => handleNavigation("booking")}
                 className="block bg-blue-600 text-white px-3 py-2 text-base font-medium w-full text-left rounded-lg hover:bg-blue-700 transition-colors duration-300"
               >
                 Book Session

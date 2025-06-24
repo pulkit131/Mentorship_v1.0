@@ -19,12 +19,12 @@ function App() {
 
   return (
     <Router>
+      <Navbar />
       <Routes>
         <Route
           path="/"
           element={
             <div className="overflow-x-hidden">
-              <Navbar />
               <Home />
               <Mentors />
               <BookSessionForm />

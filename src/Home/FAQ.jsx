@@ -80,7 +80,7 @@ const FAQ = () => {
                 ref={(el) => (answerRefs.current[index] = el)}
                 style={{
                   maxHeight: openAnswer[index]
-                    ? (answerRefs.current[index]?.scrollHeight ?? 0) + 48 + "px"
+                    ? (answerRefs.current[index]?.scrollHeight ?? 0) + 48+ "px"
                     : "0px",
                   opacity: openAnswer[index] ? 1 : 0,
                   paddingTop: openAnswer[index] ? "1.5rem" : "0rem",  // 1.5rem = py-6 top
