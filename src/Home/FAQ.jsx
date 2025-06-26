@@ -44,10 +44,10 @@ const FAQ = () => {
     <section id = "faq" className="py-10 min-h-screen bg-gradient-to-t from-white to-emerald-300">
       <div className="max-w-2xl mx-auto px-4">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-semibold font-sans text-gray-900 mb-6 leading-tight">
+          <h2 className="text-3xl font-bold font-sans text-gray-900 mb-6 leading-tight">
             Frequently Asked Question(s)
           </h2>
-          <p className="text-base font-medium text-gray-800 mt-0 mb-6">
+          <p className="text-xl font-medium text-gray-800 mt-0 mb-6">
             Everything you need to know about our mentorship platform.
           </p>
         </div>

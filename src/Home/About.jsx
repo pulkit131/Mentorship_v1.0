@@ -6,8 +6,7 @@ import tick2 from "../Assets/ticks/tick2.png";
 import tick3 from "../Assets/ticks/tick3.png";
 import successImg from "../Assets/successStories.png";
 import "@fontsource/inter";
-import './About.css';
-
+import "./About.css";
 
 const About = () => {
   const ticks = [tick1, tick2, tick3];
@@ -15,7 +14,7 @@ const About = () => {
   return (
     <section
       id="about"
-      className="font-inter pt-20 px-3 bg-gradient-to-b from-white to-emerald-300 min-h-screen xl:pr-10 "
+      className="font-inter pt-6 px-3 bg-gradient-to-b from-white to-emerald-300 min-h-screen xl:pr-10 "
     >
       <h2 className="hidden md:block text-4xl font-bold text-gray-900 mb-16 text-center">
         About Mentorship Connect
@@ -33,20 +32,24 @@ const About = () => {
               About Mentorship Connect
             </h2>
             <p className="text-gray-700 mb-4 text-lg">
+              At Letsgetmentors we guide you on your unique journey to landing a
+              great job. Our approach is all about personalized mentorship,
+              real-world support, and building confidence for your career goals.
               We bridge the gap between engineering students and industry
               professionals. Our platform connects you with recently hired
               engineers who understand the current job market and can provide
               relevant, actionable advice.
             </p>
             <p className="text-gray-700 mb-6 border-t text-lg border-dotted border-cyan-400 pt-4">
-              Founded by recent graduates who experienced the challenges of job
-              hunting firsthand, we're committed to making career guidance
+              Our platform connects you with recently hired
+              engineers who understand the current job market and can provide
+              relevant, actionable advice making career guidance
               accessible to every engineering student.
             </p>
             <ul className="lg:items-center space-y-4 ">
               {[
                 "Verified mentors from top companies",
-                "Personalized guidance for your career goals",
+                "Personalized guidance and doubt solving sessions",
                 "Real-world insights and industry knowledge",
               ].map((item, index) => (
                 <li
@@ -79,7 +82,7 @@ const About = () => {
             </div>
           </div>
         </div>
-        <div 
+        <div
           id="img-lg"
           className="hidden lg:block sticky mt-10 p-6 mx-auto -translate-y-5 translate-x-20"
         >

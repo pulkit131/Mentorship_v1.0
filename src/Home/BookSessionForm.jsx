@@ -143,10 +143,10 @@ const [userId, setUserId] = useState(localStorage.getItem("userId") || "");
       className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-blue-200 to-white px-2"
     >
       <div className="w-full max-w-2xl mx-auto">
-        <h1 className="text-3xl sm:text-4xl font-bold text-center mt-8 mb-2">
+        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-2">
           Book Your Free Session
         </h1>
-        <p className="text-green-700 text-center mb-8 text-base sm:text-lg">
+        <p className="text-green-700 text-center mb-8 text-xl sm:text-lg font-normal">
           Take the first step towards your dream career. Book a free mentorship
           session today
         </p>

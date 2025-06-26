@@ -7,7 +7,7 @@ const PremiumPlan = () => {
       <h1 className="text-3xl sm:text-4xl font-bold text-black mb-4 text-center">
         Upgrade to Premium
       </h1>
-      <p className="text-base sm:text-lg text-black text-center mb-8 font-medium">
+      <p className="text-xl sm:text-lg text-black text-center mb-8 font-medium">
         Get unlimited access to mentors, priority booking, and exclusive
         resources.
       </p>

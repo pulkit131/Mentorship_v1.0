@@ -1,8 +1,7 @@
 import React from "react";
-import mentor1 from "../assets/mentor/mentor1.png";
-import mentor2 from "../assets/mentor/mentor2.png";
-import mentor3 from "../assets/mentor/mentor3.png";
-import mentor4 from "../assets/mentor/mentor4.png";
+import mentor1 from "../assets/mentor/hameedullah.png";
+import mentor2 from "../assets/mentor/navyaa.png";
+import mentor3 from "../assets/mentor/ravi.png";
 import vector from "../assets/vector.png";
 
 const mentors = [
@@ -10,7 +9,7 @@ const mentors = [
     name: "Hameedullah Khan Pathan",
     profession: "Software Developer",
     company: "Trellix",
-    description: "DLP, cybersecurity, robotics",
+    description: "Python, MySQL, DBMS",
     rating: "4.8",
     sessions: "120+ successful sessions",
     img: mentor1,
@@ -19,7 +18,7 @@ const mentors = [
     name: "Navyaa Sharma",
     profession: "Software Engineer",
     company: "Google",
-    description: "Node.js, AWS, System Design",
+    description: "Java, Machine Learning, TypeScript",
     rating: "4.9",
     sessions: "140+ successful sessions",
     img: mentor2,
@@ -28,7 +27,7 @@ const mentors = [
     name: "Ravi Kumar",
     profession: "Software Developer",
     company: "Zscaler",
-    description: "Figma, Design Systems, UX Research",
+    description: "React.js, AngularJS, C++",
     rating: "4.7",
     sessions: "100+ successful sessions",
     img: mentor3,
@@ -37,12 +36,12 @@ const mentors = [
 
 export default function MentorsSection() {
   return (
-    <section id="mentors" className="w-full min-h-screen bg-gradient-to-t from-blue-200 to-white flex flex-col items-center py-10 px-2">
+    <section id="mentors" className="w-full min-h-screen bg-gradient-to-t from-blue-200 to-white flex flex-col items-center py-20 px-2">
       <div className="w-full max-w-[1053px] mx-auto mb-3">
         <h2 className="font-semibold text-[40px] text-center leading-[47px] mb-2">
           Connect with Industry-Proven Mentors
         </h2>
-        <p className="font-normal text-[22px] text-[#2AB74A] text-center leading-[31px] mb-6">
+        <p className="font-normal text-xl text-[#2AB74A] text-center leading-[31px] mb-6">
           Gain insights from experts who’ve recently secured positions at leading tech companies<br />
           and know what it takes to succeed in today’s job market.
         </p>
