@@ -10,49 +10,26 @@ import Rating from "../assets/star.png";
 const userReviews = [
   {
     id: 1,
-    name: "Riya Sharma",
-    role: "Frontend Developer",
-    company: "Flipkart",
+    name: "Upayan mazumder",
+    role: "Sophomore BTECH",
     review: [
-      "Mentorship Connect truly changed my career path.",
-      "My mentor guided me through interviews, projects, and resume building.",
-      "The sessions were super insightful.",
+      "Being guided by actual engineers from top companies gave my DSA prep real direction. Every session felt practical, relevant, and deeply insightful.",
     ],
   },
   {
     id: 2,
-    name: "Ankit Verma",
-    role: "UI/UX Designer",
-    company: "Zomato",
+    name: "Maneet Singh",
+    role: "Sophomore BTECH",
     review: [
-      "Another amazing experience with Mentorship Connect!",
-      "Great advice and hands-on support.",
-      "Helped me boost my confidence in interviews.",
-      "Highly recommended!",
+      "The biggest value is the access to real industry professionals working at Google, Amazon who guide you based on their own experience.",
     ],
   },
   {
     id: 3,
-    name: "Sneha Nair",
-    role: "ML Engineer",
-    company: "TCS",
+    name: "Prince Yadav",
+    role: "Sophomore BTECH",
     review: [
-      "Mentors were very helpful.",
-      "The program gave me the clarity I needed in my career.",
-      "I learned how to effectively showcase my skills.",
-      "Totally worth the time and effort!",
-    ],
-  },
-  {
-    id: 4,
-    name: "Aditya Rao",
-    role: "Backend Developer",
-    company: "Adobe",
-    review: [
-      "The personalized mentorship boosted my confidence.",
-      "I got practical tips on interview preparation.",
-      "Great community and support.",
-      "I landed a job at a top tech company!",
+      "The sessions go beyond just theory or basic mentorship. Everything feels tailored to what the tech industry really expects.",
     ],
   },
 ];
@@ -84,37 +61,35 @@ const Home = () => {
   }
 
   const currentUser = userReviews[currentIndex];
-const scrollToSection = (sectionId) => {
-  console.log("scrollToSection called with:", sectionId); // This should always log
-  
-  const element = document.getElementById(sectionId);
-  const navbar = document.querySelector('nav');
-  
-  console.log("Element found:", element);
-  console.log("Navbar found:", navbar);
-  
-  if (element && navbar) {
-    const navbarHeight = navbar.offsetHeight;
-    const elementTop = element.getBoundingClientRect().top;
-    const currentScroll = window.pageYOffset;
-    const targetY = elementTop + currentScroll - navbarHeight;
-    
-    console.log({
-      sectionId,
-      navbarHeight,
-      elementTop,
-      currentScroll,
-      targetY
-    });
-    
-    window.scrollTo({ top: targetY, behavior: "smooth" });
-  } else {
-    console.log("Element or navbar not found!");
-  }
-  setIsMenuOpen(false);
-};
+  const scrollToSection = (sectionId) => {
+    console.log("scrollToSection called with:", sectionId); // This should always log
 
+    const element = document.getElementById(sectionId);
+    const navbar = document.querySelector("nav");
 
+    console.log("Element found:", element);
+    console.log("Navbar found:", navbar);
+
+    if (element && navbar) {
+      const navbarHeight = navbar.offsetHeight;
+      const elementTop = element.getBoundingClientRect().top;
+      const currentScroll = window.pageYOffset;
+      const targetY = elementTop + currentScroll - navbarHeight;
+
+      console.log({
+        sectionId,
+        navbarHeight,
+        elementTop,
+        currentScroll,
+        targetY,
+      });
+
+      window.scrollTo({ top: targetY, behavior: "smooth" });
+    } else {
+      console.log("Element or navbar not found!");
+    }
+    setIsMenuOpen(false);
+  };
 
   return (
     <div className="bg-gradient-to-b from-blue-700 via-blue-500 to-emerald-500 min-w-screen min-h-screen overflow-hidden">
@@ -130,8 +105,9 @@ const scrollToSection = (sectionId) => {
               <span className="text-[#2AB74A]">Engineering Mentors</span>
             </h1>
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed">
-              Get personalized guidance from recently hired professionals at top
-              tech companies. Accelerate your career with expert mentorship.
+              Get personalized guidance from professionals at top tech
+              companies. Throughout your college journey, we’ll be your partner
+              in helping you land your dream role
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-evenly items-center">
               <button
@@ -229,16 +205,16 @@ const scrollToSection = (sectionId) => {
                     : "animate-slide-in-left"
                 } gap-6`}
               >
-                <div className="flex flex-col items-start min-w-[120px] sm:min-w-[150px]">
-                  <h3 className="text-2xl font-bold text-gray-900">
+                <div className="flex flex-col items-start text-left min-w-[120px] sm:min-w-[150px]">
+                  <h3 className="text-2xl font-bold text-gray-900 text-left w-full">
                     {currentUser.name}
                   </h3>
-                  <p className="text-lg font-medium text-gray-600">
+                  <p className="text-lg font-medium text-[#1976d2] text-left w-full">
                     {currentUser.role}
                   </p>
-                  <p className="text-base font-bold text-[#1976d2]">
+                  {/* <p className="text-base font-bold text-[#1976d2]">
                     {currentUser.company}
-                  </p>
+                  </p> */}
                 </div>
                 <div className="flex-1 relative w-full">
                   <span

@@ -100,7 +100,7 @@ const scrollToSection = (sectionId) => {
               className="text-2xl font-bold text-blue-600 cursor-pointer"
               onClick={() => navigate("/")}
             >
-              Mentorship Connect
+              Letsgetmentors
             </h1>
           </div>
 

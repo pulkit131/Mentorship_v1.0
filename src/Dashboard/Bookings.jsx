@@ -44,18 +44,12 @@ const Dashboard = () => {
     "Emily Rodriguez": "emily-01",
     "David Kim": "david-01",
   };
-  const convertToSlotId = (time) => {
-    const lower = time.toLowerCase().replace(/\s+/g, ""); // "10:00 am" → "10:00am"
-    if (lower.includes("10")) return "10am";
-    if (lower.includes("2")) return "2pm";
-    if (lower.includes("6")) return "6pm";
-    return null;
-  };
+
 
   const handleDelete = async (booking) => {
-    const { id, mentor, time } = booking;
+    const { id, mentor } = booking;
 
-    if (!mentor || !time) {
+    if (!mentor) {
       console.error("Invalid booking data:", booking);
       return;
     }
@@ -65,23 +59,17 @@ const Dashboard = () => {
       console.error(`No mentorId found for mentor: ${mentor}`);
       return;
     }
-
-    const slotId = convertToSlotId(time);
-
-    if (!slotId) {
-      console.error(`Invalid time format: ${time}`);
-      return;
-    }
+    
     try {
       // 1. Delete booking from users collection
       await deleteDoc(doc(db, "users", id));
 
-      // 2. Reset mentor's slot
-      const slotRef = doc(db, "mentors", mentorId, "slots", slotId);
-      await updateDoc(slotRef, {
-        isBooked: false,
-        bookedBy: "",
-      });
+      // // 2. Reset mentor's slot
+      // const slotRef = doc(db, "mentors", mentorId, "slots", slotId);
+      // await updateDoc(slotRef, {
+      //   isBooked: false,
+      //   bookedBy: "",
+      // });
 
       // 3. Update UI
       setBookings((prev) => prev.filter((b) => b.id !== id));
@@ -103,7 +91,6 @@ const Dashboard = () => {
             <BookingCard
               key={booking.id}
               name={booking.mentor}
-              time={booking.time}
               onDelete={() => handleDelete(booking)}
             />
           ))}

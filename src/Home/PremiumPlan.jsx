@@ -16,7 +16,11 @@ const PremiumPlan = () => {
           <h2 className="text-xl sm:text-2xl font-semibold text-black mb-1">
             Premium Plan
           </h2>
-          <p className="text-3xl sm:text-4xl font-bold text-[#0025f6]">₹500</p>
+          <div className="flex items-start justify-center gap-1">
+            <p className="text-3xl sm:text-4xl font-bold text-gray-600 line-through">₹1100</p>
+            <span className="text-xl sm:text-2xl text-black mt-3">/</span>
+            <p className="text-2xl sm:text-3xl font-bold text-[#0025f6] mt-3">₹599</p>
+          </div>
           <p className="text-xs sm:text-sm text-black mb-1">per month</p>
         </div>
         <div className="flex flex-col gap-2 w-full px-1 mt-3">
@@ -40,7 +44,7 @@ const PremiumPlan = () => {
             Subscribe Now
           </button>
           <p className="text-xs font-semibold text-black text-center mt-1">
-            Secure payment powered by Razorpay
+            Secure payment powered by Razorpay | Early bird offer
           </p>
         </div>
       </div>

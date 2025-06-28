@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Navbar from "./Home/Navbar";
 import Home from "./Home/Home";
+import Info from "./Home/HowItWorks";
 import Mentors from "./Home/Mentors";
 import FAQ from "./Home/FAQ";
 import About from "./Home/About";
@@ -26,6 +27,7 @@ function App() {
           element={
             <div className="overflow-x-hidden">
               <Home />
+              <Info />
               <Mentors />
               <BookSessionForm />
               <PremiumPlan />

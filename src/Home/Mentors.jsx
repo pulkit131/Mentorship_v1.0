@@ -26,7 +26,7 @@ const mentors = [
   {
     name: "Ravi Kumar",
     profession: "Software Developer",
-    company: "Zscaler",
+    company: "Ex-Google",
     description: "React.js, AngularJS, C++",
     rating: "4.7",
     sessions: "100+ successful sessions",

@@ -7,20 +7,15 @@ import { User, Phone, AtSign } from "lucide-react";
 import Swal from "sweetalert2";
 import { auth, provider, db } from "../firebase/config";
 import { signInWithPopup } from "firebase/auth";
-import { addDoc, collection, doc, getDoc, updateDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, updateDoc, query, where, getDocs } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
-const mentors = ["Sarah Johnson", "Mike Chen", "Emily Rodriguez", "David Kim"];
+const mentors = [/*"Sarah Johnson"*/, "Ravi Kumar", "Navyaa Sharma", "Hameedullah Khan Pathan"];
 const mentorMap = {
-  "Sarah Johnson": "sarah-01",
-  "Mike Chen": "mike-01",
-  "Emily Rodriguez": "emily-01",
-  "David Kim": "david-01",
-};
-const timeMap = {
-  "10:00 AM": "10am",
-  "2:00 PM": "2pm",
-  "6:00 PM": "6pm",
+  // "Sarah Johnson": "sarah-01",
+  "Ravi Kumar": "mike-01",
+  "Navyaa Sharma": "emily-01",
+  "Hameedullah Khan Pathan":"david-01",
 };
 
 const BookSessionForm = () => {
@@ -30,7 +25,6 @@ const BookSessionForm = () => {
     contact: "",
     email: "",
     mentor: "",
-    time: "",
   });
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -42,7 +36,6 @@ const [userId, setUserId] = useState(localStorage.getItem("userId") || "");
   const handleSubmit = async (e) => {
     e.preventDefault();
     const mentorId = mentorMap[formData.mentor];
-    const slotId = timeMap[formData.time];
     if(!userId)
     {
       Swal.fire({
@@ -52,17 +45,46 @@ const [userId, setUserId] = useState(localStorage.getItem("userId") || "");
       });
       return;
     }
-    if (!mentorId || !slotId) {
+    if (!mentorId) {
       Swal.fire({
         title: "Incomplete Selection",
-        text: "Please select both mentor and time slot.",
+        text: "Please select a mentor.",
         icon: "warning",
         confirmButtonText: "Okay",
       });
       return;
     }
 
-    const slotRef = doc(db, "mentors", mentorId, "slots", slotId);
+    try {
+    // Check if user already booked this specific mentor
+    const existingBookingQuery = query(
+      collection(db, "users"), 
+      where("email", "==", formData.email),
+      where("mentor", "==", formData.mentor)
+    );
+    const existingBookings = await getDocs(existingBookingQuery);
+
+    if (!existingBookings.empty) {
+      Swal.fire({
+        title: "Already Booked",
+        text: `You already have a session booked with ${formData.mentor}.`,
+        icon: "error",
+        confirmButtonText: "Okay",
+      });
+      return;
+    }
+  } catch (error) {
+    console.error("Error checking existing bookings:", error);
+    Swal.fire({
+      title: "Error",
+      text: "Failed to check existing bookings. Please try again.",
+      icon: "error",
+      confirmButtonText: "Okay",
+    });
+    return;
+  }
+
+    const slotRef = doc(db, "mentors", mentorId);
     const slotSnap = await getDoc(slotRef);
 
     if (!slotSnap.exists()) {
@@ -71,16 +93,6 @@ const [userId, setUserId] = useState(localStorage.getItem("userId") || "");
         text: "Selected slot does not exist. Please try again.",
         icon: "error",
         confirmButtonText: "Retry",
-      });
-      return;
-    }
-    const slotData = slotSnap.data();
-    if (slotData.isBooked) {
-      Swal.fire({
-        title: "Slot Already Booked",
-        text: "Please select a different time slot.",
-        icon: "error",
-        confirmButtonText: "Okay",
       });
       return;
     }
@@ -98,7 +110,7 @@ const [userId, setUserId] = useState(localStorage.getItem("userId") || "");
         icon: "success",
         confirmButtonText: "Awesome!",
       });
-      setFormData({ name: "", contact: "", email: "", mentor: "", time: "" });
+      setFormData({ name: "", contact: "", email: "", mentor: "" });
       navigate("/mydashboard");
     } catch (err) {
       Swal.fire({
@@ -232,20 +244,6 @@ const [userId, setUserId] = useState(localStorage.getItem("userId") || "");
                     {m}
                   </option>
                 ))}
-              </select>
-              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
-            </div>
-            <div className="flex-1 relative">
-              <select
-                name="time"
-                value={formData.time}
-                onChange={handleChange}
-                className="w-full border-2 border-black rounded-lg px-4 py-3 text-base appearance-none outline-none"
-              >
-                <option value="">Select Timings</option>
-                <option>10:00 AM</option>
-                <option>2:00 PM</option>
-                <option>6:00 PM</option>
               </select>
               <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
             </div>

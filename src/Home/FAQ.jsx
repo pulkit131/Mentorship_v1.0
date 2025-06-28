@@ -27,6 +27,21 @@ const faqs = [
     answer:
       "Yes, you can reschedule your session up to 24 hours before the scheduled time by contacting our support team.",
   },
+  {
+    question: "When will the mentors be available ?",
+    answer:
+      "During weekends once or twice a month .",
+  },
+  {
+    question: "When will the doubt solvers be available?",
+    answer:
+      "Everytime 24*7",
+  },
+  {
+    question: "Can I cancel my subscription in between ?",
+    answer:
+      "Your monthly subscription ,once payment is processed, cannot be cancelled.",
+  },
 ];
 
 const FAQ = () => {

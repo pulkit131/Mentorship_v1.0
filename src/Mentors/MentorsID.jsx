@@ -9,10 +9,10 @@ import {
 import { db } from "../firebase/config";
 import MentorBookingCard from "../Dashboard/MentorBookingCard"
 const mentorMap = {
-  "Sarah Johnson": "sarah-01",
-  "Mike Chen": "mike-01",
-  "Emily Rodriguez": "emily-01",
-  "David Kim": "david-01",
+  // "Sarah Johnson": "sarah-01",
+  "Ravi Kumar": "mike-01",
+  "Navyaa Sharma": "emily-01",
+  "Hameedullah Khan Pathan":"david-01",
 };
 
 const idToMentorName = Object.fromEntries(
