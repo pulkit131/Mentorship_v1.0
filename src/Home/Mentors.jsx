@@ -7,7 +7,7 @@ import Mentor4 from "../assets/mentor/mentor4.png";
 
 const mentors = [
   {
-    name: "Sarah Johnson",
+    name: "Ravi Kumar",
     role: "Data Scientist",
     company: "Microsoft",
     skills: "Machine Learning, Python, Analytics",
@@ -16,7 +16,7 @@ const mentors = [
     avatar: Mentor1,
   },
   {
-    name: "Mike Chen",
+    name: "Navyaa Sharma",
     role: "DevOps Engineer",
     company: "Amazon",
     skills: "Cloud Architecture, Kubernetes, AWS",
@@ -25,22 +25,13 @@ const mentors = [
     avatar: Mentor2,
   },
   {
-    name: "Emily Rodriguez",
+    name: "Hameedullah Khan Pathan",
     role: "Product Manager",
     company: "Meta",
     skills: "Product Strategy, Agile, Leadership",
     rating: "4.4",
     sessions: "58+ successful sessions",
     avatar: Mentor3,
-  },
-  {
-    name: "David Kim",
-    role: "Frontend Developer",
-    company: "Netflix",
-    skills: "React, TypeScript, UI/UX Design",
-    rating: "4.9",
-    sessions: "138+ successful sessions",
-    avatar: Mentor4,
   },
 ];
 

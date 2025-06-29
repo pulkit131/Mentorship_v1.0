@@ -11,6 +11,7 @@ import {
 import { db } from "../firebase/config";
 import BookingCard from "./UserBookingCard";
 import Swal from "sweetalert2";
+
 const Dashboard = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -34,31 +35,14 @@ const Dashboard = () => {
     getUserBookings();
   }, [userEmail]);
 
-  // const handleDelete = async (id) => {
-  //   await deleteDoc(doc(db, "users", id));
-  //   setBookings((prev) => prev.filter((booking) => booking.id !== id));
-  // };
   const mentorMap = {
-    "Sarah Johnson": "sarah-01",
-    "Mike Chen": "mike-01",
-    "Emily Rodriguez": "emily-01",
-    "David Kim": "david-01",
-  };
-  const convertToSlotId = (time) => {
-    const lower = time.toLowerCase().replace(/\s+/g, ""); // "10:00 am" → "10:00am"
-    if (lower.includes("10")) return "10am";
-    if (lower.includes("2")) return "2pm";
-    if (lower.includes("6")) return "6pm";
-    return null;
+    "Ravi Kumar": "david-01",
+    "Navyaa Sharma": "mike-01",
+    "Hameedullah Khan Pathan": "emily-01",
   };
 
   const handleDelete = async (booking) => {
-    const { id, mentor, time } = booking;
-
-    if (!mentor || !time) {
-      console.error("Invalid booking data:", booking);
-      return;
-    }
+    const { id, mentor } = booking;
 
     const mentorId = mentorMap[mentor];
     if (!mentorId) {
@@ -66,27 +50,33 @@ const Dashboard = () => {
       return;
     }
 
-    const slotId = convertToSlotId(time);
-
-    if (!slotId) {
-      console.error(`Invalid time format: ${time}`);
-      return;
-    }
     try {
       // 1. Delete booking from users collection
       await deleteDoc(doc(db, "users", id));
 
-      // 2. Reset mentor's slot
-      const slotRef = doc(db, "mentors", mentorId, "slots", slotId);
-      await updateDoc(slotRef, {
+      // 2. Reset mentor booking status
+      const mentorRef = doc(db, "mentors", mentorId);
+      await updateDoc(mentorRef, {
         isBooked: false,
         bookedBy: "",
       });
 
       // 3. Update UI
       setBookings((prev) => prev.filter((b) => b.id !== id));
+      Swal.fire({
+        title: "Deleted Successfully",
+        text: "Your session has been cancelled.",
+        icon: "success",
+        confirmButtonText: "Okay",
+      });
     } catch (err) {
       console.error("Error deleting booking:", err);
+      Swal.fire({
+        title: "Error",
+        text: "Failed to delete booking.",
+        icon: "error",
+        confirmButtonText: "Retry",
+      });
     }
   };
 
@@ -103,7 +93,6 @@ const Dashboard = () => {
             <BookingCard
               key={booking.id}
               name={booking.mentor}
-              time={booking.time}
               onDelete={() => handleDelete(booking)}
             />
           ))}

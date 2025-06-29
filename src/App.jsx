@@ -7,9 +7,8 @@ import Mentors from "./Home/Mentors";
 import FAQ from "./Home/FAQ";
 import About from "./Home/About";
 import BookSessionForm from "./Home/BookSessionForm";
-
 import Support from "./Home/Support";
-
+import Subscriptions from "./Home/Subscriptions";
 import Bookings from "./Dashboard/Bookings";
 import MentorsID from "./Mentors/MentorsID";
 import Mentorlist from "./Mentors/Mentorlist";
@@ -59,8 +58,18 @@ function App() {
     </ProtectedRoute>
   }
 />
+<Route
+  path="/subscriptions"
+  element={
+    <ProtectedRoute>
+      <Subscriptions/>
+    </ProtectedRoute>
+  }
+/>
+
 
       </Routes>
+      
     </Router>
   );
 }

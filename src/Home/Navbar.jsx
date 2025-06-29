@@ -34,6 +34,7 @@ const Navbar = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
         const user = result.user;
+        setUserId(user.uid); 
 
         setIsAuth(true);
         localStorage.setItem("isAuth", true);
@@ -59,6 +60,8 @@ const Navbar = () => {
     try {
       await signOut(auth); // Wait for logout to complete
       setIsAuth(false);
+      
+      setUserId(null); 
       localStorage.setItem("isAuth", false);
       localStorage.setItem("userEmail", "");
       

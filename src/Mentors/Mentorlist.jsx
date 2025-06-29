@@ -2,12 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const mentors = [
-  { name: "Sarah Johnson", route: "sarah-01" },
-  { name: "Mike Chen", route: "mike-01" },
-  { name: "Emily Rodriguez", route: "emily-01" },
-  { name: "David Kim", route: "david-01" },
+  { name: "Ravi Kumar", route: "david-01" },
+  { name: "Navyaa Sharma", route: "mike-01" },
+  { name: "Hameedullah Khan Pathan", route: "emily-01" },
 ];
-
 const Mentorlist = () => {
   const navigate = useNavigate();
 
