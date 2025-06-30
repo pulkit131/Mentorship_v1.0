@@ -14,7 +14,7 @@ const MentorBookingCard = ({ name, onDelete }) => {
 
         <div className="mt-2">
           <p className="text-gray-950 text-base">
-            Kindly email your available time slots to the mentor.
+            Kindly email your available time slots to the user.
           </p>
         </div>
       </div>
