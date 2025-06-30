@@ -2,7 +2,7 @@ import React from "react";
 import mentor1 from "../assets/mentor/hameedullah.png";
 import mentor2 from "../assets/mentor/navyaa.png";
 import mentor3 from "../assets/mentor/ravi.png";
-import vector from "../assets/vector.png";
+import vector from "../assets/Vector.png";
 
 const mentors = [
   {
