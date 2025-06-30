@@ -1,10 +1,10 @@
 import React from "react";
 import { CheckCircle } from "lucide-react";
 import aboutImg from "../assets/About.png";
-import tick1 from "../Assets/ticks/tick1.png";
-import tick2 from "../Assets/ticks/tick2.png";
-import tick3 from "../Assets/ticks/tick3.png";
-import successImg from "../Assets/successStories.png";
+import tick1 from "../assets/ticks/tick1.png";
+import tick2 from "../assets/ticks/tick2.png";
+import tick3 from "../assets/ticks/tick3.png";
+import successImg from "../assets/successStories.png";
 import "@fontsource/inter";
 import "./About.css";
 
