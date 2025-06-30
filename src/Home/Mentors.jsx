@@ -1,113 +1,99 @@
 import React from "react";
-import StarImage from "../assets/Vector.png";
-import Mentor1 from "../assets/mentor/mentor1.png";
-import Mentor2 from "../assets/mentor/mentor2.png";
-import Mentor3 from "../assets/mentor/mentor3.png";
-import Mentor4 from "../assets/mentor/mentor4.png";
+import mentor1 from "../assets/mentor/hameedullah.png";
+import mentor2 from "../assets/mentor/navyaa.png";
+import mentor3 from "../assets/mentor/ravi.png";
+import vector from "../assets/vector.png";
 
 const mentors = [
   {
-    name: "Ravi Kumar",
-    role: "Data Scientist",
-    company: "Microsoft",
-    skills: "Machine Learning, Python, Analytics",
+    name: "Hameedullah Khan Pathan",
+    profession: "Software Developer",
+    company: "Trellix",
+    description: "Python, MySQL, DBMS",
     rating: "4.8",
     sessions: "120+ successful sessions",
-    avatar: Mentor1,
+    img: mentor1,
   },
   {
     name: "Navyaa Sharma",
-    role: "DevOps Engineer",
-    company: "Amazon",
-    skills: "Cloud Architecture, Kubernetes, AWS",
-    rating: "4.6",
-    sessions: "96+ successful sessions",
-    avatar: Mentor2,
+    profession: "Software Engineer",
+    company: "Google",
+    description: "Java, Machine Learning, TypeScript",
+    rating: "4.9",
+    sessions: "140+ successful sessions",
+    img: mentor2,
   },
   {
-    name: "Hameedullah Khan Pathan",
-    role: "Product Manager",
-    company: "Meta",
-    skills: "Product Strategy, Agile, Leadership",
-    rating: "4.4",
-    sessions: "58+ successful sessions",
-    avatar: Mentor3,
-  },
+    name: "Ravi Kumar",
+    profession: "Software Developer",
+    company: "Ex-Google",
+    description: "React.js, AngularJS, C++",
+    rating: "4.7",
+    sessions: "100+ successful sessions",
+    img: mentor3,
+  }
 ];
 
-const Mentors = () => {
+export default function MentorsSection() {
   return (
-    <section className="py-20 bg-gradient-to-b from-emerald-500 via-white to-blue-200 border-0 shadow-none">
-      <div id="mentors" className="max-w-5xl mx-auto px-4">
-        <div className="text-center mb-4 sm:mb-6">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">
-            Connect with Industry-Proven Mentors
-          </h2>
-        </div>
-
-        <div className="text-center mb-10 px-4">
-          <p className="text-[22px] leading-[25px] text-emerald-900 text-center px-4 max-w-[900px] mx-auto">
-            Gain insights from experts who’ve recently secured positions at
-            leading tech companies
-            <br />
-            and know what it takes to succeed in today’s job market.
-          </p>
-        </div>
-
-        <div className="flex flex-col gap-4 sm:gap-6 w-full max-w-4xl mx-auto">
-          {mentors.map((mentor, index) => (
-            <div
-              key={index}
-              className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-0 bg-white rounded-xl px-4 py-4 transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:-translate-y-1"
-            >
-              <div className="flex items-center gap-3 md:w-1/4">
-                <img
-                  src={mentor.avatar}
-                  alt={mentor.name}
-                  className="rounded-full w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16"
-                />
-                <div>
-                  <p className="font-semibold truncate">{mentor.name}</p>
-                  <p className="text-sm text-blue-600 truncate">
-                    {mentor.role}
-                  </p>
-                </div>
-              </div>
-
-              <div className="text-xs sm:text-sm md:text-base text-center md:text-left md:w-1/3">
-                <span className="font-bold">{mentor.company}</span>
-                <span className="hidden sm:inline"> - </span>
-                <span className="block sm:inline break-words">
-                  {mentor.skills}
-                </span>
-              </div>
-
-              <div className="text-xs sm:text-sm text-gray-600 md:w-1/4 flex flex-col items-start md:items-center">
-                <div className="flex items-center gap-1">
-                  <img src={StarImage} alt="star" className="w-4 h-4" />
-                  <span className="text-green-600">{mentor.rating} / 5.0</span>
-                </div>
-                <p className="text-xs">{mentor.sessions}</p>
-              </div>
-
-              <button className="w-[198px] h-[48px] bg-blue-600 text-white text-sm font-medium rounded-[14px] hover:bg-blue-700 transition duration-300">
-                Book Session
-              </button>
-            </div>
-          ))}
-        </div>
-
-        <div className="text-center mt-10">
-          <button
-            className="w-[336px] h-[50px] bg-blue-600 text-white text-base font-semibold rounded-[14px] hover:bg-blue-700 transition duration-300"
-            style={{ marginTop: "20px" }}
-          >
-            All Mentors
-          </button>
-        </div>
+    <section id="mentors" className="w-full min-h-screen bg-gradient-to-t from-blue-200 to-white flex flex-col items-center py-20 px-2">
+      <div className="w-full max-w-[1053px] mx-auto mb-3">
+        <h2 className="font-semibold text-[40px] text-center leading-[47px] mb-2">
+          Connect with Industry-Proven Mentors
+        </h2>
+        <p className="font-normal text-xl text-[#2AB74A] text-center leading-[31px] mb-6">
+          Gain insights from experts who’ve recently secured positions at leading tech companies<br />
+          and know what it takes to succeed in today’s job market.
+        </p>
       </div>
+
+      <div className="w-full max-w-[1200px] flex flex-wrap justify-center gap-x-7 gap-y-8">
+        {mentors.map((mentor, idx) => (
+          <div
+            key={idx}
+            className="bg-white rounded-[20px] shadow-md flex flex-col items-center w-[312px] min-h-[230px] p-[18px] relative"
+          >
+            <div className="flex w-full">
+              <img
+                src={mentor.img}
+                alt={mentor.name}
+                className="rounded-full w-[70px] h-[70px] object-cover mr-[18px]"
+              />
+              <div className="w-[139px] h-[37px] mt-[5px] flex flex-col justify-center">
+                <div className="font-semibold text-[15px] leading-[20px]">
+                  {mentor.name}
+                </div>
+                <div className="text-[#1976d2] text-[13px] font-semibold leading-[18px]">
+                  {mentor.profession}
+                </div>
+                <div className=" text-[14px] font-bold leading-[16px]">
+                  {mentor.company}
+                </div>
+              </div>
+            </div>
+            <div className="w-full text-[15px] font-semibold mt-3 text-center ml-[6px] mb-[2px]">
+              {mentor.description}
+            </div>
+            <div className="flex items-center w-full mt-2 mb-2 ml-[6px] gap-x-4">
+  <img src={vector} alt="star" className="w-4 h-4" />
+  <span className="text-[14px] font-normal">
+    {mentor.rating} / 5.0
+  </span>
+  <span className="text-[14px] font-normal">
+    {mentor.sessions}
+  </span>
+</div>
+
+            <button className="w-full mt-[10px] bg-[#2AB74A] text-white font-semibold text-[18px] rounded-[10px] py-3 hover:bg-[#21a347] h-[48px]">
+              Book Session
+            </button>
+          </div>
+        ))}
+      </div>
+
+      <button className="mt-10 w-[312px] h-[48px] rounded-[10px] bg-[#1976d2] text-white text-[20px] font-semibold hover:bg-[#1253a2]">
+        All Mentors
+      </button>
     </section>
   );
-};
-
-export default Mentors;
+}

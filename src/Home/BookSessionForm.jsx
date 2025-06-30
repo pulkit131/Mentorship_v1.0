@@ -138,9 +138,10 @@ const [userId, setUserId] =localStorage.getItem("userId") || "";
   };
 
   return (
+    <section id="booking">
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-blue-200 to-white px-2">
       <div className="w-full max-w-2xl mx-auto">
-        <h1 className="text-3xl sm:text-4xl font-bold text-center mt-8 mb-2">
+        <h1 className="text-3xl sm:text-4xl font-bold text-center mt-2 mb-2">
           Book Your Free Session
         </h1>
         <p className="text-green-700 text-center mb-8 text-base sm:text-lg">
@@ -240,6 +241,7 @@ const [userId, setUserId] =localStorage.getItem("userId") || "";
         </form>
       </div>
     </div>
+    </section>
   );
 };
 
