@@ -1,5 +1,6 @@
 import React from "react";
 import { FaLinkedinIn, FaFacebookF, FaTwitter } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Footer = () => (
   <footer className="bg-[#0A142F] w-full pt-14 pb-8">
@@ -19,8 +20,31 @@ const Footer = () => (
         <div>
           <h3 className="font-bold text-base text-white mb-3">Information</h3>
           <ul className="space-y-2 text-[16px] text-[#bfc8db]">
-            <li>Terms</li>
-            <li>Privacy</li>
+            <li>
+              <Link
+                to="/terms"
+                className="underline hover:text-[#21e6c1] transition bg-transparent border-none p-0 m-0 cursor-pointer"
+              >
+                Terms
+              </Link>
+            </li>
+            <li><Link
+                to = "/privacy"
+                className="underline hover:text-[#21e6c1] transition bg-transparent border-none p-0 m-0 cursor-pointer"
+              >
+              Privacy</Link></li>
+            <li><Link to = "/cancellation"
+            className="underline hover:text-[#21e6c1] transition bg-transparent border-none p-0 m-0 cursor-pointer"
+              >
+            Cancellation and refund
+            </Link></li>
+            <li>
+              <Link
+                to = "/shipping"
+                className="underline hover:text-[#21e6c1] transition bg-transparent border-none p-0 m-0 cursor-pointer"
+              >
+              Shipping and delivery
+              </Link></li>
             <li>Cookies</li>
           </ul>
         </div>
@@ -50,16 +74,12 @@ const Footer = () => (
       <div className="w-full max-w-[1200px] border-t border-[#2c3446] mt-12 mb-6"></div>
       {/* Bottom bar */}
       <div className="w-full max-w-[1200px] px-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        {/* Logo and copyright */}
         <div className="flex items-center gap-2">
-          {/* <span className="text-2xl font-extrabold text-[#2196f3]">Letsgetmentors</span> */}
           <span className="text-2xl font-extrabold text-[#21e6c1]">Letsgetmentors</span>
-          
         </div>
         <div className="text-xs text-[#bfc8db] font-semibold">
           © 2025 Letsgetmentors. All rights reserved. Made with <span className="text-red-400">♥</span> for engineering students
         </div>
-        {/* Social icons */}
         <div className="flex gap-4">
           <a href="#" aria-label="LinkedIn" className="rounded-full bg-[#172042] p-2 hover:bg-[#2196f3] transition-colors">
             <FaLinkedinIn className="text-xl text-[#bfc8db] hover:text-white" />

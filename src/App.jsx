@@ -15,6 +15,10 @@ import Bookings from "./Dashboard/Bookings";
 import MentorsID from "./Mentors/MentorsID";
 import Mentorlist from "./Mentors/Mentorlist";
 import Footer from "./Home/Footer";
+import TermsModal from "./Home/TermsModal";
+import CancellationRefundModal from "./Home/CancellationRefundModal";
+import PrivacyPolicyModal from "./Home/PrivacyModal";
+import ShippingPolicyModal from "./Home/ShippingPolicyModal";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -46,6 +50,44 @@ function App() {
               <Bookings />
             </div>
           }
+        />
+
+        <Route 
+          path = "/terms"
+          element={
+            <div>
+              <TermsModal/>
+            </div>
+          }
+        />
+
+        <Route
+        path = "/privacy"
+        element = {
+          <div>
+            <PrivacyPolicyModal/>
+          </div>
+        }
+
+          />
+
+        <Route
+        path = "/shipping"
+        element = {
+          <div>
+            <ShippingPolicyModal/>
+          </div>
+        }
+
+        />
+
+        <Route 
+        path="/cancellation"
+        element={
+          <div>
+          <CancellationRefundModal/>
+          </div>
+        }
         />
         <Route
   path="/mentors"
