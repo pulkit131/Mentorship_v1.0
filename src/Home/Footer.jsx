@@ -25,7 +25,7 @@ const Footer = () => (
                 to="/terms"
                 className="underline hover:text-[#21e6c1] transition bg-transparent border-none p-0 m-0 cursor-pointer"
               >
-                Terms
+                Terms and condition
               </Link>
             </li>
             <li><Link
