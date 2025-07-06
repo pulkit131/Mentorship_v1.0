@@ -102,7 +102,7 @@ const Navbar = () => {
               className="text-2xl font-bold text-blue-600 cursor-pointer"
               onClick={() => navigate("/")}
             >
-              Letsgetmentors
+              LetsGetMentors
             </h1>
           </div>
 

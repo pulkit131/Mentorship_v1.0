@@ -52,9 +52,7 @@ const Footer = () => (
         <div>
           <h3 className="font-bold text-base text-white mb-3">Contact us</h3>
           <ul className="space-y-2 text-[16px] text-[#bfc8db]">
-            <li>Email: support@mentorshipconnect.com</li>
-            <li>Phone: +91 98765 43210</li>
-            <li>Available 24/7 for support</li>
+            <li>Email: connect@letsgetmentor.com</li>
           </ul>
         </div>
         {/* Newsletter */}

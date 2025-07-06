@@ -11,7 +11,7 @@ const userReviews = [
   {
     id: 1,
     name: "Upayan mazumder",
-    role: "Sophomore BTECH",
+    role: "BTech Sophomore",
     review: [
       "Being guided by actual engineers from top companies gave my DSA prep real direction. Every session felt practical, relevant, and deeply insightful.",
     ],
@@ -19,7 +19,7 @@ const userReviews = [
   {
     id: 2,
     name: "Maneet Singh",
-    role: "Sophomore BTECH",
+    role: "BTech Fresher",
     review: [
       "The biggest value is the access to real industry professionals working at Google, Amazon who guide you based on their own experience.",
     ],
@@ -27,9 +27,17 @@ const userReviews = [
   {
     id: 3,
     name: "Prince Yadav",
-    role: "Sophomore BTECH",
+    role: "BTech Fresher",
     review: [
       "The sessions go beyond just theory or basic mentorship. Everything feels tailored to what the tech industry really expects.",
+    ],
+  },
+  {
+    id: 4,
+    name: "Yuva D",
+    role: "BTech Junior",
+    review: [
+      "As a senior focused on placements, this platform cuts the noise and shows exactly what to prepare, how to frame answers, and what really matters."
     ],
   },
 ];
@@ -107,7 +115,7 @@ const Home = () => {
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed">
               Get personalized guidance from professionals at top tech
               companies. Throughout your college journey, we’ll be your partner
-              in helping you land your dream role
+              in helping you land your dream role
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-evenly items-center">
               <button
@@ -125,23 +133,8 @@ const Home = () => {
             </div>
           </ScrollReveal>
 
-          <div className="mt-16 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 max-w-4xl mx-auto">
+          <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 gap-2 max-w-xl mx-auto justify-items-center">
             <ScrollReveal delay={200}>
-              <div className="text-center">
-                <div className="flex justify-center mb-2">
-                  <img
-                    src={User}
-                    alt="Users"
-                    className="h-8 w-8 object-contain"
-                  />
-                </div>
-                <div className="text-2xl font-bold text-white">50k+</div>
-                <div className="text-base opacity-90 text-white">
-                  Students Helped
-                </div>
-              </div>
-            </ScrollReveal>
-            <ScrollReveal delay={400}>
               <div className="text-center">
                 <div className="flex justify-center mb-2">
                   <img src={Rating} alt="Star" className="h-8 w-8" />
@@ -152,36 +145,25 @@ const Home = () => {
                 </div>
               </div>
             </ScrollReveal>
-            <ScrollReveal delay={600}>
-              <div className="text-center">
-                <div className="flex justify-center mb-2">
-                  <img src={Headset} alt="Support" className="h-8 w-8" />
-                </div>
-                <div className="text-2xl font-bold text-white">24/7</div>
-                <div className="text-base opacity-90 text-white">
-                  Support Available
-                </div>
-              </div>
-            </ScrollReveal>
-            <ScrollReveal delay={800}>
+            <ScrollReveal delay={400}>
               <div className="text-center">
                 <div className="flex justify-center mb-2">
                   <img src={Up} alt="Support" className="h-8 w-8" />
                 </div>
-                <div className="text-2xl font-bold text-white">90%</div>
+                <div className="text-2xl font-bold text-white">95%</div>
                 <div className="text-base opacity-90 text-white">
                   Session Satisfaction
                 </div>
               </div>
             </ScrollReveal>
-            <ScrollReveal delay={1000}>
+            <ScrollReveal delay={600}>
               <div className="text-center">
                 <div className="flex justify-center mb-2">
                   <img src={Google} alt="Support" className="h-8 w-auto" />
                 </div>
                 <div className="text-2xl font-bold text-white">Top</div>
                 <div className="text-base opacity-90 text-white">
-                  Mentors from GOOGLE
+                  Mentors from MNCs
                 </div>
               </div>
             </ScrollReveal>

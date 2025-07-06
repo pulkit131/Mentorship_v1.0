@@ -1,6 +1,6 @@
 @media (min-width: 1024px) {
   #img-lg {
-    transform: translateX(calc((100vw - 1024px) / 2 + 590px)) translateY(-50%);
+    transform: translateX(calc((100vw - 1024px) / 2 + 630px)) translateY(-50%);
   }
 }
 

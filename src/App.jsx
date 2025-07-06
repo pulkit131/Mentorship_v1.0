@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import ProtectedRoute from "./Components/ProtectedRoutes"
+import ProtectedRoute from "./Components/ProtectedRoutes";
 import Navbar from "./Home/Navbar";
 import Home from "./Home/Home";
 import Wrapper from "./Home/Wrapper";
-import Info  from "./Home/Info";
+import Info from "./Home/Info";
 import Mentors from "./Home/Mentors";
 import FAQ from "./Home/FAQ";
 import About from "./Home/About";
@@ -54,72 +54,67 @@ function App() {
           }
         />
 
-        <Route 
-          path = "/terms"
+        <Route
+          path="/terms"
           element={
             <div>
-              <TermsModal/>
+              <TermsModal />
             </div>
           }
         />
 
         <Route
-        path = "/privacy"
-        element = {
-          <div>
-            <PrivacyPolicyModal/>
-          </div>
-        }
-
-          />
-
-        <Route
-        path = "/shipping"
-        element = {
-          <div>
-            <ShippingPolicyModal/>
-          </div>
-        }
-
+          path="/privacy"
+          element={
+            <div>
+              <PrivacyPolicyModal />
+            </div>
+          }
         />
 
-        <Route 
-        path="/cancellation"
-        element={
-          <div>
-          <CancellationRefundModal/>
-          </div>
-        }
+        <Route
+          path="/shipping"
+          element={
+            <div>
+              <ShippingPolicyModal />
+            </div>
+          }
+        />
+
+        <Route
+          path="/cancellation"
+          element={
+            <div>
+              <CancellationRefundModal />
+            </div>
+          }
         />
         <Route
-  path="/mentors"
-  element={
-    <ProtectedRoute>
-      <Mentorlist />
-    </ProtectedRoute>
-  }
-/>
+          path="/mentors"
+          element={
+            <ProtectedRoute>
+              <Mentorlist />
+            </ProtectedRoute>
+          }
+        />
 
-<Route
-  path="/mentors/:id"
-  element={
-    <ProtectedRoute>
-      <MentorsID />
-    </ProtectedRoute>
-  }
-/>
-<Route
-  path="/subscriptions"
-  element={
-    <ProtectedRoute>
-      <Subscriptions/>
-    </ProtectedRoute>
-  }
-/>
-
-
+        <Route
+          path="/mentors/:id"
+          element={
+            <ProtectedRoute>
+              <MentorsID />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/subscriptions"
+          element={
+            <ProtectedRoute>
+              <Subscriptions />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
-      
     </Router>
   );
 }
