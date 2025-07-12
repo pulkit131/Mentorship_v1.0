@@ -1,19 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { auth, provider } from "../firebase/config";
 import { signInWithPopup, signOut } from "firebase/auth";
 import Swal from "sweetalert2";
-import { LogOutIcon, LogInIcon } from "lucide-react";
+import { LogOutIcon, LogInIcon, User, CreditCard, LayoutDashboard } from "lucide-react";
 
 const Navbar = () => {
   const [userId, setUserId] = useState(localStorage.getItem("userId") || "");
+  const [userEmail, setUserEmail] = useState(localStorage.getItem("userEmail") || "");
   const navigate = useNavigate();
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isAuth, setIsAuth] = useState(
     JSON.parse(localStorage.getItem("isAuth")) || false
   );
   const [showMentors, setShowMentors] = useState(false);
+  const desktopProfileRef = useRef(null);
+  const mobileProfileRef = useRef(null);
 
   useEffect(() => {
     if (userId === "9m1CekNjkERX5mLZWcQIdZGiXdG3") {
@@ -23,6 +27,20 @@ const Navbar = () => {
     }
   }, [userId]);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (desktopProfileRef.current && !desktopProfileRef.current.contains(event.target) &&
+          mobileProfileRef.current && !mobileProfileRef.current.contains(event.target)) {
+        setIsProfileOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     const navbar = document.querySelector('nav');
@@ -31,32 +49,36 @@ const Navbar = () => {
       const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
       window.scrollTo({ top: y, behavior: "smooth" });
     }
-    setIsMenuOpen(false); // Close mobile menu after click
+    setIsMenuOpen(false);
   };
 
-  const handleNavigation = (sectionId) => {
-    if (location.pathname === "/mydashboard") {
-      navigate("/");
-      setTimeout(() => scrollToSection(sectionId), 50);
-    } else {
-      scrollToSection(sectionId);
-    }
-  };
+const handleNavigation = (sectionId) => {
+  if (location.pathname !== "/") {
+    navigate("/");
+    setTimeout(() => scrollToSection(sectionId), 50);
+  } else {
+    scrollToSection(sectionId);
+  }
+};
 
-  function handleLogin() {
+
+  async function handleLogin() {
     signInWithPopup(auth, provider)
       .then((result) => {
         const user = result.user;
         setIsAuth(true);
         setUserId(user.uid);
+        setUserEmail(user.email);
         localStorage.setItem("isAuth", true);
         localStorage.setItem("userEmail", user.email);
         localStorage.setItem("userId", user.uid);
+        setIsProfileOpen(false);
         Swal.fire({
           title: "Logged In Successfully",
           icon: "success",
           confirmButtonText: "Cool!",
         });
+        navigate("/");
       })
       .catch((error) => {
         console.error(error);
@@ -73,9 +95,11 @@ const Navbar = () => {
       await signOut(auth);
       setIsAuth(false);
       setUserId("");
+      setUserEmail("");
       localStorage.setItem("isAuth", false);
       localStorage.setItem("userEmail", "");
       localStorage.setItem("userId", "");
+      setIsProfileOpen(false);
       Swal.fire({
         title: "Logged Out Successfully!",
         icon: "success",
@@ -93,6 +117,75 @@ const Navbar = () => {
     }
   }
 
+  const getProfileContent = () => {
+    if (userEmail) {
+      return userEmail.charAt(0).toUpperCase();
+    }
+    return <User className="h-5 w-5" />;
+  };
+
+  const getProfileColor = () => {
+    if (!isAuth) return "#2AB74A"; 
+    return "#018EE2"; 
+  };
+
+  const ProfileDropdown = ({ isMobile = false }) => (
+    <div className={`absolute ${isMobile ? 'right-0 top-full' : 'right-0 top-full'} mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50`}>
+      {isAuth ? (
+        <>
+          {showMentors && (
+            <button
+              onClick={() => {
+                setIsProfileOpen(false);
+                navigate("/mentors");
+              }}
+              className="flex items-center gap-2 w-full px-4 py-2 text-left text-gray-700 hover:bg-gray-50 transition-colors duration-200"
+            >
+              <User className="h-4 w-4" />
+              Mentor-Bookings
+            </button>
+          )}
+          <button
+            onClick={() => {
+              setIsProfileOpen(false);
+              navigate("/mydashboard");
+            }}
+            className="flex items-center gap-2 w-full px-4 py-2 text-left text-gray-700 hover:bg-gray-50 transition-colors duration-200"
+          >
+            <LayoutDashboard className="h-4 w-4" />
+            Dashboard
+          </button>
+          <button
+            onClick={() => {
+              setIsProfileOpen(false);
+              navigate("/paymentHistory")
+            }}
+            className="flex items-center gap-2 w-full px-4 py-2 text-left text-gray-700 hover:bg-gray-50 transition-colors duration-200"
+          >
+            <CreditCard className="h-4 w-4" />
+            Payment
+          </button>
+          <hr className="my-1 border-gray-200" />
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 w-full px-4 py-2 text-left text-red-600 hover:bg-red-50 transition-colors duration-200"
+          >
+            <LogOutIcon className="h-4 w-4" />
+            Logout
+          </button>
+        </>
+      ) : (
+        <button
+          onClick={handleLogin}
+          className="flex items-center gap-2 w-full px-4 py-2 text-left text-gray-700 hover:bg-gray-50 transition-colors duration-200"
+        >
+          <LogInIcon className="h-4 w-4" />
+          Login
+        </button>
+      )}
+    </div>
+  );
+
   return (
     <nav className="bg-white shadow-lg sticky top-0 z-40 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -101,7 +194,7 @@ const Navbar = () => {
             <h1
               className="text-2xl font-bold text-blue-600 cursor-pointer"
               onClick={() => navigate("/")}
-            >
+            > 
               LetsGetMentors
             </h1>
           </div>
@@ -109,14 +202,6 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden min-[1035px]:block">
             <div className="ml-10 flex items-baseline space-x-4">
-              {showMentors && (
-                <button
-                  onClick={() => navigate("/mentors")}
-                  className="cursor-pointer text-gray-700 font-medium hover:text-blue-600 transition-all duration-300"
-                >
-                  <i className="bi bi-box-arrow-right"></i> Mentor-Bookings
-                </button>
-              )}
               <button onClick={() => handleNavigation("hero")} className="hover:text-blue-600 py-2 text-base font-medium transition-colors duration-300">
                 Home
               </button>
@@ -132,40 +217,27 @@ const Navbar = () => {
               <button onClick={() => handleNavigation("contact")} className="hover:text-blue-600 py-2 text-base font-medium transition-colors duration-300">
                 Contact
               </button>
-              {isAuth && (
-                <button
-                  onClick={() => navigate("/mydashboard")}
-                  className="cursor-pointer text-gray-700 font-medium hover:text-blue-600 transition-all duration-300"
-                >
-                  <i className="bi bi-box-arrow-right"></i> Dashboard
-                </button>
-              )}
-              {isAuth ? (
-                <button
-                  onClick={handleLogout}
-                  className="flex flex-row gap-1 items-center text-red-600 hover:text-lg font-medium transition-all duration-300 cursor-pointer"
-                >
-                  Logout <LogOutIcon className="h-5 w-5" />
-                </button>
-              ) : (
-                <button
-                  onClick={handleLogin}
-                  className="flex flex-row gap-1 items-center text-gray-700 hover:text-blue-600 hover:text-lg font-medium transition-all duration-300 cursor-pointer"
-                >
-                  Login <LogInIcon className="h-5 w-5" />
-                </button>
-              )}
               <button
                 onClick={() => handleNavigation("booking")}
-                className="bg-[#018EE2] text-white text-xl rounded-full px-6 py-3 max-w-xs w-full sm:max-w-sm sm:w-auto flex items-center justify-center hover:bg-blue-700 transform hover:scale-105 transition duration-300 min-[767px]:max-[972px]:px-3 min-[767px]:max-[972px]:py-2 min-[767px]:max-[972px]:text-base"
+                className="bg-[#018EE2] text-white text-xl rounded-full px-6 py-3 max-w-xs w-full sm:max-w-sm sm:w-auto flex items-center justify-center hover:bg-blue-700 transform hover:scale-102 transition duration-300 min-[767px]:max-[972px]:px-3 min-[767px]:max-[972px]:py-2 min-[767px]:max-[972px]:text-base"
               >
                 Book Session
               </button>
+              
+              <div className="relative" ref={desktopProfileRef}>
+                <button
+                  onClick={() => setIsProfileOpen(!isProfileOpen)}
+                  className="flex items-center justify-center w-10 h-10 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  style={{ backgroundColor: getProfileColor() }}
+                >
+                  {getProfileContent()}
+                </button>
+                {isProfileOpen && <ProfileDropdown />}
+              </div>
             </div>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="min-[1035px]:hidden">
+          <div className="min-[1035px]:hidden flex items-center space-x-2">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="text-gray-700 hover:text-blue-600 focus:outline-none focus:text-blue-600 transition-colors duration-300"
@@ -188,6 +260,17 @@ const Navbar = () => {
                 />
               </svg>
             </button>
+            
+            <div className="relative" ref={mobileProfileRef}>
+              <button
+                onClick={() => setIsProfileOpen(!isProfileOpen)}
+                className="flex items-center justify-center w-8 h-8 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                style={{ backgroundColor: getProfileColor() }}
+              >
+                {getProfileContent()}
+              </button>
+              {isProfileOpen && <ProfileDropdown isMobile={true} />}
+            </div>
           </div>
         </div>
 
@@ -195,7 +278,7 @@ const Navbar = () => {
         {isMenuOpen && (
           <div className="min-[1035px]:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
-              {["hero", "mentors", "about", "faq", "contact"].map((item) => (
+              {["home", "mentors", "about", "faq", "contact"].map((item) => (
                 <button
                   key={item}
                   onClick={() => handleNavigation(item)}
@@ -204,32 +287,6 @@ const Navbar = () => {
                   {item.charAt(0).toUpperCase() + item.slice(1)}
                 </button>
               ))}
-              {isAuth && (
-                <button
-                  onClick={() => {
-                    setIsMenuOpen(false);
-                    navigate("/mydashboard");
-                  }}
-                  className="cursor-pointer text-gray-700 px-3 py-2 font-medium hover:text-blue-600 transition-all duration-300"
-                >
-                  <i className="bi bi-box-arrow-right"></i> Dashboard
-                </button>
-              )}
-              {isAuth ? (
-                <button
-                  onClick={handleLogout}
-                  className="flex flex-row gap-1 items-center px-3 py-2 text-gray-700 hover:text-red-600 hover:text-lg font-medium transition-colors duration-300 cursor-pointer"
-                >
-                  Logout <LogOutIcon />
-                </button>
-              ) : (
-                <button
-                  onClick={handleLogin}
-                  className="flex flex-row gap-1 items-center px-3 py-2 text-gray-700 hover:text-blue-600 hover:text-lg font-medium transition-colors duration-300 cursor-pointer"
-                >
-                  Login <LogInIcon />
-                </button>
-              )}
               <button
                 onClick={() => handleNavigation("booking")}
                 className="block bg-blue-600 text-white px-3 py-2 text-base font-medium w-full text-left rounded-lg hover:bg-blue-700 transition-colors duration-300"

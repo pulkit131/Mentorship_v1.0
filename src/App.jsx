@@ -20,7 +20,7 @@ import TermsModal from "./Home/TermsModal";
 import CancellationRefundModal from "./Home/CancellationRefundModal";
 import PrivacyPolicyModal from "./Home/PrivacyModal";
 import ShippingPolicyModal from "./Home/ShippingPolicyModal";
-
+import PaymentHistory from "./Home/PaymentHistory";
 function App() {
   const [count, setCount] = useState(0);
 
@@ -89,6 +89,16 @@ function App() {
             </div>
           }
         />
+        
+        <Route
+          path="/paymentHistory"
+          element={
+            <div>
+              <PaymentHistory />
+            </div>
+          }
+        />
+
         <Route
           path="/mentors"
           element={
