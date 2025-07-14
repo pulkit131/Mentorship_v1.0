@@ -28,14 +28,33 @@ const faqs = [
       "Yes, you can reschedule your session up to 24 hours before the scheduled time by contacting our support team.",
   },
   {
-    question: "When will the mentors be available ?",
-    answer:
-      "During weekends once or twice a month .",
-  },
-  {
     question: "When will the doubt solvers be available?",
     answer:
       "Everytime 24*7",
+  },
+  {
+    question:"Can i cancel my subscription in between ?",
+    answer:"Your monthly subscription ,once payment is processed, cannot be cancelled.",
+  },
+  {
+    question: "What happens if all slots are full when I register?",
+    answer:
+      "If all mentor batches are full, you’ll be added to the waitlist. We’ll notify you as soon as the next batch opens — usually within a month.",
+  },
+  {
+    question: "Can I get a refund if I don’t want to continue after the first session?",
+    answer:
+      "Yes. If you decide not to continue after your first session, we’ll initiate a full refund asap.",
+  },
+  {
+    question: "Can I reschedule a session?",
+    answer:
+      "Yes, sessions can be rescheduled by contacting our support team at least 24 hours in advance. Requests made after that cannot be accommodated.",
+  },
+  {
+    question: "When will the mentors be available ?",
+    answer:
+      "Mentors are available on weekends only. During these weekend sessions, you’ll have dedicated time to ask any and all of your doubts and get clear, personalized guidance from your mentor.",
   },
   {
     question: "Can I cancel my subscription in between ?",
