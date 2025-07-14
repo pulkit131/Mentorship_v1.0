@@ -3,25 +3,42 @@ import TickBox from "../assets/TickBox.png";
 import { Star, Users, Target } from "lucide-react";
 
 const PremiumPlans = () => {
+  //earlier points 
+  // const beginnerFeatures = [
+  //   "4 live mentorship sessions in small, structured batches (15–20 students)",
+  //   "Personalized learning guidance - curated free resources, tailored to your goals and level",
+  //   "Project-first approach - build resume-worthy, mentor-reviewed projects",
+  //   "Weekly task check-ins - stay on track with consistent accountability",
+  //   "Early resume building support - structure it right, right from the start",
+  //   "Peer WhatsApp group - get help, discuss problems, and grow together"
+  // ];
+
+  // const placementFeatures = [
+  //   "Everything in the Base Plan, plus:",
+  //   "Placement-centric strategy - based on your current level and time left",
+  //   "High-impact learning focus - what to study, what to skip, what matters in real hiring",
+  //   "Resume sharpening - real-world advice on what recruiters look for",
+  //   "Faster-paced roadmap - tailored to your urgency and gaps",
+  //   "Referral potential - outstanding students may be recommended by mentors"
+  // ];
 
   const beginnerFeatures = [
-    "4 live mentorship sessions in small, structured batches (15–20 students)",
-    "Personalized learning guidance - curated free resources, tailored to your goals and level",
-    "Project-first approach - build resume-worthy, mentor-reviewed projects",
-    "Weekly task check-ins - stay on track with consistent accountability",
-    "Early resume building support - structure it right, right from the start",
-    "Peer WhatsApp group - get help, discuss problems, and grow together"
+    "4 live sessions in small batches (15–20 students)",
+    "Personalized guidance with curated free resources",
+    "Project-first learning with mentor feedback",
+    "Weekly task check-ins for accountability",
+    "Start resume building from day one",
+    "Peer WhatsApp group for support & growth"
   ];
 
   const placementFeatures = [
-    "Everything in the Base Plan, plus:",
-    "Placement-centric strategy - based on your current level and time left",
-    "High-impact learning focus - what to study, what to skip, what matters in real hiring",
-    "Resume sharpening - real-world advice on what recruiters look for",
-    "Faster-paced roadmap - tailored to your urgency and gaps",
-    "Referral potential - outstanding students may be recommended by mentors"
+    "All Base Plan features, +:",
+    "Strategy based on level & time left",
+    "Focus on what matters for hiring",
+    "Resume polishing with recruiter insights",
+    "Faster roadmap based on your urgency",
+    "Top students may get mentor referrals"
   ];
-
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-white px-2 sm:px-4 py-8">
       <h1 className="text-3xl sm:text-4xl font-bold text-black mb-4 text-center">
@@ -32,7 +49,7 @@ const PremiumPlans = () => {
       </p>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 w-full max-w-5xl">
-        <div className="bg-[#dbeafe] rounded-[32px] sm:rounded-[43px] w-full flex flex-col items-center px-4 sm:px-8 pt-8 pb-6 justify-between">
+        <div className="bg-white border border-3 border-[#dbeafe] rounded-[32px] sm:rounded-[43px] w-full flex flex-col items-center px-4 sm:px-8 pt-8 pb-6 justify-between">
           <div className="text-center">
             <h2 className="text-xl sm:text-2xl font-semibold text-black mb-1">
               Beginner Techy Plan
@@ -74,7 +91,7 @@ const PremiumPlans = () => {
           </div>
         </div>
 
-        <div className="bg-[#dbeafe] rounded-[32px] sm:rounded-[43px] w-full flex flex-col items-center px-4 sm:px-8 pt-8 pb-6 justify-between relative">
+        <div className="bg-white border border-3 border-[#dbeafe] rounded-[32px] sm:rounded-[43px] w-full flex flex-col items-center px-4 sm:px-8 pt-8 pb-6 justify-between relative">
           <div className="absolute -top-4 bg-[#155efb] text-white px-6 py-2 rounded-full text-sm font-semibold flex items-center gap-1">
             <Star className="w-4 h-4" />
             Most Popular
