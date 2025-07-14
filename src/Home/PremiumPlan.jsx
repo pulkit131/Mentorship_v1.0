@@ -61,6 +61,14 @@ const PremiumPlans = () => {
             </div>
             <p className="text-xs sm:text-sm text-black mb-1">per month</p>
           </div>
+          <div className="bg-[#f0f9ff] border-l-4 border-[#155efb] rounded-lg p-3 w-full mb-4">
+            <p className="text-sm sm:text-base font-semibold text-[#0025f6] text-left">
+              Best suited for:{" "}
+              <span className="font-bold text-black">
+                Students in 1st–3rd year or early-stage learners needing direction, consistency, and real output
+              </span>
+            </p>
+          </div>
           
           <div className="flex flex-col gap-2 w-full px-1 mt-4">
             <p className="text-sm sm:text-base font-semibold text-black mb-2 text-left">Monthly Includes:</p>
@@ -75,11 +83,7 @@ const PremiumPlans = () => {
             ))}
           </div>
           
-          <div className="bg-[#f0f9ff] rounded-2xl p-4 mt-4 w-full">
-            <p className="text-sm font-semibold text-[#0025f6] text-center">
-              Best suited for: Students in 1st–3rd year or early-stage learners needing direction, consistency, and real output
-            </p>
-          </div>
+          
           
           <div className="flex flex-col items-center w-full mt-6">
             <button className="w-full sm:w-[90%] h-12 sm:h-[56px] bg-[#155efb] text-white rounded-xl font-semibold mb-2 text-lg sm:text-2xl leading-tight hover:bg-[#1346c2] transition duration-300">
@@ -108,7 +112,22 @@ const PremiumPlans = () => {
             </div>
             <p className="text-xs sm:text-sm text-black mb-1">per month</p>
           </div>
+
+
+          <div className="bg-[#f0f9ff] border-l-4 border-[#155efb] rounded-lg p-3 w-full mb-4">
+            <p className="text-sm sm:text-base font-semibold text-[#0025f6] text-left">
+              Best suited for:{" "}
+              <span className="font-bold text-black">
+                Final-year students, late-stage upskillers, or those preparing to enter the job market
+              </span>
+            </p>
+          </div>
           
+
+
+
+
+
           <div className="flex flex-col gap-2 w-full px-1 mt-4">
             <p className="text-sm sm:text-base font-semibold text-black mb-2 text-left">
               Monthly Includes:
@@ -124,12 +143,7 @@ const PremiumPlans = () => {
             ))}
           </div>
           
-          <div className="bg-[#f0f9ff] rounded-2xl p-4 mt-4 w-full">
-            <p className="text-sm font-semibold text-[#0025f6] text-center">
-              Best suited for: Final-year students, late-stage upskillers, or those preparing to enter the job market
-            </p>
-          </div>
-          
+         
           <div className="flex flex-col items-center w-full mt-6">
             <button className="w-full sm:w-[90%] h-12 sm:h-[56px] bg-[#155efb] text-white rounded-xl font-semibold mb-2 text-lg sm:text-2xl leading-tight hover:bg-[#1346c2] transition duration-300">
               Subscribe Now
