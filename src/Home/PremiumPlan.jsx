@@ -1,6 +1,8 @@
 import React from "react";
 import TickBox from "../assets/TickBox.png";
 import { Star, Users, Target } from "lucide-react";
+import RazorpayLogo from "../assets/razorpay.png";
+
 
 const PremiumPlans = () => {
   //earlier points 
@@ -89,8 +91,14 @@ const PremiumPlans = () => {
             <button className="w-full sm:w-[90%] h-12 sm:h-[56px] bg-[#155efb] text-white rounded-xl font-semibold mb-2 text-lg sm:text-2xl leading-tight hover:bg-[#1346c2] transition duration-300">
               Subscribe Now
             </button>
-            <p className="text-xs font-semibold text-black text-center mt-1">
-              Secure payment powered by Razorpay | Early bird offer
+            <p className="text-xs font-semibold text-black text-center mt-1 flex items-center justify-center gap-1">
+              Secure payment powered by
+              <img
+                src={RazorpayLogo}
+                alt="Razorpay"
+                className="h-11 object-contain"
+              />
+              | Early bird offer
             </p>
           </div>
         </div>
@@ -148,8 +156,14 @@ const PremiumPlans = () => {
             <button className="w-full sm:w-[90%] h-12 sm:h-[56px] bg-[#155efb] text-white rounded-xl font-semibold mb-2 text-lg sm:text-2xl leading-tight hover:bg-[#1346c2] transition duration-300">
               Subscribe Now
             </button>
-            <p className="text-xs font-semibold text-black text-center mt-1">
-              Secure payment powered by Razorpay | Early bird offer
+            <p className="text-xs font-semibold text-black text-center mt-1 flex items-center justify-center gap-1">
+              Secure payment powered by
+              <img
+                src={RazorpayLogo}
+                alt="Razorpay"
+                className="h-11 object-contain"
+              />
+              | Early bird offer
             </p>
           </div>
         </div>
