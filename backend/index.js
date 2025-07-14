@@ -7,7 +7,7 @@ import planRoutes from './routes/plan/index.js';
 import sessionRoutes from './routes/session/index.js';
 import mentorshipRoutes from './routes/mentorship/index.js';
 
-dotenv.config();
+dotenv.config({ path: './.env' });
 
 const app = express();
 const PORT = process.env.PORT || 5000;
