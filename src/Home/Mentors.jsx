@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import mentor1 from "../assets/mentor/hameedullah.png";
 import mentor2 from "../assets/mentor/navyaa.png";
 import mentor3 from "../assets/mentor/ravi.png";
 
 const mentors = [
+  {
+    name: "Hameedullah Khan Pathan",
+    profession: "Software Developer",
+    company: "Trellix",
+    description: "Python, MySQL, DBMS",
+    img: mentor1,
+  },
   {
     name: "Navyaa Sharma",
     profession: "Software Engineer",
@@ -18,18 +25,47 @@ const mentors = [
     description: "React.js, AngularJS, C++",
     img: mentor3,
   },
-  {
-    name: "Hameedullah Khan Pathan",
-    profession: "Software Developer",
-    company: "Trellix",
-    description: "Python, MySQL, DBMS",
-    img: mentor1,
-  }
-  
-  
 ];
 
 export default function MentorsSection() {
+  const [bookingCounts, setBookingCounts] = useState(Array(mentors.length).fill(0));
+  const [waitlistCounts, setWaitlistCounts] = useState(Array(mentors.length).fill(0));
+  const [showWaitlist, setShowWaitlist] = useState(Array(mentors.length).fill(false));
+
+  useEffect(() => {
+    const intervals = [];
+
+    showWaitlist.forEach((show, idx) => {
+      if (show) {
+        const interval = setInterval(() => {
+          setWaitlistCounts((prev) => {
+            const updated = [...prev];
+            updated[idx] += 1;
+            return updated;
+          });
+        }, 3000);
+        intervals.push(interval);
+      }
+    });
+
+    return () => intervals.forEach(clearInterval);
+  }, [showWaitlist]);
+
+  const handleBooking = (index) => {
+    setBookingCounts((prev) => {
+      const updated = [...prev];
+      if (updated[index] < 20) {
+        updated[index] += 1;
+        if (updated[index] === 20) {
+          const newShowWaitlist = [...showWaitlist];
+          newShowWaitlist[index] = true;
+          setShowWaitlist(newShowWaitlist);
+        }
+      }
+      return updated;
+    });
+  };
+
   return (
     <section
       id="mentors"
@@ -74,17 +110,20 @@ export default function MentorsSection() {
             <div className="w-full text-[15px] font-semibold mt-3 text-center ml-[6px] mb-[2px]">
               {mentor.description}
             </div>
-            <div className="flex items-center w-full mt-2 mb-2 ml-[6px] gap-x-4"></div>
+
+            {showWaitlist[idx] && (
+              <div className="text-gray-600 font-medium mb-1 text-sm">
+                +{waitlistCounts[idx]} waiting
+              </div>
+            )}
 
             <button
-              onClick={() =>
-                document
-                  .getElementById("booking")
-                  .scrollIntoView({ behavior: "smooth" })
-              }
-              className="w-full mt-[10px] bg-[#2AB74A] text-white font-semibold text-[18px] rounded-[10px] py-3 hover:bg-[#21a347] h-[48px]"
+              onClick={() => handleBooking(idx)}
+              className={`w-full mt-[10px] ${
+                showWaitlist[idx] ? "bg-orange-500 hover:bg-orange-600" : "bg-[#2AB74A] hover:bg-[#21a347]"
+              } text-white font-semibold text-[18px] rounded-[10px] py-3 h-[48px]`}
             >
-              Book Session
+              {showWaitlist[idx] ? "Waitlist" : "Book Session"}
             </button>
           </div>
         ))}
