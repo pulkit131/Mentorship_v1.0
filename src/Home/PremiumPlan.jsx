@@ -42,7 +42,16 @@ const PremiumPlans = () => {
     "Top students may get mentor referrals"
   ];
   return (
+    
+    
     <div className="min-h-screen flex flex-col items-center justify-center bg-white px-2 sm:px-4 py-8">
+      <div className="w-full flex justify-center mt-8">
+  <div className="bg-[#e6f0ff] text-[#0047ab] text-xl font-semibold rounded-full px-6 py-2 text-sm flex items-center gap-2 shadow-sm">
+    <span role="img" aria-label="celebration">🎉</span>
+    Early Bird Offer – Limited Time Only!
+  </div>
+</div>
+
       <h1 className="text-3xl sm:text-4xl font-bold text-black mb-4 text-center">
         Choose Your Plan
       </h1>
@@ -91,14 +100,14 @@ const PremiumPlans = () => {
             <button className="w-full sm:w-[90%] h-12 sm:h-[56px] bg-[#155efb] text-white rounded-xl font-semibold mb-2 text-lg sm:text-2xl leading-tight hover:bg-[#1346c2] transition duration-300">
               Subscribe Now
             </button>
-            <p className="text-xs font-semibold text-black text-center mt-1 flex items-center justify-center gap-1">
+            <p className="text-xl font-semibold text-black text-center mt-1 flex items-center justify-center gap-1">
               Secure payment powered by
               <img
                 src={RazorpayLogo}
                 alt="Razorpay"
                 className="h-11 object-contain"
               />
-              | Early bird offer
+              
             </p>
           </div>
         </div>
@@ -156,14 +165,14 @@ const PremiumPlans = () => {
             <button className="w-full sm:w-[90%] h-12 sm:h-[56px] bg-[#155efb] text-white rounded-xl font-semibold mb-2 text-lg sm:text-2xl leading-tight hover:bg-[#1346c2] transition duration-300">
               Subscribe Now
             </button>
-            <p className="text-xs font-semibold text-black text-center mt-1 flex items-center justify-center gap-1">
+            <p className="text-xl font-semibold text-black text-center mt-1 flex items-center justify-center gap-1">
               Secure payment powered by
               <img
                 src={RazorpayLogo}
                 alt="Razorpay"
                 className="h-11 object-contain"
               />
-              | Early bird offer
+              
             </p>
           </div>
         </div>

@@ -5,13 +5,6 @@ import mentor3 from "../assets/mentor/ravi.png";
 
 const mentors = [
   {
-    name: "Hameedullah Khan Pathan",
-    profession: "Software Developer",
-    company: "Trellix",
-    description: "Python, MySQL, DBMS",
-    img: mentor1,
-  },
-  {
     name: "Navyaa Sharma",
     profession: "Software Engineer",
     company: "Google",
@@ -25,6 +18,15 @@ const mentors = [
     description: "React.js, AngularJS, C++",
     img: mentor3,
   },
+  {
+    name: "Hameedullah Khan Pathan",
+    profession: "Software Developer",
+    company: "Trellix",
+    description: "Python, MySQL, DBMS",
+    img: mentor1,
+  }
+  
+  
 ];
 
 export default function MentorsSection() {
