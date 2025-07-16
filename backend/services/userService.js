@@ -51,3 +51,42 @@ export const getAllUsers = async () => {
 export const deleteUser = async (id) => {
   return await prisma.user.delete({ where: { id } });
 };
+
+export const subscribeToPlan = async ({ email, planId }) => {
+  const user = await prisma.user.findUnique({ where: { email } });
+  if (!user) throw new Error('User not found');
+
+  const plan = await prisma.plan.findUnique({ where: { id: planId } });
+  if (!plan) throw new Error('Plan not found');
+
+  let freeSessions = 0;
+  if (plan.name === 'BASIC') freeSessions = 4;
+
+  const updatedUser = await prisma.user.update({
+    where: { email },
+    data: {
+      planType: plan.name,
+      planPrice: Math.floor(plan.price),
+      freeSessions,
+    },
+  });
+
+  return {
+    message: `Subscribed to ${plan.name}`,
+    user: updatedUser,
+  };
+};
+
+export const checkUserHasPlan = async (email) => {
+  const user = await prisma.user.findUnique({
+    where: { email },
+  });
+
+  if (!user) throw new Error('User not found');
+
+  return {
+    hasPlan: !!user.planType, // will be true if planType exists
+    planType: user.planType,
+  };
+};
+
