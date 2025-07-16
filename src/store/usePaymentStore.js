@@ -8,7 +8,7 @@ export const usePaymentStore = create((set) => ({
   createOrder: async ({ amount, currency = 'INR' }) => {
     set({ isLoading: true });
     try {
-      const res = await axiosInstance.post('/payment/create-order', {
+      const res = await axiosInstance.post('/payments/create-order', {
         amount,
         currency,
       });
@@ -25,7 +25,7 @@ export const usePaymentStore = create((set) => ({
   verifyPayment: async (paymentData) => {
     set({ isLoading: true });
     try {
-      const res = await axiosInstance.post('/payment/verify', paymentData);
+      const res = await axiosInstance.post('/payments/verify', paymentData);
 
       if (res.data.success) {
         toast.success('Payment verified and plan updated!');

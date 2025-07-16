@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useSessionStore } from "../store/sessionStore";
+import { useSessionStore } from "../store/useSessionStore";
 import MentorBookingCard from "../Dashboard/MentorBookingCard";
 
 const MentorDashboard = () => {
