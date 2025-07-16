@@ -41,8 +41,6 @@ export const subscribeUserToPlan = async (req, res) => {
   }
 };
 
-import { checkSessionBookingAllowedByEmail } from '../services/userService.js'; // ✅ import
-
 export const checkBookingAllowedByEmailController = async (req, res) => {
   try {
     const { email } = req.params;
