@@ -301,14 +301,35 @@ const Subscriptions= () => {
                                             ))}
                                         </ul>
 
-                                        <motion.button
-                                            whileHover={{ scale: 1.05 }}
-                                            whileTap={{ scale: 0.95 }}
-                                            onClick={() => handlePayment(tier.id, tier.price)}
-                                            className="w-full bg-black text-white rounded-lg py-3 font-medium hover:bg-gray-800 transition-colors"
-                                        >
-                                            GO
-                                        </motion.button>
+                                        {tier.name === "Plus" ? (
+                                            <div className="flex flex-col gap-3">
+                                                <motion.button
+                                                    whileHover={{ scale: 1.05 }}
+                                                    whileTap={{ scale: 0.95 }}
+                                                    onClick={() => handlePayment(tier.id, tier.price)}
+                                                    className="w-full bg-black text-white rounded-lg py-3 font-medium hover:bg-gray-800 transition-colors"
+                                                >
+                                                    Subscribe Now
+                                                </motion.button>
+                                                <motion.button
+                                                    whileHover={{ scale: 1.05 }}
+                                                    whileTap={{ scale: 0.95 }}
+                                                    onClick={() => handlePayment(tier.id, tier.price)}
+                                                    className="w-full bg-orange-500 text-white rounded-lg py-3 font-medium hover:bg-orange-600 transition-colors"
+                                                >
+                                                    Subscribe (Alt)
+                                                </motion.button>
+                                            </div>
+                                        ) : (
+                                            <motion.button
+                                                whileHover={{ scale: 1.05 }}
+                                                whileTap={{ scale: 0.95 }}
+                                                onClick={() => handlePayment(tier.id, tier.price)}
+                                                className="w-full bg-black text-white rounded-lg py-3 font-medium hover:bg-gray-800 transition-colors"
+                                            >
+                                                GO
+                                            </motion.button>
+                                        )}
                                     </motion.div>
                                 ))}
                             </motion.div>

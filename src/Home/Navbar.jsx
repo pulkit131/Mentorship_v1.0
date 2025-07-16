@@ -64,7 +64,7 @@ const handleNavigation = (sectionId) => {
 
   async function handleLogin() {
     signInWithPopup(auth, provider)
-      .then((result) => {
+      .then(async (result) => {
         const user = result.user;
         setIsAuth(true);
         setUserId(user.uid);
@@ -72,6 +72,8 @@ const handleNavigation = (sectionId) => {
         localStorage.setItem("isAuth", true);
         localStorage.setItem("userEmail", user.email);
         localStorage.setItem("userId", user.uid);
+        const idToken = await user.getIdToken();
+        localStorage.setItem("token", idToken);
         setIsProfileOpen(false);
         Swal.fire({
           title: "Logged In Successfully",

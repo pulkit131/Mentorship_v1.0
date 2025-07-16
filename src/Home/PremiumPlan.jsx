@@ -1,8 +1,96 @@
 import React from "react";
 import TickBox from "../assets/TickBox.png";
 import { Star, Users, Target } from "lucide-react";
+import { useState } from "react";
+
+const getAuthToken = () => `Bearer ${localStorage.getItem('token')}`;
 
 const PremiumPlans = () => {
+  const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY;
+  const API_URL = 'https://boardly-be.vercel.app';
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState({ type: '', text: '' });
+
+  const showMessage = (type, text) => {
+    setMessage({ type, text });
+    setTimeout(() => setMessage({ type: '', text: '' }), 5000);
+  };
+
+  const handlePaymentSuccess = async (response) => {
+    const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = response;
+    if (!razorpay_payment_id || !razorpay_order_id || !razorpay_signature) {
+      showMessage('error', 'Invalid payment response. Please contact support.');
+      return;
+    }
+    setLoading(true);
+    showMessage('info', 'Verifying payment, please wait...');
+    try {
+      const verifyResponse = await fetch(`${API_URL}/payment/verify-payment`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': getAuthToken(),
+        },
+        body: JSON.stringify({ razorpay_payment_id, razorpay_order_id, razorpay_signature }),
+      });
+      const verifyData = await verifyResponse.json();
+      if (verifyResponse.ok) {
+        showMessage('success', 'Payment successful and subscription updated!');
+      } else {
+        throw new Error(verifyData.error || 'Payment verification failed');
+      }
+    } catch (error) {
+      showMessage('error', 'Payment verification failed. Please contact support.');
+      console.error('Payment verification error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePayment = async (planId, planPrice) => {
+    setLoading(true);
+    showMessage('info', 'Processing payment, please do not press back or refresh...');
+    try {
+      const response = await fetch(`${API_URL}/payment/create-order`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': getAuthToken(),
+        },
+        body: JSON.stringify({ planType: planId }),
+      });
+      const orderData = await response.json();
+      if (response.ok) {
+        const options = {
+          key: razorpayKey,
+          amount: planPrice * 100,
+          currency: "INR",
+          name: "Boardly.in",
+          description: `Payment for ${planId}`,
+          order_id: orderData.orderId,
+          handler: async (response) => {
+            await handlePaymentSuccess(response);
+          },
+          prefill: {
+            name: orderData.customerName,
+            email: orderData.customerEmail,
+          },
+          theme: {
+            color: "#3399cc",
+          },
+        };
+        const razorpay = new window.Razorpay(options);
+        razorpay.open();
+      } else {
+        throw new Error(orderData.error || 'Failed to create order');
+      }
+    } catch (error) {
+      showMessage('error', 'Failed to initiate payment. Please try again later.');
+      console.error('Payment initiation error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const beginnerFeatures = [
     "4 live mentorship sessions in small, structured batches (15–20 students)",
@@ -65,7 +153,10 @@ const PremiumPlans = () => {
           </div>
           
           <div className="flex flex-col items-center w-full mt-6">
-            <button className="w-full sm:w-[90%] h-12 sm:h-[56px] bg-[#155efb] text-white rounded-xl font-semibold mb-2 text-lg sm:text-2xl leading-tight hover:bg-[#1346c2] transition duration-300">
+            <button className="w-full sm:w-[90%] h-12 sm:h-[56px] bg-[#155efb] text-white rounded-xl font-semibold mb-2 text-lg sm:text-2xl leading-tight hover:bg-[#1346c2] transition duration-300"
+              onClick={() => handlePayment('BEGINNER', 599)}
+              disabled={loading}
+            >
               Subscribe Now
             </button>
             <p className="text-xs font-semibold text-black text-center mt-1">
@@ -114,7 +205,10 @@ const PremiumPlans = () => {
           </div>
           
           <div className="flex flex-col items-center w-full mt-6">
-            <button className="w-full sm:w-[90%] h-12 sm:h-[56px] bg-[#155efb] text-white rounded-xl font-semibold mb-2 text-lg sm:text-2xl leading-tight hover:bg-[#1346c2] transition duration-300">
+            <button className="w-full sm:w-[90%] h-12 sm:h-[56px] bg-[#155efb] text-white rounded-xl font-semibold mb-2 text-lg sm:text-2xl leading-tight hover:bg-[#1346c2] transition duration-300"
+              onClick={() => handlePayment('PLACEMENT', 799)}
+              disabled={loading}
+            >
               Subscribe Now
             </button>
             <p className="text-xs font-semibold text-black text-center mt-1">
@@ -123,6 +217,13 @@ const PremiumPlans = () => {
           </div>
         </div>
       </div>
+      {message.text && (
+        <div
+          className={`message mt-6 p-4 rounded-md text-center font-medium ${message.type === 'success' ? 'bg-green-100 text-green-700' : message.type === 'info' ? 'bg-blue-100 text-blue-700' : 'bg-red-100 text-red-700'}`}
+        >
+          {message.text}
+        </div>
+      )}
     </div>
   );
 };

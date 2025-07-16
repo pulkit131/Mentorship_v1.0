@@ -111,7 +111,7 @@ const [userId, setUserId] =localStorage.getItem("userId") || "";
 
   const handleGoogle = () => {
     signInWithPopup(auth, provider)
-      .then((result) => {
+      .then(async (result) => {
         const user = result.user;
         setFormData((prev) => ({
           ...prev,
@@ -121,7 +121,8 @@ const [userId, setUserId] =localStorage.getItem("userId") || "";
         localStorage.setItem("isAuth", true);
         localStorage.setItem("userEmail", user.email);
         localStorage.setItem("userId", user.uid);
-
+        const idToken = await user.getIdToken();
+        localStorage.setItem("token", idToken);
         Swal.fire({
           title: "Logged In Successfully",
           icon: "success",
