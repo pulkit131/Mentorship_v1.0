@@ -82,12 +82,20 @@ const Dashboard = () => {
 
   if (loading) return <p className="p-5">Loading...</p>;
 
-  return (
-    <div className="min-w-screen min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 p-6 flex flex-col items-center">
-      <div className="w-full max-w-5xl bg-white rounded-2xl shadow-xl p-8">
-        <h1 className="text-3xl font-bold text-blue-600 mb-6 tracking-tight">
+return (
+  <div className="min-w-screen min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 p-6 flex flex-col items-center">
+    <div className="w-full max-w-5xl">
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+        Dashboard
+      </h1>
+      <p className="text-base sm:text-lg text-gray-600 mb-10">
+        Keep track of your upcoming classes and mentorship sessions.
+      </p>
+
+      <div className="bg-white rounded-2xl shadow-xl p-8">
+        <h2 className="text-3xl font-bold text-blue-600 mb-6 tracking-tight">
           Your Upcoming Sessions :
-        </h1>
+        </h2>
         <div className="flex flex-col md:flex-row flex-wrap gap-6">
           {bookings.map((booking) => (
             <BookingCard
@@ -104,7 +112,9 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
-  );
+  </div>
+);
+
 };
 
 export default Dashboard;

@@ -136,7 +136,9 @@ const PaymentHistory = () => {
                           </h3>
                           <div className="flex items-center gap-2 text-gray-600">
                             <Package className="w-4 h-4 flex-shrink-0" />
-                            <span className="font-medium truncate">{payment.plan}</span>
+                            <span className="font-medium truncate">
+                              {payment.plan}
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -184,7 +186,9 @@ const PaymentHistory = () => {
           <div className="fixed inset-0 bg-white/30 backdrop-blur-md flex items-center justify-center z-50">
             <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-lg animate-fade-in">
               <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-semibold">We’d love your feedback</h3>
+                <h3 className="text-lg font-semibold">
+                  We’d love your feedback
+                </h3>
                 <button onClick={() => setShowFeedbackModal(false)}>
                   <X className="w-5 h-5" />
                 </button>
@@ -220,13 +224,14 @@ const PaymentHistory = () => {
                 ))}
 
                 <textarea
-                  placeholder="Tell us more... (max 50 words)"
+                  placeholder="Tell us more... (max 50 characters)"
                   className={`w-full border rounded-md p-2 text-sm ${
                     feedbackReason !== "Other (please share below)"
                       ? "bg-gray-100 text-gray-400 cursor-not-allowed"
                       : "bg-white text-black"
                   }`}
                   rows="3"
+                  maxLength={50}
                   disabled={feedbackReason !== "Other (please share below)"}
                   value={additionalFeedback}
                   onChange={(e) => setAdditionalFeedback(e.target.value)}
@@ -250,7 +255,9 @@ const PaymentHistory = () => {
           <div className="fixed inset-0 bg-white/30 backdrop-blur-md flex items-center justify-center z-50">
             <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md animate-fade-in">
               <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-semibold">Select Mentor for Refund</h3>
+                <h3 className="text-lg font-semibold">
+                  Select Mentor for Refund
+                </h3>
                 <button onClick={() => setShowRefundModal(false)}>
                   <X className="w-5 h-5" />
                 </button>
@@ -266,7 +273,8 @@ const PaymentHistory = () => {
                         : ""
                     }
                     onClick={() =>
-                      payment.payment === "success" && handleMentorSelect(payment)
+                      payment.payment === "success" &&
+                      handleMentorSelect(payment)
                     }
                     className={`w-full px-4 py-2 rounded-lg border flex justify-between items-center transition-all duration-200 ${
                       payment.payment === "success"
@@ -287,7 +295,9 @@ const PaymentHistory = () => {
           <div className="fixed inset-0 bg-white/30 backdrop-blur-md flex items-center justify-center z-50">
             <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-lg animate-fade-in">
               <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-semibold">Refund Terms & Conditions</h3>
+                <h3 className="text-lg font-semibold">
+                  Refund Terms & Conditions
+                </h3>
                 <button onClick={() => setShowPolicyModal(false)}>
                   <X className="w-5 h-5" />
                 </button>
@@ -295,7 +305,7 @@ const PaymentHistory = () => {
               <p className="text-sm text-gray-700 mb-6">
                 Refunds will be processed within 5–7 business days. Refunds are
                 only available for plans with a successful payment status and
-                must be requested within 14 days of the plan start date.
+                must be requested before attending second session.
               </p>
               <div className="text-right">
                 <button
@@ -312,10 +322,13 @@ const PaymentHistory = () => {
         {refundInitiated && (
           <div className="fixed inset-0 bg-white/30 backdrop-blur-md flex items-center justify-center z-50">
             <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md animate-fade-in text-center">
-              <h3 className="text-lg font-semibold mb-4">Refund Initiated ✅</h3>
+              <h3 className="text-lg font-semibold mb-4">
+                Refund Initiated ✅
+              </h3>
               <p className="text-sm text-gray-600">
-                Your refund request for <strong>{selectedMentor.mentorName}</strong> has been
-                initiated. You will be notified once it is processed.
+                Your refund request for{" "}
+                <strong>{selectedMentor.mentorName}</strong> has been initiated.
+                You will be notified once it is processed.
               </p>
               <div className="mt-4">
                 <button

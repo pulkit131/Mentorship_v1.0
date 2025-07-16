@@ -35,7 +35,7 @@ const userReviews = [
   {
     id: 4,
     name: "Yuva D",
-    role: "BTech Junior",
+    role: "BTech 3rd Year",
     review: [
       "As a senior focused on placements, this platform cuts the noise and shows exactly what to prepare, how to frame answers, and what really matters."
     ],
