@@ -77,7 +77,7 @@ export const subscribeToPlan = async ({ email, planId }) => {
   };
 };
 
-export const checkUserHasPlan = async (email) => {
+export const checkSessionBookingAllowedByEmail = async (email) => {
   const user = await prisma.user.findUnique({
     where: { email },
   });
@@ -85,8 +85,9 @@ export const checkUserHasPlan = async (email) => {
   if (!user) throw new Error('User not found');
 
   return {
-    hasPlan: !!user.planType, // will be true if planType exists
+    allowed: user.planType !== 'BASIC',
     planType: user.planType,
   };
 };
+
 
