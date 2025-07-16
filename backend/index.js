@@ -6,6 +6,10 @@ import userRoutes from './routes/user/index.js';
 import planRoutes from './routes/plan/index.js';
 import sessionRoutes from './routes/session/index.js';
 import mentorshipRoutes from './routes/mentorship/index.js';
+import paymentRoutes from './routes/payment/index.js';
+import Razorpay from 'razorpay';
+import bodyParser from 'body-parser';
+import crypto from 'crypto';
 
 dotenv.config({ path: './.env' });
 
@@ -20,6 +24,8 @@ app.use('/api/users', userRoutes);
 app.use('/api/plans', planRoutes);
 app.use('/api/sessions', sessionRoutes);
 app.use('/api/mentorship', mentorshipRoutes);
+app.use('/api/payments', paymentRoutes);
+
 // Health check
 app.get('/', (req, res) => {
   res.send('Mentorship backend is up and running 🚀');

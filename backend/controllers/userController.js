@@ -1,4 +1,6 @@
+import { PrismaClient } from '@prisma/client';
 import * as userService from '../services/userService.js';
+const prisma = new PrismaClient();
 
 export const createUser = async (req, res, next) => {
   try {
@@ -48,6 +50,27 @@ export const checkBookingAllowedByEmailController = async (req, res) => {
     res.status(200).json(result);
   } catch (err) {
     res.status(404).json({ error: err.message });
+  }
+};
+
+export const checkUserExists = async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    return res.status(400).json({ error: 'Email is required' });
+  }
+
+  try {
+    const user = await prisma.user.findUnique({ where: { email } });
+
+    if (user) {
+      return res.status(200).json({ exists: true, user });
+    } else {
+      return res.status(404).json({ exists: false });
+    }
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ error: 'Server error', details: err.message });
   }
 };
 
