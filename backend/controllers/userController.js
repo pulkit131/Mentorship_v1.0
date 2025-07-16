@@ -41,12 +41,15 @@ export const subscribeUserToPlan = async (req, res) => {
   }
 };
 
-export const hasPlanController = async (req, res) => {
+import { checkSessionBookingAllowedByEmail } from '../services/userService.js'; // ✅ import
+
+export const checkBookingAllowedByEmailController = async (req, res) => {
   try {
     const { email } = req.params;
-    const result = await userService.checkUserHasPlan(email);
+    const result = await userService.checkSessionBookingAllowedByEmail(email);
     res.status(200).json(result);
   } catch (err) {
     res.status(404).json({ error: err.message });
   }
 };
+
