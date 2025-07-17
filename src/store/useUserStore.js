@@ -72,4 +72,16 @@ export const useUserStore = create((set) => ({
       set({ isLoading: false });
     }
   },
+
+  checkSessionBookingAllowedByEmail: async (email) => {
+    set({ isLoading: true });
+    try {
+      const res = await axiosInstance.get(`/users/checkBookingAllowed/${email}`);
+      return res.data;
+    } catch (error) {
+      toast.error(error?.response?.data?.error || 'Failed to check booking eligibility');
+    } finally {
+      set({ isLoading: false });
+    }
+  },
 }));

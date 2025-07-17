@@ -9,14 +9,13 @@ import { auth, provider, db } from "../firebase/config";
 import { signInWithPopup } from "firebase/auth";
 import { addDoc, collection, doc, getDoc, updateDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-
+//import {useUserStore} from "useUserStore";
 const mentors = ["Ravi Kumar", "Navyaa Sharma", "Hameedullah Khan Pathan"];
 const mentorMap = {
   "Ravi Kumar": "david-01",
   "Navyaa Sharma": "mike-01",
   "Hameedullah Khan Pathan": "emily-01",
 };
-
 const BookSessionForm = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
