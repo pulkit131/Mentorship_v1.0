@@ -7,9 +7,6 @@ import planRoutes from './routes/plan/index.js';
 import sessionRoutes from './routes/session/index.js';
 import mentorshipRoutes from './routes/mentorship/index.js';
 import paymentRoutes from './routes/payment/index.js';
-import Razorpay from 'razorpay';
-import bodyParser from 'body-parser';
-import crypto from 'crypto';
 import bookingRoutes from './routes/booking/index.js';
 
 dotenv.config({ path: './.env' });

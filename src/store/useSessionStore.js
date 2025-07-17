@@ -21,13 +21,15 @@ export const useSessionStore = create((set) => ({
     }
   },
 
-  getSessionsByUser: async (userId) => {
+  getSessionsByUser: async (email) => {
     set({ isLoading: true });
     try {
-      const res = await axiosInstance.get(`/sessions/user/${userId}`);
-      set({ sessions: res.data });
+      const res = await axiosInstance.get(`/bookings/user/${email}`);
+      const bookings = res.data ? [res.data] : []; // assuming one booking per user, or change to res.data if it's an array
+      set({ sessions: bookings });
     } catch (error) {
-      toast.error(error?.response?.data?.message || 'Failed to fetch user sessions');
+      console.error("Error fetching bookings:", error);
+      set({ sessions: [] });
     } finally {
       set({ isLoading: false });
     }

@@ -4,15 +4,14 @@ import BookingCard from "./UserBookingCard";
 
 const Dashboard = () => {
   const userEmail = localStorage.getItem("userEmail");
-  const userId = localStorage.getItem("userId"); 
 
   const { sessions, isLoading, getSessionsByUser } = useSessionStore();
 
   useEffect(() => {
-    if (userId) {
-      getSessionsByUser(userId);
+    if (userEmail) {
+      getSessionsByUser(userEmail);
     }
-  }, [userId]);
+  }, [userEmail]);
 
   return (
     <div className="min-w-screen min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 p-6 flex flex-col items-center">
@@ -31,8 +30,8 @@ const Dashboard = () => {
           <div className="flex flex-col md:flex-row flex-wrap gap-6">
             {sessions.map((session) => (
               <BookingCard
-                key={session._id}
-                name={session.mentorName || "Mentor"}
+                key={session.id}
+                name={session.mentor}
               />
             ))}
           </div>
