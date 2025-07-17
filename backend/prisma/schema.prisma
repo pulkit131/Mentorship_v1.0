@@ -81,3 +81,12 @@ model WaitlistEntry {
 
   user User @relation(fields: [userId], references: [id])
 }
+
+model BookingRequest {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String
+  contact   String
+  mentor    String
+  createdAt DateTime @default(now())
+}
