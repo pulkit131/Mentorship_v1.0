@@ -28,7 +28,7 @@ const BookSessionForm = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+ const handleSubmit = async (e) => {
   e.preventDefault();
 
   const selectedMentor = mentors.find((m) => m.name === formData.mentor);
@@ -44,24 +44,7 @@ const BookSessionForm = () => {
   }
 
   try {
-//1. Check subscription status
-    // const checkRes = await axiosInstance.get(`/users/${formData.email}/check-booking`);
-
-    // if (!checkRes.data.allowed && checkRes.data.planType === "BASIC") {
-    //   Swal.fire({
-    //     title: "Upgrade Required",
-    //     text: "Your current plan does not allow bookings. Please upgrade to proceed.",
-    //     icon: "info",
-    //     confirmButtonText: "Go to Plans",
-    //   }).then(() => {
-    //     navigate("/PremiumPlan"); // redirect to Premium Plan or Subscriptions section
-    //   });
-
-    //   return; // 🔥 stop here if not allowed
-    // }
-
-    //2. Proceed to book session
-    await axiosInstance.post("/bookings", {
+    await createBooking({
       name: formData.name,
       email: formData.email,
       contact: formData.contact,
@@ -81,12 +64,13 @@ const BookSessionForm = () => {
   } catch (err) {
     Swal.fire({
       title: "Booking Failed",
-      text: err?.response?.data?.error || "Something went wrong.",
+      text: err?.message || "Something went wrong.",
       icon: "error",
       confirmButtonText: "Retry",
     });
   }
 };
+
 
 
   return (

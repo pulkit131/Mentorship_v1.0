@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useBookingStore } from '../store/useBookingStore';
-import BookingCard from './BookingCard';
+import BookingCard from './UserBookingCard';
 
 const MyBookings = () => {
   const email = localStorage.getItem('userEmail');
