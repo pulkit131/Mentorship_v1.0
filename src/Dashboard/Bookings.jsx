@@ -1,25 +1,28 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useBookingStore } from '../store/useBookingStore';
 import BookingCard from './UserBookingCard';
 
 const MyBookings = () => {
-  const email = localStorage.getItem('userEmail');
-
   const { booking, getBookingByUser, isLoading } = useBookingStore();
+  const [email, setEmail] = useState(null);
 
   useEffect(() => {
-    if (email) {
-      getBookingByUser(email);
+    const storedEmail = localStorage.getItem('userEmail');
+    if (storedEmail) {
+      setEmail(storedEmail);
+      getBookingByUser(storedEmail);
     }
-  }, [email]);
+  }, []);
 
   if (isLoading) return <p>Loading your booking...</p>;
 
-  if (!booking) return <p>No booking found.</p>;
+  if (!booking || Object.keys(booking).length === 0) {
+    return <p>No booking found.</p>;
+  }
 
   return (
     <div className="flex justify-center mt-6">
-      <BookingCard name={booking.mentor} />
+      <BookingCard name={booking.mentor} date={booking.date} />
     </div>
   );
 };

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { ChevronDown, User, Phone, AtSign } from "lucide-react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { useBookingStore } from "../store/useBookingStore";
+import { useBookingStore } from "../store/useBookingStore"; // ✅ import your store function
 
 const mentors = [
   { name: "Ravi Kumar", email: "ravi.kumar@example.com" },
@@ -12,7 +12,7 @@ const mentors = [
 
 const BookSessionForm = () => {
   const navigate = useNavigate();
-  const { createBooking } = useBookingStore();
+  const createBooking = useBookingStore((state) => state.createBooking); // ✅ get createBooking from store
 
   const [formData, setFormData] = useState({
     name: "",
@@ -20,14 +20,6 @@ const BookSessionForm = () => {
     email: "",
     mentor: "",
   });
-
-  // Load email from localStorage on mount
-  useEffect(() => {
-    const storedEmail = localStorage.getItem("userEmail");
-    if (storedEmail) {
-      setFormData((prev) => ({ ...prev, email: storedEmail }));
-    }
-  }, []);
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -66,7 +58,7 @@ const BookSessionForm = () => {
         confirmButtonText: "Great!",
       });
 
-      setFormData({ name: "", contact: "", email: formData.email, mentor: "" });
+      setFormData({ name: "", contact: "", email: "", mentor: "" });
       navigate("/myDashboard");
     } catch (err) {
       Swal.fire({
@@ -121,7 +113,6 @@ const BookSessionForm = () => {
                 onChange={handleChange}
                 placeholder="Email address"
                 className="w-full border-2 border-black rounded-lg px-4 py-3 pl-12"
-                readOnly // Make it read-only since it's from localStorage
               />
               <AtSign className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
             </div>
