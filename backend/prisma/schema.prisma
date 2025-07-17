@@ -90,3 +90,15 @@ model BookingRequest {
   mentor    String
   createdAt DateTime @default(now())
 }
+
+model Payment {
+  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
+  status             String
+  userEmail          String   // email of the user
+  planName           String
+  subscriptionStarts DateTime @default(now())
+  subscriptionEnds   DateTime
+  createdAt          DateTime @default(now())
+}
+
+

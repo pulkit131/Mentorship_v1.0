@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment API Test</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2em; }
+    input, button { margin: 0.2em 0.5em 0.2em 0; }
+    .section { border: 1px solid #ccc; padding: 1em; margin-bottom: 2em; border-radius: 8px; }
+    .result { background: #f9f9f9; padding: 0.5em; border-radius: 4px; margin-top: 0.5em; }
+    label { display: block; margin-top: 0.5em; }
+  </style>
+</head>
+<body>
+  <h1>Payment API Test</h1>
+
+  <div class="section">
+    <h2>1. Create Order</h2>
+    <label>Amount: <input type="number" id="create-amount" value="599"></label>
+    <label>Currency: <input type="text" id="create-currency" value="INR"></label>
+    <button onclick="createOrder()">Create Order</button>
+    <div class="result" id="create-result"></div>
+  </div>
+
+  <div class="section">
+    <h2>2. Verify Payment</h2>
+    <label>Razorpay Order ID: <input type="text" id="verify-order-id"></label>
+    <label>Razorpay Payment ID: <input type="text" id="verify-payment-id"></label>
+    <label>Razorpay Signature: <input type="text" id="verify-signature"></label>
+    <label>Email: <input type="email" id="verify-email"></label>
+    <label>Plan Type: <input type="text" id="verify-plan-type" value="BEGINNER_TECHY"></label>
+    <button onclick="verifyPayment()">Verify Payment</button>
+    <div class="result" id="verify-result"></div>
+  </div>
+
+  <div class="section">
+    <h2>3. Get Payment History</h2>
+    <label>Email: <input type="email" id="history-email"></label>
+    <button onclick="getHistory()">Get History</button>
+    <div class="result" id="history-result"></div>
+  </div>
+
+  <script>
+    const API_BASE = "http://localhost:5000/api"; // Change port if needed
+
+    async function createOrder() {
+      const amount = document.getElementById('create-amount').value;
+      const currency = document.getElementById('create-currency').value;
+      const resDiv = document.getElementById('create-result');
+      resDiv.textContent = "Loading...";
+      try {
+        const res = await fetch(`${API_BASE}/payments/create-order`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ amount: Number(amount), currency })
+        });
+        const data = await res.json();
+        resDiv.textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        resDiv.textContent = "Error: " + err;
+      }
+    }
+
+    async function verifyPayment() {
+      const orderId = document.getElementById('verify-order-id').value;
+      const paymentId = document.getElementById('verify-payment-id').value;
+      const signature = document.getElementById('verify-signature').value;
+      const email = document.getElementById('verify-email').value;
+      const planType = document.getElementById('verify-plan-type').value;
+      const resDiv = document.getElementById('verify-result');
+      resDiv.textContent = "Loading...";
+      try {
+        const res = await fetch(`${API_BASE}/payments/verify`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            razorpay_order_id: orderId,
+            razorpay_payment_id: paymentId,
+            razorpay_signature: signature,
+            email,
+            planType
+          })
+        });
+        const data = await res.json();
+        resDiv.textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        resDiv.textContent = "Error: " + err;
+      }
+    }
+
+    async function getHistory() {
+      const email = document.getElementById('history-email').value;
+      const resDiv = document.getElementById('history-result');
+      resDiv.textContent = "Loading...";
+      try {
+        const res = await fetch(`${API_BASE}/payments/history?email=${encodeURIComponent(email)}`);
+        const data = await res.json();
+        resDiv.textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        resDiv.textContent = "Error: " + err;
+      }
+    }
+  </script>
+</body>
+</html>

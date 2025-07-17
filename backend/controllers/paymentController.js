@@ -56,6 +56,22 @@ export const verifyPaymentController = async (req, res) => {
       },
     });
 
+    // create a Payment record
+    const now = new Date();
+    const ends = new Date(now);
+    ends.setMonth(ends.getMonth() + 1);
+
+    await prisma.payment.create({
+      data: {
+        status: "Success",
+        userEmail: email,
+        planName: plan.name,
+        subscriptionStarts: now,
+        subscriptionEnds: ends,
+      },
+    });
+    // -------------------------------------------------
+
     return res.status(200).json({
       success: true,
       message: 'Payment verified and plan updated successfully.',
@@ -68,5 +84,21 @@ export const verifyPaymentController = async (req, res) => {
       message: 'Payment verified but user update failed.',
       error: err.message,
     });
+  }
+};
+
+export const getPaymentHistoryController = async (req, res) => {
+  const { email } = req.query;
+  if (!email) {
+    return res.status(400).json({ error: "Email is required" });
+  }
+  try {
+    const payments = await prisma.payment.findMany({
+      where: { userEmail: email },
+      orderBy: { createdAt: "desc" },
+    });
+    res.json(payments);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch payment history" });
   }
 };
