@@ -4,6 +4,7 @@ import { auth, provider } from "../firebase/config";
 import { signInWithPopup, signOut } from "firebase/auth";
 import Swal from "sweetalert2";
 import { LogOutIcon, LogInIcon, User, CreditCard, LayoutDashboard } from "lucide-react";
+import { useUserStore } from '../store/useUserStore';
 
 const Navbar = () => {
   const [userId, setUserId] = useState(localStorage.getItem("userId") || "");
@@ -18,6 +19,7 @@ const Navbar = () => {
   const [showMentors, setShowMentors] = useState(false);
   const desktopProfileRef = useRef(null);
   const mobileProfileRef = useRef(null);
+  const setUser = useUserStore((state) => state.setUser);
 
   useEffect(() => {
     if (userId === "9m1CekNjkERX5mLZWcQIdZGiXdG3") {
@@ -75,6 +77,8 @@ const handleNavigation = (sectionId) => {
         const idToken = await user.getIdToken();
         localStorage.setItem("token", idToken);
         setIsProfileOpen(false);
+        // Set user in Zustand store for global access
+        setUser({ email: user.email, uid: user.uid, name: user.displayName });
         Swal.fire({
           title: "Logged In Successfully",
           icon: "success",

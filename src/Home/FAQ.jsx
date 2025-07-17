@@ -29,13 +29,11 @@ const faqs = [
   },
   {
     question: "When will the mentors be available ?",
-    answer:
-      "During weekends once or twice a month .",
+    answer: "During weekends once or twice a month .",
   },
   {
     question: "When will the doubt solvers be available?",
-    answer:
-      "Everytime 24*7",
+    answer: "Everytime 24*7",
   },
   {
     question: "Can I cancel my subscription in between ?",
@@ -56,7 +54,10 @@ const FAQ = () => {
   };
 
   return (
-    <section id = "faq" className="py-10 min-h-screen bg-gradient-to-t from-white to-emerald-300">
+    <section
+      id="faq"
+      className="py-10 min-h-screen bg-gradient-to-t from-white to-emerald-300"
+    >
       <div className="max-w-2xl mx-auto px-4">
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold font-sans text-gray-900 mb-6 leading-tight">
@@ -68,7 +69,10 @@ const FAQ = () => {
         </div>
         <div className="flex flex-col gap-4 w-full">
           {faqs.map((faq, index) => (
-            <div key={index} className="w-full overflow-hidden rounded-[2rem] shadow border-2 border-black bg-white">
+            <div
+              key={index}
+              className="w-full overflow-hidden rounded-[2rem] shadow border-2 border-black bg-white"
+            >
               {/* Question Row */}
               <div
                 className="flex items-center justify-between w-full px-6 py-3"
@@ -85,8 +89,9 @@ const FAQ = () => {
                   aria-label={openAnswer[index] ? "Collapse" : "Expand"}
                 >
                   <ChevronDown
-                    className={`text-white w-5 h-5 transition-transform duration-300 ${openAnswer[index] ? "rotate-180" : ""
-                      }`}
+                    className={`text-white w-5 h-5 transition-transform duration-300 ${
+                      openAnswer[index] ? "rotate-180" : ""
+                    }`}
                   />
                 </button>
               </div>
@@ -95,21 +100,20 @@ const FAQ = () => {
                 ref={(el) => (answerRefs.current[index] = el)}
                 style={{
                   maxHeight: openAnswer[index]
-                    ? (answerRefs.current[index]?.scrollHeight ?? 0) + 48+ "px"
+                    ? (answerRefs.current[index]?.scrollHeight ?? 0) + 48 + "px"
                     : "0px",
                   opacity: openAnswer[index] ? 1 : 0,
-                  paddingTop: openAnswer[index] ? "1.5rem" : "0rem",  // 1.5rem = py-6 top
+                  paddingTop: openAnswer[index] ? "1.5rem" : "0rem", // 1.5rem = py-6 top
                   paddingBottom: openAnswer[index] ? "1.5rem" : "0rem", // 1.5rem = py-6 bottom
                   transition:
                     "max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.4s, padding-top 0.4s, padding-bottom 0.4s",
-                  willChange: "max-height, opacity, padding-top, padding-bottom",
+                  willChange:
+                    "max-height, opacity, padding-top, padding-bottom",
                 }}
                 className="overflow-hidden text-gray-800 text-base sm:text-lg font-sans font-normal px-6"
               >
                 {faq.answer}
               </div>
-
-
             </div>
           ))}
         </div>

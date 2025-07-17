@@ -3,8 +3,11 @@ import { axiosInstance } from '../lib/axios';
 import toast from 'react-hot-toast';
 
 export const useUserStore = create((set) => ({
+  user: null, // Currently logged-in user
   users: [],
   isLoading: false,
+
+  setUser: (user) => set({ user }), // Set the logged-in user
 
   createUser: async (data) => {
     set({ isLoading: true });
