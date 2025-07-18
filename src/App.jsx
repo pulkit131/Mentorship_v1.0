@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useUserStore } from "./store/useUserStore";
 import ProtectedRoute from "./Components/ProtectedRoutes";
 import Navbar from "./Home/Navbar";
 import Home from "./Home/Home";
@@ -23,6 +24,10 @@ import ShippingPolicyModal from "./Home/ShippingPolicyModal";
 import PaymentHistory from "./Home/PaymentHistory";
 function App() {
   const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    useUserStore.getState().loadUserFromLocalStorage();
+  }, []);
 
   return (
     <Router>

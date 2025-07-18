@@ -30,6 +30,7 @@ const PremiumPlans = () => {
   const checkUserHasPlan = useUserStore((state) => state.checkUserHasPlan);
 
   const handleSubscribe = async (planType, amount, email) => {
+    console.log("user", user);
     if (!user) {
       alert("no user!");
     }
