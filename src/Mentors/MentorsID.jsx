@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useSessionStore } from "../store/useSessionStore";
+import { useBookingStore } from "../store/useBookingStore";
 import MentorBookingCard from "../Dashboard/MentorBookingCard";
 
 const MentorDashboard = () => {
   const { id: mentorId } = useParams();
-  const { sessions, isLoading, getSessionsByMentor } = useSessionStore();
+  const { booking: sessions, isLoading, getBookingByUser } = useBookingStore();
 
   useEffect(() => {
     if (mentorId) {
-      getSessionsByMentor(mentorId);
+      getBookingByUser(mentorId); // If you have a getBookingsByMentor, use that
     }
   }, [mentorId]);
 

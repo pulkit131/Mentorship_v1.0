@@ -139,7 +139,7 @@ export const bookSession = async (data) => {
 /**
  * Check if user has valid plan and sessions remaining
  */
-const checkUserPlanStatus = async (user) => {
+export const checkUserPlanStatus = async (user) => {
   // Get user's latest payment
   const latestPayment = await prisma.payment.findFirst({
     where: { 

@@ -5,7 +5,8 @@ import {
   getUserSessions,
   getMentorSessions,
   getUserPlanStatus,
-  processWaitlist
+  processWaitlist,
+  getMentorWaitlistStatus
 } from '../../controllers/bookingController.js';
 
 const router = express.Router();
@@ -25,5 +26,7 @@ router.get('/user/:userId/plan-status', getUserPlanStatus);
 
 // Admin: Process waitlist for mentor
 router.post('/process-waitlist/:mentorId', processWaitlist);
+
+router.get('/mentor/:mentorId/waitlist-status', getMentorWaitlistStatus);
 
 export default router;

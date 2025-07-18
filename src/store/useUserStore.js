@@ -43,8 +43,10 @@ export const useUserStore = create((set) => ({
       set((state) => ({
         users: [...state.users, res.data],
       }));
+      return res.data; // <-- THIS IS IMPORTANT
     } catch (error) {
       toast.error(error?.response?.data?.message || 'Failed to create user');
+      return null; // <-- Return null on error
     } finally {
       set({ isLoading: false });
     }

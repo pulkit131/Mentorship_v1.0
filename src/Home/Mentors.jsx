@@ -1,37 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import mentor1 from "../assets/mentor/hameedullah.png";
 import mentor2 from "../assets/mentor/navyaa.png";
 import mentor3 from "../assets/mentor/ravi.png";
-import { useMentorStore } from "../store/useMentorStore";
-import { useEffect } from "react";
-
-// const mentors = [
-//   {
-//     name: "Hameedullah Khan Pathan",
-//     profession: "Software Developer",
-//     company: "Trellix",
-//     description: "Python, MySQL, DBMS",
-//     img: mentor1,
-//   },
-//   {
-//     name: "Navyaa Sharma",
-//     profession: "Software Engineer",
-//     company: "Google",
-//     description: "Java, Machine Learning, TypeScript",
-//     img: mentor2,
-//   },
-//   {
-//     name: "Ravi Kumar",
-//     profession: "Software Developer",
-//     company: "Ex-Google",
-//     description: "React.js, AngularJS, C++",
-//     img: mentor3,
-//   },
-// ];
+import { axiosInstance } from "../lib/axios";
 
 export default function MentorsSection() {
-  const { mentors, fetchMentors, isLoading } = useMentorStore();
-  useEffect(() => { fetchMentors(); }, []);
+  const [mentors, setMentors] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchMentors = async () => {
+      setIsLoading(true);
+      try {
+        const res = await axiosInstance.get("/users?role=MENTOR");
+        setMentors(res.data);
+      } catch (error) {
+        setMentors([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchMentors();
+  }, []);
+
   return (
     <section
       id="mentors"

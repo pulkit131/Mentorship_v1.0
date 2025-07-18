@@ -25,8 +25,10 @@ export const createUser = async ({ name, email, profileImage, role = 'USER', pla
   const planPrice = PLAN_PRICING[planType];
   const freeSessions = planType === 'BASIC' ? 4 : 0;
 
-  return await prisma.user.create({
-    data: {
+  return await prisma.user.upsert({
+    where: { email },
+    update: {},
+    create: {
       name,
       email,
       profileImage,

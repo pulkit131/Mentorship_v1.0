@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 export const useBookingStore = create((set) => ({
   isLoading: false,
   booking: null,
+  planStatus: null,
 
   createBooking: async (data) => {
     set({ isLoading: true });
@@ -15,7 +16,7 @@ export const useBookingStore = create((set) => ({
       } else {
         toast.success(res.data.message || 'Booking created successfully');
       }
-      set({ booking: res.data.booking || res.data.waitlistEntry });
+      set({ booking: res.data.session || res.data.waitlistEntry });
     } catch (error) {
       toast.error(error?.response?.data?.error || 'Failed to create booking');
     } finally {
@@ -34,4 +35,42 @@ export const useBookingStore = create((set) => ({
       set({ isLoading: false });
     }
   },
+
+  getBookingByMentor: async (mentorId) => {
+    set({ isLoading: true });
+    try {
+      const res = await axiosInstance.get(`/bookings/mentor/${mentorId}`);
+      set({ booking: res.data });
+    } catch (error) {
+      toast.error(error?.response?.data?.error || 'Failed to fetch mentor bookings');
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  getUserPlanStatus: async (userId) => {
+    set({ isLoading: true });
+    try {
+      const res = await axiosInstance.get(`/bookings/user/${userId}/plan-status`);
+      set({ planStatus: res.data });
+    } catch (error) {
+      toast.error(error?.response?.data?.error || 'Failed to fetch plan status');
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  processWaitlist: async (mentorId) => {
+    set({ isLoading: true });
+    try {
+      const res = await axiosInstance.post(`/bookings/process-waitlist/${mentorId}`);
+      toast.success(res.data.message || 'Processed waitlist');
+    } catch (error) {
+      toast.error(error?.response?.data?.error || 'Failed to process waitlist');
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  resetBooking: () => set({ booking: null, planStatus: null }),
 }));

@@ -20,6 +20,7 @@ const Navbar = () => {
   const desktopProfileRef = useRef(null);
   const mobileProfileRef = useRef(null);
   const setUser = useUserStore((state) => state.setUser);
+  const createUser = useUserStore((state) => state.createUser);
 
   useEffect(() => {
     if (userId === "9m1CekNjkERX5mLZWcQIdZGiXdG3") {
@@ -69,16 +70,29 @@ const handleNavigation = (sectionId) => {
       .then(async (result) => {
         const user = result.user;
         setIsAuth(true);
-        setUserId(user.uid);
         setUserEmail(user.email);
         localStorage.setItem("isAuth", true);
         localStorage.setItem("userEmail", user.email);
-        localStorage.setItem("userId", user.uid);
+        // Remove setting userId to Firebase UID here
         const idToken = await user.getIdToken();
         localStorage.setItem("token", idToken);
         setIsProfileOpen(false);
         // Set user in Zustand store for global access
         setUser({ email: user.email, uid: user.uid, name: user.displayName });
+        // Create user in backend database and get backend user _id
+        const userObj = await createUser({
+          email: user.email,
+          uid: user.uid,
+          name: user.displayName,
+        });
+        // Store backend user _id in localStorage
+        if (userObj && userObj.id) {
+          localStorage.setItem("userId", userObj.id);
+          setUserId(userObj.id);
+          console.log("Stored backend userId:", userObj.id);
+        } else {
+          console.error("No backend user id returned from createUser!", userObj);
+        }
         Swal.fire({
           title: "Logged In Successfully",
           icon: "success",

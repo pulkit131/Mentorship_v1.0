@@ -2,15 +2,28 @@ import React, { useState, useEffect } from "react";
 import { ChevronDown, User, Phone, AtSign } from "lucide-react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { useBookingStore } from "../store/useBookingStore"; // import your store function
-import { useMentorStore } from "../store/useMentorStore";
+import { useBookingStore } from "../store/useBookingStore";
+import { axiosInstance } from "../lib/axios";
 
 const BookSessionForm = () => {
   const navigate = useNavigate();
-  const createBooking = useBookingStore((state) => state.createBooking); // get createBooking from store
-  const { mentors, fetchMentors, isLoading: mentorsLoading } = useMentorStore();
+  const createBooking = useBookingStore((state) => state.createBooking);
+
+  const [mentors, setMentors] = useState([]);
+  const [mentorsLoading, setMentorsLoading] = useState(false);
 
   useEffect(() => {
+    const fetchMentors = async () => {
+      setMentorsLoading(true);
+      try {
+        const res = await axiosInstance.get('/users?role=MENTOR');
+        setMentors(res.data);
+      } catch (error) {
+        setMentors([]);
+      } finally {
+        setMentorsLoading(false);
+      }
+    };
     fetchMentors();
   }, []);
 
@@ -35,23 +48,36 @@ const BookSessionForm = () => {
     const mentorId = formData.mentor;
     const userId = localStorage.getItem("userId");
 
-    //check if mentorId is a number, and if userId is a number
-    console.log(mentorId, userId, formData.timeSlot);
-
-    if (!formData.name || !formData.email || !formData.contact || !mentorId) {
+    // Validate all fields
+    if (!formData.name || !formData.email || !formData.contact || !mentorId || !formData.timeSlot) {
       return Swal.fire({
         title: "Missing Fields",
-        text: "Please fill in all fields and select a mentor.",
+        text: "Please fill in all fields and select a mentor and time slot.",
+        icon: "warning",
+        confirmButtonText: "Okay",
+      });
+    }
+
+    // Validate timeSlot is in the future
+    if (new Date(formData.timeSlot) <= new Date()) {
+      return Swal.fire({
+        title: "Invalid Time Slot",
+        text: "Please select a time slot in the future.",
         icon: "warning",
         confirmButtonText: "Okay",
       });
     }
 
     try {
+      console.log({
+        userId,
+        mentorId,
+        timeSlot: new Date(formData.timeSlot).toISOString(),
+      });
       await createBooking({
         userId,
         mentorId,
-        timeSlot: new Date().toISOString(),
+        timeSlot: new Date(formData.timeSlot).toISOString(),
       });
 
       Swal.fire({
@@ -61,7 +87,7 @@ const BookSessionForm = () => {
         confirmButtonText: "Great!",
       });
 
-      setFormData({ name: "", contact: "", email: "", mentor: "" });
+      setFormData({ name: "", contact: "", email: "", mentor: "", timeSlot: "" });
       navigate("/myDashboard");
     } catch (err) {
       Swal.fire({
@@ -130,13 +156,25 @@ const BookSessionForm = () => {
                 disabled={mentorsLoading}
               >
                 <option value="">Select Mentor</option>
-                {mentors.map((m) => (
-                  <option key={m.id} value={m.id}>
-                    {m.name} ({m.email})
+                {mentors.map((mentor) => (
+                  <option key={mentor.id} value={mentor.id}>
+                    {mentor.name}
                   </option>
                 ))}
               </select>
               <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+            </div>
+
+            {/* Time Slot */}
+            <div className="relative">
+              <input
+                type="datetime-local"
+                name="timeSlot"
+                value={formData.timeSlot}
+                onChange={handleChange}
+                required
+                className="w-full border-2 border-black rounded-lg px-4 py-3 pl-12"
+              />
             </div>
 
             {/* Submit */}
