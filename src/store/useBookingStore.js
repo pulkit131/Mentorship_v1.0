@@ -10,8 +10,12 @@ export const useBookingStore = create((set) => ({
     set({ isLoading: true });
     try {
       const res = await axiosInstance.post('/bookings', data);
-      toast.success(res.data.message || 'Booking created successfully');
-      set({ booking: res.data.booking });
+      if (res.data.waitlistEntry) {
+        toast.success("Mentor is full. You have been added to the waitlist.");
+      } else {
+        toast.success(res.data.message || 'Booking created successfully');
+      }
+      set({ booking: res.data.booking || res.data.waitlistEntry });
     } catch (error) {
       toast.error(error?.response?.data?.error || 'Failed to create booking');
     } finally {
@@ -19,10 +23,10 @@ export const useBookingStore = create((set) => ({
     }
   },
 
-  getBookingByUser: async (email) => {
+  getBookingByUser: async (userId) => {
     set({ isLoading: true });
     try {
-      const res = await axiosInstance.get(`/bookings/user/${email}`);
+      const res = await axiosInstance.get(`/bookings/user/${userId}`);
       set({ booking: res.data });
     } catch (error) {
       toast.error(error?.response?.data?.error || 'Failed to fetch booking');

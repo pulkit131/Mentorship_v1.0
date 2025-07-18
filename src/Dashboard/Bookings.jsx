@@ -4,25 +4,38 @@ import BookingCard from './UserBookingCard';
 
 const MyBookings = () => {
   const { booking, getBookingByUser, isLoading } = useBookingStore();
-  const [email, setEmail] = useState(null);
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
-    const storedEmail = localStorage.getItem('userEmail');
-    if (storedEmail) {
-      setEmail(storedEmail);
-      getBookingByUser(storedEmail);
+    const storedUserId = localStorage.getItem('userId');
+    if (storedUserId) {
+      setUserId(storedUserId);
+      getBookingByUser(storedUserId);
     }
   }, []);
 
-  if (isLoading) return <p>Loading your booking...</p>;
+  if (isLoading) return <p>Loading your bookings...</p>;
 
-  if (!booking || Object.keys(booking).length === 0) {
-    return <p>No booking found.</p>;
+  if (!booking || (Array.isArray(booking) && booking.length === 0)) {
+    return <p>No bookings found.</p>;
   }
 
+  // If booking is an array, map over it
+  const bookingsArray = Array.isArray(booking) ? booking : [booking];
+
   return (
-    <div className="flex justify-center mt-6">
-      <BookingCard name={booking.mentor} date={booking.date} />
+    <div className="flex flex-wrap justify-center mt-6 gap-4">
+      {bookingsArray.map((b, idx) => (
+        <BookingCard
+          key={b.id || idx}
+          name={b.mentor?.name}
+          date={b.timeSlot}
+          status={b.status}
+          isWaitlist={!!b.waitlistEntry}
+          mentorEmail={b.mentor?.email}
+          // onDelete={...} // Add if you implement delete
+        />
+      ))}
     </div>
   );
 };

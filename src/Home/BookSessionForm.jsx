@@ -1,24 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ChevronDown, User, Phone, AtSign } from "lucide-react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { useBookingStore } from "../store/useBookingStore"; // ✅ import your store function
-
-const mentors = [
-  { name: "Ravi Kumar", email: "ravi.kumar@example.com" },
-  { name: "Navyaa Sharma", email: "navyaa.sharma@example.com" },
-  { name: "Hameedullah Khan Pathan", email: "hameedullah@example.com" },
-];
+import { useBookingStore } from "../store/useBookingStore"; // import your store function
+import { useMentorStore } from "../store/useMentorStore";
 
 const BookSessionForm = () => {
   const navigate = useNavigate();
-  const createBooking = useBookingStore((state) => state.createBooking); // ✅ get createBooking from store
+  const createBooking = useBookingStore((state) => state.createBooking); // get createBooking from store
+  const { mentors, fetchMentors, isLoading: mentorsLoading } = useMentorStore();
+
+  useEffect(() => {
+    fetchMentors();
+  }, []);
 
   const [formData, setFormData] = useState({
     name: "",
     contact: "",
     email: "",
     mentor: "",
+    timeSlot: "",
   });
 
   const handleChange = (e) => {
@@ -31,10 +32,13 @@ const BookSessionForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const selectedMentor = mentors.find((m) => m.name === formData.mentor);
-    const mentorEmail = selectedMentor?.email;
+    const mentorId = formData.mentor;
+    const userId = localStorage.getItem("userId");
 
-    if (!formData.name || !formData.email || !formData.contact || !mentorEmail) {
+    //check if mentorId is a number, and if userId is a number
+    console.log(mentorId, userId, formData.timeSlot);
+
+    if (!formData.name || !formData.email || !formData.contact || !mentorId) {
       return Swal.fire({
         title: "Missing Fields",
         text: "Please fill in all fields and select a mentor.",
@@ -45,10 +49,9 @@ const BookSessionForm = () => {
 
     try {
       await createBooking({
-        name: formData.name,
-        email: formData.email,
-        contact: formData.contact,
-        mentor: formData.mentor,
+        userId,
+        mentorId,
+        timeSlot: new Date().toISOString(),
       });
 
       Swal.fire({
@@ -124,11 +127,12 @@ const BookSessionForm = () => {
                 value={formData.mentor}
                 onChange={handleChange}
                 className="w-full border-2 border-black rounded-lg px-4 py-3 appearance-none"
+                disabled={mentorsLoading}
               >
                 <option value="">Select Mentor</option>
                 {mentors.map((m) => (
-                  <option key={m.email} value={m.name}>
-                    {m.name}
+                  <option key={m.id} value={m.id}>
+                    {m.name} ({m.email})
                   </option>
                 ))}
               </select>

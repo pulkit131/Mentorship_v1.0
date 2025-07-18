@@ -4,26 +4,14 @@ import { useSessionStore } from "../store/useSessionStore";
 import MentorBookingCard from "../Dashboard/MentorBookingCard";
 
 const MentorDashboard = () => {
-  const { id: mentorId } = useParams(); // Mentor ID from URL
-
+  const { id: mentorId } = useParams();
   const { sessions, isLoading, getSessionsByMentor } = useSessionStore();
 
   useEffect(() => {
     if (mentorId) {
       getSessionsByMentor(mentorId);
     }
-  }, [mentorId, getSessionsByMentor]);
-
-  // Reset session booking
-  const handleDelete = async () => {
-    try {
-      // Replace this with a zustand method if you create one later
-      await axiosInstance.patch(`/sessions/reset/${mentorId}`);
-      getSessionsByMentor(mentorId); // Refresh after delete
-    } catch (error) {
-      console.error("Error resetting booking:", error);
-    }
-  };
+  }, [mentorId]);
 
   if (isLoading) return <p className="p-5">Loading...</p>;
 
@@ -37,9 +25,12 @@ const MentorDashboard = () => {
           {sessions.length > 0 ? (
             sessions.map((session) => (
               <MentorBookingCard
-                key={session._id}
-                name={session.bookedBy || "Unknown"}
-                onDelete={handleDelete}
+                key={session.id}
+                name={session.user?.name || "Unknown"}
+                date={session.timeSlot}
+                userEmail={session.user?.email}
+                status={session.status}
+                // onDelete={...} // Add if you implement delete
               />
             ))
           ) : (

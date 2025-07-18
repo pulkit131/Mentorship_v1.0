@@ -52,6 +52,13 @@ export const deleteUser = async (id) => {
   return await prisma.user.delete({ where: { id } });
 };
 
+export const getAllUsersByRole = async (role) => {
+  return await prisma.user.findMany({
+    where: { role },
+    select: { id: true, name: true, email: true, profileImage: true }
+  });
+};
+
 export const subscribeToPlan = async ({ email, planId }) => {
   const user = await prisma.user.findUnique({ where: { email } });
   if (!user) throw new Error('User not found');

@@ -13,7 +13,13 @@ export const createUser = async (req, res, next) => {
 
 export const getUsers = async (req, res, next) => {
   try {
-    const users = await userService.getAllUsers();
+    const { role } = req.query;
+    let users;
+    if (role) {
+      users = await userService.getAllUsersByRole(role);
+    } else {
+      users = await userService.getAllUsers();
+    }
     res.status(200).json(users);
   } catch (err) {
     next(err);

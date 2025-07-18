@@ -6,29 +6,12 @@ export const useSessionStore = create((set) => ({
   sessions: [],
   isLoading: false,
 
-  createSession: async (data) => {
+  getSessionsByUser: async (userId) => {
     set({ isLoading: true });
     try {
-      const res = await axiosInstance.post('/sessions', data);
-      toast.success('Session created successfully');
-      set((state) => ({
-        sessions: [...state.sessions, res.data],
-      }));
+      const res = await axiosInstance.get(`/bookings/user/${userId}`);
+      set({ sessions: Array.isArray(res.data) ? res.data : [res.data] });
     } catch (error) {
-      toast.error(error?.response?.data?.message || 'Failed to create session');
-    } finally {
-      set({ isLoading: false });
-    }
-  },
-
-  getSessionsByUser: async (email) => {
-    set({ isLoading: true });
-    try {
-      const res = await axiosInstance.get(`/bookings/user/${email}`);
-      const bookings = res.data ? [res.data] : []; // assuming one booking per user, or change to res.data if it's an array
-      set({ sessions: bookings });
-    } catch (error) {
-      console.error("Error fetching bookings:", error);
       set({ sessions: [] });
     } finally {
       set({ isLoading: false });
@@ -38,10 +21,10 @@ export const useSessionStore = create((set) => ({
   getSessionsByMentor: async (mentorId) => {
     set({ isLoading: true });
     try {
-      const res = await axiosInstance.get(`/sessions/mentor/${mentorId}`);
-      set({ sessions: res.data });
+      const res = await axiosInstance.get(`/bookings/mentor/${mentorId}`);
+      set({ sessions: Array.isArray(res.data) ? res.data : [res.data] });
     } catch (error) {
-      toast.error(error?.response?.data?.message || 'Failed to fetch mentor sessions');
+      set({ sessions: [] });
     } finally {
       set({ isLoading: false });
     }
