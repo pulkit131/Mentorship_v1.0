@@ -19,28 +19,37 @@ enum Role {
 }
 
 model User {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  name         String
-  email        String   @unique
-  profileImage String?
-  role         Role     @default(USER)
-  planType     PlanType @default(BASIC)
-  planPrice    Int      @default(0)
-  freeSessions Int      @default(4)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  email          String   @unique
+  profileImage   String?
+  role           Role     @default(USER)
+  planType       PlanType @default(BASIC)
+  planPrice      Int      @default(0)
+  freeSessions   Int      @default(4)
+  sessionCount   Int      @default(0)
+  planStartDate  DateTime?
+  planEndDate    DateTime?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
   // Session relationships
-  sessions       Session[] @relation("UserSessions")
-  mentorSessions Session[] @relation("MentorSessions")
+  sessions        Session[] @relation("UserSessions")
+  mentorSessions  Session[] @relation("MentorSessions")
 
   // Mentorship assignment relationships
-  assignedAsMentor  MentorshipAssignment[] @relation("AssignedMentor")
-  assignedAsStudent MentorshipAssignment[] @relation("AssignedStudent")
+  assignedStudents       Assignment[]            @relation("AssignedMentor")
+  mentorAssignment       Assignment?             @relation("AssignedStudent")
+
+  // ⬇ Add these two lines
+  mentorshipAssignmentsAsStudent MentorshipAssignment[] @relation("AssignedStudent")
+  mentorshipAssignmentsAsMentor  MentorshipAssignment[] @relation("AssignedMentor")
 
   // Waitlist
-  waitlistEntries WaitlistEntry[]
+  waitlistEntries        WaitlistEntry[]
+  waitlistMentorFor      WaitlistEntry[] @relation("MentorWaitlist")
 }
+
 
 model Session {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
@@ -74,13 +83,27 @@ model MentorshipAssignment {
   mentor  User @relation("AssignedMentor", fields: [mentorId], references: [id])
 }
 
+
+model Assignment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  studentId String   @unique @db.ObjectId  // One student can only be assigned to one mentor
+  mentorId  String   @db.ObjectId
+  createdAt DateTime @default(now())
+
+  student User @relation("AssignedStudent", fields: [studentId], references: [id])
+  mentor  User @relation("AssignedMentor", fields: [mentorId], references: [id])
+}
+
 model WaitlistEntry {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   userId    String   @db.ObjectId
+  mentorId  String   @db.ObjectId
   createdAt DateTime @default(now())
 
-  user User @relation(fields: [userId], references: [id])
+  user   User @relation(fields: [userId], references: [id])
+  mentor User @relation("MentorWaitlist", fields: [mentorId], references: [id])
 }
+
 
 model BookingRequest {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
