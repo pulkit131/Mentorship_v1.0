@@ -93,7 +93,7 @@ const Info = () => {
                 <div className="space-y-4 sm:space-y-6">
                   {whatItsNotPoints.map((point, index) => (
                     <div key={index} className="flex items-start gap-2 sm:gap-3">
-                      <XCircle className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-400 flex-shrink-0 mt-0.5 sm:mt-0" />
+                      <XCircle className="w-5 h-5 sm:w-6 sm:h-6 text-red-600 flex-shrink-0 mt-0.5 sm:mt-0" />
                       <span className="text-sm sm:text-base lg:text-lg text-black">
                         {point} 
                       </span>

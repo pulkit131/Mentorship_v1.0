@@ -108,21 +108,22 @@ const PremiumPlans = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-white px-2 sm:px-4 py-8">
       <div className="w-full flex justify-center mt-8">
-        <div className="bg-[#24282f] text-[#0047ab] text-xl font-semibold rounded-full px-6 py-2 text-sm flex items-center gap-2 shadow-sm">
-          <span role="img" aria-label="celebration">
-            🎉
-          </span>
-          Early Bird Offer – Limited Time Only!
-        </div>
+        
       </div>
 
       <h1 className="text-3xl sm:text-4xl font-bold text-black mb-4 text-center">
         Choose Your Plan
       </h1>
-      <p className="text-xl sm:text-lg text-black text-center mb-8 font-medium max-w-2xl">
+      <p className="text-xl sm:text-lg text-black text-center mb-5 font-medium max-w-2xl">
         Get unlimited access to mentors, priority booking, and exclusive
         resources.
       </p>
+      <div className="bg-[#F0F9FF] text-[#0047ab] text-xl font-semibold rounded-full px-6 py-2 text-sm flex items-center gap-2 shadow-sm mb-7">
+          <span role="img" aria-label="celebration">
+            🎉
+          </span>
+          Early Bird Offer – Limited Time Only!
+        </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 w-full max-w-5xl">
         <div className="bg-white border border-3 border-[#dbeafe] rounded-[32px] sm:rounded-[43px] w-full flex flex-col items-center px-4 sm:px-8 pt-8 pb-6 justify-between">
@@ -177,7 +178,7 @@ const PremiumPlans = () => {
             >
               Subscribe Now
             </button>
-            <p className="text-xl font-semibold text-black text-center mt-1 flex items-center justify-center gap-1">
+            <p className="text-md font-semibold text-black text-center mt-1 flex items-center justify-center gap-1">
               Secure payment powered by
               <img
                 src={RazorpayLogo}
@@ -248,7 +249,7 @@ const PremiumPlans = () => {
             >
               Subscribe Now
             </button>
-            <p className="text-xl font-semibold text-black text-center mt-1 flex items-center justify-center gap-1">
+            <p className="text-md font-semibold text-black text-center mt-1 flex items-center justify-center gap-1">
               Secure payment powered by
               <img
                 src={RazorpayLogo}

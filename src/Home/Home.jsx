@@ -11,7 +11,7 @@ const userReviews = [
   {
     id: 1,
     name: "Upayan mazumder",
-    role: "BTech Sophomore",
+    role: "BTech 2nd Year",
     review: [
       "Being guided by actual engineers from top companies gave my DSA prep real direction. Every session felt practical, relevant, and deeply insightful.",
     ],
@@ -19,7 +19,7 @@ const userReviews = [
   {
     id: 2,
     name: "Maneet Singh",
-    role: "BTech Fresher",
+    role: "BTech 1st Year",
     review: [
       "The biggest value is the access to real industry professionals working at Google, Amazon who guide you based on their own experience.",
     ],
@@ -27,7 +27,7 @@ const userReviews = [
   {
     id: 3,
     name: "Prince Yadav",
-    role: "BTech Fresher",
+    role: "BTech 1st Year",
     review: [
       "The sessions go beyond just theory or basic mentorship. Everything feels tailored to what the tech industry really expects.",
     ],
@@ -35,7 +35,7 @@ const userReviews = [
   {
     id: 4,
     name: "Yuva D",
-    role: "BTech Junior",
+    role: "BTech 3rd Year",
     review: [
       "As a senior focused on placements, this platform cuts the noise and shows exactly what to prepare, how to frame answers, and what really matters."
     ],

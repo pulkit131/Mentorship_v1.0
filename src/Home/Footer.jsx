@@ -28,23 +28,30 @@ const Footer = () => (
                 Terms and condition
               </Link>
             </li>
-            <li><Link
-                to = "/privacy"
-                className="underline hover:text-[#21e6c1] transition bg-transparent border-none p-0 m-0 cursor-pointer"
-              >
-              Privacy</Link></li>
-            <li><Link to = "/cancellation"
-            className="underline hover:text-[#21e6c1] transition bg-transparent border-none p-0 m-0 cursor-pointer"
-              >
-            Cancellation and refund
-            </Link></li>
             <li>
               <Link
-                to = "/shipping"
+                to="/privacy"
                 className="underline hover:text-[#21e6c1] transition bg-transparent border-none p-0 m-0 cursor-pointer"
               >
-              Shipping and delivery
-              </Link></li>
+                Privacy
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/cancellation"
+                className="underline hover:text-[#21e6c1] transition bg-transparent border-none p-0 m-0 cursor-pointer"
+              >
+                Cancellation and refund
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/shipping"
+                className="underline hover:text-[#21e6c1] transition bg-transparent border-none p-0 m-0 cursor-pointer"
+              >
+                Shipping and delivery
+              </Link>
+            </li>
             <li>Cookies</li>
           </ul>
         </div>
@@ -57,14 +64,17 @@ const Footer = () => (
         </div>
         {/* Newsletter */}
         <div className="w-full md:w-[340px] bg-[#172042] rounded-[8px] p-6 flex flex-col gap-3 mt-8 md:mt-0">
-          <h3 className="font-bold text-base text-white mb-1">Subscribe to our Newsletter!</h3>
+          <h3 className="font-bold text-base text-white mb-1">
+            Subscribe to our Newsletter!
+          </h3>
           <input
             type="text"
             placeholder="Enter your Name"
             className="rounded-lg px-4 py-3 text-[16px] text-black focus:outline-none border border-[#e1c77a] bg-white font-medium"
           />
           <p className="text-xs text-[#bfc8db] mt-1">
-            Hello, join us today. Connecting engineering students with industry professionals for career growth and success.
+            Hello, join us today. Connecting engineering students with industry
+            professionals for career growth and success.
           </p>
         </div>
       </div>
@@ -73,19 +83,37 @@ const Footer = () => (
       {/* Bottom bar */}
       <div className="w-full max-w-[1200px] px-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div className="flex items-center gap-2">
-          <span className="text-2xl font-extrabold text-[#21e6c1]">Letsgetmentors</span>
+          <span className="text-2xl font-extrabold text-[#21e6c1]">
+            Letsgetmentors
+          </span>
         </div>
-        <div className="text-xs text-[#bfc8db] font-semibold">
-          © 2025 Letsgetmentors. All rights reserved. Made with <span className="text-red-400">♥</span> for engineering students
+        <div className="flex flex-col items-center text-center text-xs text-[#bfc8db] font-semibold">
+          © 2025 Letsgetmentors. All rights reserved.
+          <div className="text-xl font-extrabold text-white">
+            Made with <span className="text-red-400">♥</span> for engineering
+            students   
+          </div>
         </div>
         <div className="flex gap-4">
-          <a href="#" aria-label="LinkedIn" className="rounded-full bg-[#172042] p-2 hover:bg-[#2196f3] transition-colors">
+          <a
+            href="#"
+            aria-label="LinkedIn"
+            className="rounded-full bg-[#172042] p-2 hover:bg-[#2196f3] transition-colors"
+          >
             <FaLinkedinIn className="text-xl text-[#bfc8db] hover:text-white" />
           </a>
-          <a href="#" aria-label="Facebook" className="rounded-full bg-[#172042] p-2 hover:bg-[#2196f3] transition-colors">
+          <a
+            href="#"
+            aria-label="Facebook"
+            className="rounded-full bg-[#172042] p-2 hover:bg-[#2196f3] transition-colors"
+          >
             <FaFacebookF className="text-xl text-[#bfc8db] hover:text-white" />
           </a>
-          <a href="#" aria-label="Twitter" className="rounded-full bg-[#172042] p-2 hover:bg-[#2196f3] transition-colors">
+          <a
+            href="#"
+            aria-label="Twitter"
+            className="rounded-full bg-[#172042] p-2 hover:bg-[#2196f3] transition-colors"
+          >
             <FaTwitter className="text-xl text-[#bfc8db] hover:text-white" />
           </a>
         </div>
