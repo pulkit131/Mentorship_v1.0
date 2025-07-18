@@ -7,8 +7,34 @@ export const useUserStore = create((set) => ({
   users: [],
   isLoading: false,
 
-  setUser: (user) => set({ user }), // Set the logged-in user
+  // Set the logged-in user and store only the email in localStorage
+  setUser: (user) => {
+    if (user?.email) {
+      localStorage.setItem('user', JSON.stringify({ email: user.email }));
+    } else {
+      localStorage.removeItem('user');
+    }
+    set({ user });
+  },
 
+  // Load user from localStorage on app start
+  loadUserFromLocalStorage: () => {
+    const stored = localStorage.getItem('user');
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      if (parsed.email) {
+        set({ user: { email: parsed.email } });
+      }
+    }
+  },
+
+  // Clear user and localStorage
+  logout: () => {
+    localStorage.removeItem('user');
+    set({ user: null });
+  },
+
+  // Create a new user
   createUser: async (data) => {
     set({ isLoading: true });
     try {
@@ -24,6 +50,7 @@ export const useUserStore = create((set) => ({
     }
   },
 
+  // Fetch all users
   getAllUsers: async () => {
     set({ isLoading: true });
     try {
@@ -36,6 +63,7 @@ export const useUserStore = create((set) => ({
     }
   },
 
+  // Delete a user by ID
   deleteUser: async (userId) => {
     set({ isLoading: true });
     try {
@@ -51,6 +79,7 @@ export const useUserStore = create((set) => ({
     }
   },
 
+  // Subscribe a user to a plan
   subscribeToPlan: async ({ email, planId }) => {
     set({ isLoading: true });
     try {
@@ -64,6 +93,7 @@ export const useUserStore = create((set) => ({
     }
   },
 
+  // Check if a user has an active plan
   checkUserHasPlan: async (email) => {
     set({ isLoading: true });
     try {
@@ -76,6 +106,7 @@ export const useUserStore = create((set) => ({
     }
   },
 
+  // Check if user is allowed to book a session
   checkSessionBookingAllowedByEmail: async (email) => {
     set({ isLoading: true });
     try {
