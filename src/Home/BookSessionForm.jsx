@@ -42,6 +42,33 @@ const BookSessionForm = () => {
     }));
   };
 
+  // Simple DOM scroll function
+  const scrollToPremiumPlans = () => {
+    console.log('Attempting to scroll to premium plans...');
+    
+    const premiumPlansSection = document.getElementById('premium-plans');
+    console.log('Premium plans section found:', premiumPlansSection);
+    
+    if (premiumPlansSection) {
+      try {
+        // Direct DOM scroll
+        const targetScroll = premiumPlansSection.offsetTop - 100;
+        console.log('Scrolling to position:', targetScroll);
+        
+        document.documentElement.scrollTop = targetScroll;
+        document.body.scrollTop = targetScroll;
+        
+        console.log('DOM scroll executed successfully');
+        return true;
+      } catch (error) {
+        console.error('Scroll failed:', error);
+      }
+    }
+    
+    console.log('Premium plans section not found');
+    return false;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -90,12 +117,49 @@ const BookSessionForm = () => {
       setFormData({ name: "", contact: "", email: "", mentor: "", timeSlot: "" });
       navigate("/myDashboard");
     } catch (err) {
-      Swal.fire({
-        title: "Booking Failed",
-        text: err?.message || "Something went wrong.",
-        icon: "error",
-        confirmButtonText: "Retry",
-      });
+      console.log('Booking error caught:', err);
+      console.log('Error response data:', err?.response?.data);
+      
+      // Check if the error is due to payment requirement
+      if (err?.response?.data?.requiresPayment) {
+        console.log('Payment required error detected');
+        Swal.fire({
+          title: "Payment Required",
+          text: "Please subscribe to a plan before booking sessions.",
+          icon: "info",
+          confirmButtonText: "View Plans",
+          showCancelButton: true,
+          cancelButtonText: "Cancel"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            console.log('User confirmed, attempting to scroll to premium plans...');
+            // Wait for dialog to fully close before scrolling
+            setTimeout(() => {
+              console.log('Dialog closed, now scrolling...');
+              scrollToPremiumPlans();
+              
+              // Backup scroll attempt after a longer delay
+              setTimeout(() => {
+                console.log('Backup scroll attempt...');
+                const premiumPlansSection = document.getElementById('premium-plans');
+                if (premiumPlansSection) {
+                  const targetScroll = premiumPlansSection.offsetTop - 100;
+                  console.log('Backup scroll to position:', targetScroll);
+                  document.documentElement.scrollTop = targetScroll;
+                  document.body.scrollTop = targetScroll;
+                }
+              }, 500);
+            }, 300);
+          }
+        });
+      } else {
+        Swal.fire({
+          title: "Booking Failed",
+          text: err?.message || "Something went wrong.",
+          icon: "error",
+          confirmButtonText: "Retry",
+        });
+      }
     }
   };
 
@@ -104,8 +168,13 @@ const BookSessionForm = () => {
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-200 to-white px-2">
         <div className="w-full max-w-2xl">
           <h1 className="text-3xl sm:text-4xl font-bold text-center mb-2">
-            Book Your Free Session
+            Book Your Session
           </h1>
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+            <p className="text-blue-800 text-sm text-center">
+              💡 <strong>Note:</strong> A subscription is required to book sessions. If you haven't subscribed yet, you'll be scrolled to our premium plans section.
+            </p>
+          </div>
           <form onSubmit={handleSubmit} className="bg-white rounded-3xl shadow-lg px-8 py-8 gap-4 flex flex-col">
             {/* Name and Contact */}
             <div className="flex flex-col sm:flex-row gap-4">
@@ -182,10 +251,22 @@ const BookSessionForm = () => {
               type="submit"
               className="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition"
             >
-              Book Now
+              Book Session
             </button>
+            
+            {/* Test button for debugging */}
+            {/* <button
+              type="button"
+              onClick={() => {
+                console.log('Testing scroll...');
+                scrollToPremiumPlans();
+              }}
+              className="w-full bg-gray-500 text-white font-semibold py-2 rounded-lg hover:bg-gray-600 transition mt-2"
+            >
+              Test Scroll to Premium Plans
+            </button> */}
             <p className="text-center text-sm text-gray-700 mt-2">
-              No Registration Required | Completely Free | 1-Hour Interactive Session
+              1-Hour Interactive Session | Subscription Required
             </p>
           </form>
         </div>

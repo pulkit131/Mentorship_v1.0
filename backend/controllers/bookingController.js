@@ -56,7 +56,8 @@ export const bookSession = async (req, res) => {
     } else {
       return res.status(result.statusCode).json({
         error: result.error,
-        waitlistEntry: result.waitlistEntry
+        waitlistEntry: result.waitlistEntry,
+        requiresPayment: result.requiresPayment
       });
     }
 

@@ -35,6 +35,7 @@ export const deleteUser = async (req, res, next) => {
   }
 };
 
+
 export const subscribeUserToPlan = async (req, res) => {
   try {
     const { email, planId } = req.body;
@@ -77,6 +78,50 @@ export const checkUserExists = async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500).json({ error: 'Server error', details: err.message });
+  }
+};
+
+// Debug endpoint to check user's payment and plan status
+export const debugUserStatus = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    
+    if (!userId) {
+      return res.status(400).json({ error: 'userId is required' });
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: userId }
+    });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const payments = await prisma.payment.findMany({
+      where: { userEmail: user.email },
+      orderBy: { createdAt: 'desc' }
+    });
+
+    const latestPayment = payments[0];
+
+    return res.status(200).json({
+      user: {
+        id: user.id,
+        email: user.email,
+        planType: user.planType,
+        planPrice: user.planPrice,
+        sessionCount: user.sessionCount
+      },
+      payments: payments,
+      latestPayment: latestPayment,
+      hasValidPayment: latestPayment && latestPayment.status === 'completed',
+      paymentStatus: latestPayment ? latestPayment.status : 'none'
+    });
+
+  } catch (error) {
+    console.error('Error in debugUserStatus:', error);
+    return res.status(500).json({ error: 'Internal server error' });
   }
 };
 

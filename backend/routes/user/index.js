@@ -3,6 +3,7 @@ import { createUser, getUsers, deleteUser } from '../../controllers/userControll
 import { subscribeUserToPlan } from '../../controllers/userController.js';
 import { checkBookingAllowedByEmailController  } from '../../controllers/userController.js';
 import { checkUserExists } from '../../controllers/userController.js';
+import { debugUserStatus } from '../../controllers/userController.js';
 
 const router = express.Router();
 
@@ -12,5 +13,6 @@ router.delete('/:id', deleteUser);
 router.post('/subscribe', subscribeUserToPlan);
 router.get('/:email/check-booking', checkBookingAllowedByEmailController );
 router.post('/check', checkUserExists);
+router.get('/debug/:userId', debugUserStatus);
 
 export default router;

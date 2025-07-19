@@ -106,7 +106,7 @@ const PremiumPlans = () => {
     "Top students may get mentor referrals",
   ];
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-white px-2 sm:px-4 py-8">
+    <div id="premium-plans" className="min-h-screen flex flex-col items-center justify-center bg-white px-2 sm:px-4 py-8">
       <div className="w-full flex justify-center mt-8">
         
       </div>

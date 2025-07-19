@@ -24,29 +24,34 @@ export const bookSession = async (data) => {
       };
     }
 
-    // 2. Check if user has valid plan and payment
-    if (user.planType === 'BASIC') {
-      return {
-        success: false,
-        error: 'Basic plan users cannot book sessions. Please upgrade your plan.',
-        statusCode: 403
-      };
-    }
-
-    // Check if user has made a payment
+    // 2. Check payment requirement FIRST (before any other checks)
+    // Always require a payment record, regardless of plan type
+    console.log('Checking payment for user:', user.email, 'Plan type:', user.planType);
+    
     const latestPayment = await prisma.payment.findFirst({
       where: { 
         userEmail: user.email,
-        status: 'completed'
+        status: { in: ['completed', 'success', 'paid'] } // Check multiple possible status values
       },
       orderBy: { createdAt: 'desc' }
     });
 
+    console.log('Latest payment found:', latestPayment);
+
+    // Debug: Check all payments for this user
+    const allPayments = await prisma.payment.findMany({
+      where: { userEmail: user.email },
+      orderBy: { createdAt: 'desc' }
+    });
+    console.log('All payments for user:', allPayments);
+
     if (!latestPayment) {
+      console.log('No payment found for user:', user.email);
       return {
         success: false,
-        error: 'No payment found. Please make a payment before booking sessions.',
-        statusCode: 403
+        error: 'Payment required. Please subscribe to a plan before booking sessions.',
+        statusCode: 403,
+        requiresPayment: true
       };
     }
 
@@ -56,7 +61,18 @@ export const bookSession = async (data) => {
       return {
         success: false,
         error: 'Your payment has expired. Please renew your subscription.',
-        statusCode: 403
+        statusCode: 403,
+        requiresPayment: true
+      };
+    }
+
+    // 3. Check if user has valid plan type (not BASIC)
+    if (user.planType === 'BASIC') {
+      return {
+        success: false,
+        error: 'Basic plan users cannot book sessions. Please upgrade your plan.',
+        statusCode: 403,
+        requiresPayment: true
       };
     }
 

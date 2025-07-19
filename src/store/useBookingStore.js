@@ -18,7 +18,15 @@ export const useBookingStore = create((set) => ({
       }
       set({ booking: res.data.session || res.data.waitlistEntry });
     } catch (error) {
-      toast.error(error?.response?.data?.error || 'Failed to create booking');
+      const errorData = error?.response?.data;
+      
+      if (errorData?.requiresPayment) {
+        toast.error("Payment required. Please subscribe to a plan first.");
+        // The scroll behavior will be handled by the component that calls this function
+        throw error; // Re-throw to let the component handle scrolling
+      } else {
+        toast.error(errorData?.error || 'Failed to create booking');
+      }
     } finally {
       set({ isLoading: false });
     }
