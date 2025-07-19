@@ -24,11 +24,38 @@ export const bookSession = async (data) => {
       };
     }
 
-    // 2. Check if user has valid plan (not BASIC)
-    if (user.planType === 'BASIC' && user.freeSessions == 0) {
+    // 2. Check if user has valid plan and payment
+    if (user.planType === 'BASIC') {
       return {
         success: false,
         error: 'Basic plan users cannot book sessions. Please upgrade your plan.',
+        statusCode: 403
+      };
+    }
+
+    // Check if user has made a payment
+    const latestPayment = await prisma.payment.findFirst({
+      where: { 
+        userEmail: user.email,
+        status: 'completed'
+      },
+      orderBy: { createdAt: 'desc' }
+    });
+
+    if (!latestPayment) {
+      return {
+        success: false,
+        error: 'No payment found. Please make a payment before booking sessions.',
+        statusCode: 403
+      };
+    }
+
+    // Check if payment is still valid (not expired)
+    const now = new Date();
+    if (now > latestPayment.subscriptionEnds) {
+      return {
+        success: false,
+        error: 'Your payment has expired. Please renew your subscription.',
         statusCode: 403
       };
     }

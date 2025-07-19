@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useBookingStore } from "../store/useBookingStore";
 import BookingCard from "./UserBookingCard";
+import WaitlistStatus from "./WaitlistStatus";
 
 const MyBookings = () => {
   const { booking, getBookingByUser, isLoading } = useBookingStore();
@@ -59,6 +60,11 @@ const MyBookings = () => {
               />
             ))
           )}
+        </div>
+        
+        {/* Waitlist Status Section */}
+        <div className="mt-8">
+          <WaitlistStatus />
         </div>
       </div>
     </div>

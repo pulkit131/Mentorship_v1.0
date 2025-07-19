@@ -1,5 +1,6 @@
-import { createOrder, verifyPayment } from '../services/paymentService.js';
+import { createOrder, verifyPayment, savePaymentRecord } from '../services/paymentService.js';
 import { PrismaClient } from '@prisma/client';
+import * as waitlistService from '../services/waitlistService.js';
 const prisma = new PrismaClient();
 
 export const createOrderController = async (req, res) => {
@@ -47,6 +48,12 @@ export const verifyPaymentController = async (req, res) => {
       return res.status(400).json({ error: 'Invalid planType. Plan not found in database.' });
     }
 
+    // Save payment record
+    await savePaymentRecord({
+      userEmail: email,
+      planName: planType
+    });
+
     const updatedUser = await prisma.user.update({
       where: { email },
       data: {
@@ -56,10 +63,15 @@ export const verifyPaymentController = async (req, res) => {
       },
     });
 
+    // Process waitlist entries for this user after payment
+    const waitlistResult = await waitlistService.processWaitlistAfterPayment(updatedUser.id);
+
     return res.status(200).json({
       success: true,
       message: 'Payment verified and plan updated successfully.',
       user: updatedUser,
+      waitlistProcessed: waitlistResult.success,
+      waitlistResults: waitlistResult.results
     });
   } catch (err) {
     console.error('Error updating user after payment:', err);

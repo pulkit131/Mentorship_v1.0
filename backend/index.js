@@ -8,6 +8,7 @@ import planRoutes from './routes/plan/index.js';
 //import mentorshipRoutes from './routes/mentorship/index.js';
 import paymentRoutes from './routes/payment/index.js';
 import bookingRoutes from './routes/booking/index.js';
+import waitlistRoutes from './routes/waitlist/index.js';
 //import mentorshipRoutes from './routes/mentorship/index.js';
 
 dotenv.config({ path: './.env' });
@@ -25,6 +26,7 @@ app.use('/api/plans', planRoutes);
 //app.use('/api/mentorship', mentorshipRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/bookings', bookingRoutes);
+app.use('/api/waitlist', waitlistRoutes);
 
 // Health check
 app.get('/', (req, res) => {

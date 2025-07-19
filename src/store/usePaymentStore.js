@@ -29,6 +29,20 @@ export const usePaymentStore = create((set) => ({
 
       if (res.data.success) {
         toast.success('Payment verified and plan updated!');
+        
+        // Handle waitlist processing results
+        if (res.data.waitlistProcessed && res.data.waitlistResults) {
+          const assignedMentors = res.data.waitlistResults.filter(result => result.action === 'assigned');
+          const stillWaiting = res.data.waitlistResults.filter(result => result.action === 'still_on_waitlist');
+          
+          if (assignedMentors.length > 0) {
+            toast.success(`You've been assigned to ${assignedMentors.length} mentor(s)!`);
+          }
+          
+          if (stillWaiting.length > 0) {
+            toast.info(`Still on waitlist for ${stillWaiting.length} mentor(s)`);
+          }
+        }
       } else {
         toast.error('Payment verification failed');
       }

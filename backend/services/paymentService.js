@@ -1,8 +1,10 @@
 import Razorpay from 'razorpay';
 import crypto from 'crypto';
 import dotenv from 'dotenv';
+import { PrismaClient } from '@prisma/client';
 
 dotenv.config();
+const prisma = new PrismaClient();
 
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
@@ -25,4 +27,28 @@ export const verifyPayment = ({ razorpay_order_id, razorpay_payment_id, razorpay
     .digest('hex');
 
   return generated_signature === razorpay_signature;
+};
+
+export const savePaymentRecord = async ({ userEmail, planName, status = 'completed' }) => {
+  try {
+    // Calculate subscription end date (e.g., 30 days from now)
+    const subscriptionStarts = new Date();
+    const subscriptionEnds = new Date();
+    subscriptionEnds.setDate(subscriptionEnds.getDate() + 30); // 30 days subscription
+
+    const payment = await prisma.payment.create({
+      data: {
+        status,
+        userEmail,
+        planName,
+        subscriptionStarts,
+        subscriptionEnds
+      }
+    });
+
+    return payment;
+  } catch (error) {
+    console.error('Error saving payment record:', error);
+    throw error;
+  }
 };
