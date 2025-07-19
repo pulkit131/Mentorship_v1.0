@@ -38,6 +38,12 @@ const PremiumPlans = () => {
       alert("Please log in to subscribe.");
       return;
     }
+
+    //CHANGE BEFORE LAUNCH
+
+    amount = 1;
+
+    //CHANGE BEFORE LAUNCH
     const { createOrder, verifyPayment } = usePaymentStore.getState();
 
     const orderData = await createOrder({ amount }); // amount in INR (₹)
