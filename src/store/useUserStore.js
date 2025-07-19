@@ -96,10 +96,10 @@ export const useUserStore = create((set) => ({
   },
 
   // Check if a user has an active plan
-  checkUserHasPlan: async (email) => {
+  checkUserHasPlan: async (userId) => {
     set({ isLoading: true });
     try {
-      const res = await axiosInstance.get(`/users/hasPlan/${email}`);
+      const res = await axiosInstance.get(`/bookings/user/${userId}/plan-status`);
       return res.data;
     } catch (error) {
       toast.error(error?.response?.data?.error || 'Failed to check plan');

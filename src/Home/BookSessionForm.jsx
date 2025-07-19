@@ -75,6 +75,10 @@ const BookSessionForm = () => {
     const mentorId = formData.mentor;
     const userId = localStorage.getItem("userId");
     console.log("Fetched userId from localStorage:", userId);
+    if(!userId){
+      alert("Please login before booking session!");
+      return;
+    }
     // Validate all fields
     if (!formData.name || !formData.email || !formData.contact || !mentorId || !formData.timeSlot) {
       return Swal.fire({

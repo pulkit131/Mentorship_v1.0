@@ -66,7 +66,8 @@ const PremiumPlans = () => {
         });
         if (result.success) {
           // check if the user plan
-          const planStatus = await checkUserHasPlan(email);
+          const userId = localStorage.getItem("userId");
+          const planStatus = await checkUserHasPlan(userId);
 
           console.log("Plan status after payment:", planStatus);
           alert("Payment successful! Your plan is now active.");

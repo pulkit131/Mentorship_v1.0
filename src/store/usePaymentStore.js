@@ -25,11 +25,10 @@ export const usePaymentStore = create((set) => ({
   verifyPayment: async (paymentData) => {
     set({ isLoading: true });
     try {
-      const res = await axiosInstance.post('/payments/verify', paymentData);
+      const res = await axiosInstance.post('/payments/verify-payment', paymentData);
 
       if (res.data.success) {
         toast.success('Payment verified and plan updated!');
-        
         // Handle waitlist processing results
         if (res.data.waitlistProcessed && res.data.waitlistResults) {
           const assignedMentors = res.data.waitlistResults.filter(result => result.action === 'assigned');

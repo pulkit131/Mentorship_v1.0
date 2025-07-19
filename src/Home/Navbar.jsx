@@ -119,6 +119,7 @@ const handleNavigation = (sectionId) => {
       localStorage.setItem("isAuth", false);
       localStorage.setItem("userEmail", "");
       localStorage.setItem("userId", "");
+      localStorage.clear();
       setIsProfileOpen(false);
       Swal.fire({
         title: "Logged Out Successfully!",
