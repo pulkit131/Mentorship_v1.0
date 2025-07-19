@@ -47,11 +47,57 @@ export const getAllUsers = async () => {
   return await prisma.user.findMany();
 };
 
-/**
- * Delete a user
- */
+/* Delete a user
+*/
 export const deleteUser = async (id) => {
-  return await prisma.user.delete({ where: { id } });
+ 
+ try {
+   const user = await prisma.user.findUnique({ where: { id } });
+
+   if (!user) {
+     throw new Error("User not found");
+   }
+
+   if (user.role !== "USER") {
+     return { success: false, message: "Only USER-role users can be deleted." };
+   }
+
+   // 1. Delete Sessions where this user is a participant
+   await prisma.session.deleteMany({
+     where: {
+       OR: [{ userId: id }, { mentorId: id }],
+     },
+   });
+
+   // 2. Delete Assignments
+   await prisma.assignment.deleteMany({
+     where: {
+       OR: [{ studentId: id }, { mentorId: id }],
+     },
+   });
+
+   // 3. Delete MentorshipAssignments
+   await prisma.mentorshipAssignment.deleteMany({
+     where: {
+       OR: [{ studentId: id }, { mentorId: id }],
+     },
+   });
+
+   // 4. Delete Waitlist Entries
+   await prisma.waitlistEntry.deleteMany({
+     where: {
+       OR: [{ userId: id }, { mentorId: id }],
+     },
+   });
+
+   // 5. Delete the User (Payment not touched)
+   await prisma.user.delete({ where: { id } });
+
+   return { success: true, message: "USER-role user deleted successfully" };
+ } catch (error) {
+   console.error("Error deleting user:", error);
+   throw error;
+ }
 };
 
 export const getAllUsersByRole = async (role) => {
