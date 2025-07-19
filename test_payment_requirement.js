@@ -1,7 +1,7 @@
 // Test script to verify payment requirement logic
 const axios = require('axios');
 
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = 'http://localhost:3000/api';
 
 async function testPaymentRequirement() {
   const userId = '687aa9c09d4c09143117cfe1'; // The user ID from the error

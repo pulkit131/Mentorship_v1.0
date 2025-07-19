@@ -12,7 +12,7 @@
       const email = "john@example.com";
       const planType = "BEGINNER_TECHY";
 
-      const orderRes = await fetch("http://localhost:5000/api/payments/create-order", {
+      const orderRes = await fetch("http://localhost:3000/api/payments/create-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ amount: 1, currency: "INR" })
@@ -27,7 +27,7 @@
         name: "Test Payment",
         order_id: orderData.orderId,
         handler: async function (response) {
-          const verifyRes = await fetch("http://localhost:5000/api/payments/verify-payment", {
+          const verifyRes = await fetch("http://localhost:3000/api/payments/verify-payment", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

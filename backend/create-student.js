@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:5000/api/users';
+const BASE_URL = 'http://localhost:3000/api/users';
 
 const createStudents = async () => {
   for (let i = 1; i <= 25; i++) {

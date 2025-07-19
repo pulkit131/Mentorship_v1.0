@@ -237,10 +237,10 @@ if (err?.response?.data?.requiresPayment) {
 #### Debug Testing:
 ```bash
 # Check user's current status
-curl -X GET "http://localhost:5000/api/users/debug/687aa9c09d4c09143117cfe1"
+curl -X GET "http://localhost:3000/api/users/debug/687aa9c09d4c09143117cfe1"
 
 # Try to book (should fail with payment requirement)
-curl -X POST "http://localhost:5000/api/bookings" \
+curl -X POST "http://localhost:3000/api/bookings" \
   -H "Content-Type: application/json" \
   -d '{
     "userId": "687aa9c09d4c09143117cfe1",
