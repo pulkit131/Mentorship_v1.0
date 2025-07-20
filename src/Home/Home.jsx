@@ -113,10 +113,18 @@ const Home = () => {
               <span className="text-[#2AB74A]">Engineering Mentors</span>
             </h1>
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed">
-              Get personalized guidance from professionals at top tech
-              companies. Throughout your college journey, we’ll be your partner
-              in helping you land your dream role
+              Get personalized guidance from professionals at top tech companies.
+              Throughout your college journey, we'll be your partner in helping you land your dream role — with expert mentorship every step of the way.
             </p>
+            
+            {/* Highlighted Promise */}
+            
+<div className="bg-white border-2 border-[#2AB74A] rounded-full p-6 mb-8 max-w-4xl mx-auto shadow-lg">
+  <p className="text-lg md:text-xl font-semibold text-gray-800 text-center">
+    And here's our promise: If after Session 1 you feel it's not the right fit, we'll give you a <span className="font-bold text-[#2AB74A] underline decoration-2">full refund</span> — no questions asked.
+  </p>
+</div>
+            
             <div className="flex flex-col sm:flex-row gap-4 justify-evenly items-center">
               <button
                 onClick={() => scrollToSection("booking")}

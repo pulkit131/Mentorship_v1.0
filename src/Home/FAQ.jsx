@@ -42,7 +42,12 @@ const faqs = [
     question: "When will the mentors be available ?",
     answer:
       "Mentors are available on weekends only. During these weekend sessions, you’ll have dedicated time to ask any and all of your doubts and get clear, personalized guidance from your mentor.",
-  },
+  },
+{
+    question: "What if I don’t like the mentorship after the first session? Will I get a refund?",
+    answer:
+      "Yes — if you feel the mentorship isn’t the right fit after Session 1, you can request a full refund. No questions asked. Just let us know shortly after your first session, and we’ll process it smoothly.",
+  },
 
 ];
 

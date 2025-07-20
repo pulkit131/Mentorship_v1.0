@@ -92,14 +92,14 @@ const BookSessionForm = () => {
     }
 
     // Validate timeSlot is in the future
-    if (new Date(formData.timeSlot) <= new Date()) {
-      return Swal.fire({
-        title: "Invalid Time Slot",
-        text: "Please select a time slot in the future.",
-        icon: "warning",
-        confirmButtonText: "Okay",
-      });
-    }
+    // if (new Date(formData.timeSlot) <= new Date()) {
+    //   return Swal.fire({
+    //     title: "Invalid Time Slot",
+    //     text: "Please select a time slot in the future.",
+    //     icon: "warning",
+    //     confirmButtonText: "Okay",
+    //   });
+    // }
 
     try {
       console.log({
@@ -182,16 +182,10 @@ const BookSessionForm = () => {
     <section id="booking">
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-200 to-white px-2">
         <div className="w-full max-w-2xl">
-          <h1 className="text-3xl sm:text-4xl font-bold text-center mb-2">
+          <h1 className="text-3xl sm:text-4xl font-bold text-center mb-10">
             Book Your Session
           </h1>
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-            <p className="text-blue-800 text-sm text-center">
-              💡 <strong>Note:</strong> A subscription is required to book
-              sessions. If you haven't subscribed yet, you'll be scrolled to our
-              premium plans section.
-            </p>
-          </div>
+          
           <form
             onSubmit={handleSubmit}
             className="bg-white rounded-3xl shadow-lg px-8 py-8 gap-4 flex flex-col"

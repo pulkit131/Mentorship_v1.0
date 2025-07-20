@@ -16,7 +16,7 @@ const About = () => {
       id="about"
       className="font-inter pt-6 px-3 bg-gradient-to-b from-white to-emerald-300 min-h-screen xl:pr-10 "
     >
-      <h2 className="hidden md:block text-4xl font-bold text-gray-900 mb-16 text-center">
+      <h2 className="hidden md:block text-4xl font-bold text-gray-900 mb-21 mt-20 text-center ">
         About LetsGetMentors
       </h2>
       <div
@@ -32,18 +32,20 @@ const About = () => {
               About Mentorship Connect
             </h2>
             <p className="text-gray-700 mb-4 text-lg">
-              Most students waste months just deciding what to learn - DSA or
+              Most students waste months just deciding what to learn DSA or
               dev first? Which projects? What actually matters for jobs? What
               are companies really looking for? That’s where we come in. We’re
               not a course. We’re not a coaching class. We’re a mentorship
-              platform where SDEs from top MNCs guide you - week by week -
+              platform where SDEs from top MNCs guide you week by week
               through a focused, personalized journey.
             </p>
             <p className="text-gray-700 mb-6 border-t text-lg border-dotted border-cyan-400 pt-4">
               We built this platform after seeing countless students stuck
-              despite working hard. The real gap wasn’t effort — it was
+              despite working hard. The real gap wasn’t effort it was
               direction. So we created what we wished we had: real mentorship
-              from those who’ve been through it.
+              from those who’ve been through it. And if after Session 1 you feel
+              it’s not the right fit, we’ll give you a full refund no
+              questions asked.
             </p>
             <ul className="lg:items-center space-y-4 ">
               {[

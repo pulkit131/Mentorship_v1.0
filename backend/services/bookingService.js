@@ -67,14 +67,14 @@ export const bookSession = async (data) => {
     // }
 
     // 3. Check if user has valid plan type (not BASIC)
-    // if (user.planType === 'BASIC') {
-    //   return {
-    //     success: false,
-    //     error: 'Basic plan users cannot book sessions. Please upgrade your plan.',
-    //     statusCode: 403,
-    //     requiresPayment: true
-    //   };
-    // }
+    if (user.planType === 'BASIC') {
+      return {
+        success: false,
+        error: 'Basic plan users cannot book sessions. Please upgrade your plan.',
+        statusCode: 403,
+        requiresPayment: true
+      };
+    }
 
     // 3. Check if user's plan is active and has sessions left
     // const planCheck = await checkUserPlanStatus(user);
