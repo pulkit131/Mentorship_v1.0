@@ -3,11 +3,13 @@ import { ChevronDown, User, Phone, AtSign } from "lucide-react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useBookingStore } from "../store/useBookingStore";
+import { useWaitlistStore } from "../store/useWaitlistStore";
 import { axiosInstance } from "../lib/axios";
 
 const BookSessionForm = () => {
   const navigate = useNavigate();
-  const createBooking = useBookingStore((state) => state.createBooking);
+  const { createBooking, getBookingByUser } = useBookingStore();
+  const { getUserWaitlistEntries } = useWaitlistStore();
 
   const [mentors, setMentors] = useState([]);
   const [mentorsLoading, setMentorsLoading] = useState(false);
@@ -107,12 +109,11 @@ const BookSessionForm = () => {
         mentorId,
         //timeSlot: new Date(formData.timeSlot).toISOString(),
       });
-      await createBooking({
-        userId,
-        mentorId,
-        //timeSlot: new Date(formData.timeSlot).toISOString(),
-      });
-
+      const result = await createBooking({ userId, mentorId });
+      await getBookingByUser(userId);
+      if (result && result.waitlistEntry) {
+        await getUserWaitlistEntries(userId);
+      }
       Swal.fire({
         title: "Session Booked!",
         text: "Your session has been successfully booked.",

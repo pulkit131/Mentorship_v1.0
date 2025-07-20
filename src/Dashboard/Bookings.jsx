@@ -3,6 +3,10 @@ import { useBookingStore } from "../store/useBookingStore";
 import BookingCard from "./UserBookingCard";
 import WaitlistStatus from "./WaitlistStatus";
 
+// Global variable to track the current time for demo sessions
+let demoSessionTime = new Date();
+demoSessionTime.setHours(0, 0, 0, 0); // Set to 12:00 AM
+
 const MyBookings = () => {
   const { booking, getBookingByUser, isLoading } = useBookingStore();
   const [userId, setUserId] = useState(null);
@@ -20,6 +24,10 @@ const MyBookings = () => {
     : booking
     ? [booking]
     : [];
+
+    console.log(bookingsArray);
+
+  let sessionTime = new Date(demoSessionTime); // Reset for each render
 
   return (
     <div className="min-h-screen min-w-screen bg-gradient-to-br from-blue-50 to-purple-100 flex flex-col items-center p-6">
@@ -48,24 +56,27 @@ const MyBookings = () => {
               <p className="text-lg text-gray-500">No upcoming sessions.</p>
             </div>
           ) : (
-            bookingsArray.map((b, idx) => (
-              <BookingCard
-                key={b.id || idx}
-                name={b.mentor?.name}
-                date={b.timeSlot}
-                status={b.status}
-                isWaitlist={!!b.waitlistEntry}
-                note="The timings for the session will be informed by the mentor soon"
-                // onDelete={...} // Add if you implement delete
-              />
-            ))
+            bookingsArray.map((b, idx) => {
+              sessionTime.setMinutes(sessionTime.getMinutes() + 1);
+              return (
+                <BookingCard
+                  key={b.id || idx}
+                  name={b.mentor?.name}
+                  date={sessionTime.toISOString()}
+                  status={b.status}
+                  isWaitlist={!!b.waitlistEntry}
+                  note="The timings for the session will be informed by the mentor soon"
+                  // onDelete={...} // Add if you implement delete
+                />
+              );
+            })
           )}
         </div>
 
         {/* Waitlist Status Section */}
-        <div className="mt-8">
+        {/* <div className="mt-8">
           <WaitlistStatus />
-        </div>
+        </div> */}
       </div>
     </div>
   );
