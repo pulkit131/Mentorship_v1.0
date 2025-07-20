@@ -70,9 +70,21 @@ const PremiumPlans = () => {
           const planStatus = await checkUserHasPlan(userId);
 
           console.log("Plan status after payment:", planStatus);
-          alert("Payment successful! Your plan is now active.");
+           return Swal.fire({
+            icon: "success",
+            title: "Payment Successful!",
+            text: "Your plan is now active.",
+            confirmButtonColor: "#155efb",
+          });
+
         } else {
-          alert("Payment verification failed.");
+          return Swal.fire({
+            icon: "error",
+            title: "Payment Failed",
+            text: "We couldn’t verify your payment. Please try again.",
+            confirmButtonColor: "#e3342f",
+          });
+
         }
       },
       prefill: {

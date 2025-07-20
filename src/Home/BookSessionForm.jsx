@@ -73,13 +73,16 @@ const BookSessionForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const mentorId = formData.mentor;
     const userId = localStorage.getItem("userId");
     console.log("Fetched userId from localStorage:", userId);
     
     if(!userId){
-      return alert("Not possible ma");
+      return Swal.fire({
+                title: "Login",
+                icon: "error",
+                confirmButtonText: "Okay",
+              });
     }
     
     // Validate all fields

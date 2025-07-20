@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Clock } from "lucide-react";
 import { useBookingStore } from "../store/useBookingStore";
 import BookingCard from "./UserBookingCard";
 import WaitlistStatus from "./WaitlistStatus";
@@ -56,27 +57,26 @@ const MyBookings = () => {
               <p className="text-lg text-gray-500">No upcoming sessions.</p>
             </div>
           ) : (
-            bookingsArray.map((b, idx) => {
-              sessionTime.setMinutes(sessionTime.getMinutes() + 1);
-              return (
-                <BookingCard
-                  key={b.id || idx}
-                  name={b.mentor?.name}
-                  date={sessionTime.toISOString()}
-                  status={b.status}
-                  isWaitlist={!!b.waitlistEntry}
-                  note="The timings for the session will be informed by the mentor soon"
-                  // onDelete={...} // Add if you implement delete
-                />
-              );
-            })
+            bookingsArray.map((b, idx) => (
+              <div key={idx} className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-xl p-6 shadow-md border border-blue-200 max-w-sm">
+                <div className="flex flex-col space-y-3">
+                  {/* Mentor Name */}
+                  <h3 className="text-xl font-semibold text-gray-800">
+                    {b.mentor?.name}
+                  </h3>
+                  
+                  {/* Note with Clock Icon */}
+                  <div className="flex items-start space-x-2 p-3">
+                    <Clock className="text-blue-500 mt-0.5 flex-shrink-0" size={16} />
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                      The timings for the session will be informed by the mentor soon
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))
           )}
         </div>
-
-        {/* Waitlist Status Section */}
-        {/* <div className="mt-8">
-          <WaitlistStatus />
-        </div> */}
       </div>
     </div>
   );

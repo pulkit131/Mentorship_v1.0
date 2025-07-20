@@ -157,7 +157,7 @@ const PaymentHistory = () => {
                             {payment.planName}
                           </h3>
                           <div className="flex items-center gap-2 text-gray-600">
-                            <User className="w-4 h-4" />
+                            {/* <User className="w-4 h-4" /> */}
                             <span className="font-medium truncate">
                               {payment.mentorName}
                             </span>

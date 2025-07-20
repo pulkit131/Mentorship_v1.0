@@ -339,7 +339,7 @@ export const getUserSessions = async (userId) => {
     include: {
       mentor: { select: { id: true, name: true, email: true } }
     },
-    orderBy: { timeSlot: 'asc' }
+    orderBy: { createdAt: 'asc' }
   });
 };
 
