@@ -351,8 +351,7 @@ export const getMentorSessions = async (mentorId) => {
     where: { mentorId },
     include: {
       user: { select: { id: true, name: true, email: true } }
-    },
-    orderBy: { timeSlot: 'asc' }
+    }
   });
 };
 

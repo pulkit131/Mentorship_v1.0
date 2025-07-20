@@ -36,18 +36,32 @@ export default function MentorsSection() {
       try {
         const res = await axiosInstance.get("/users?role=MENTOR");
         const dbMentors = res.data;
-        
-        // Combine static data with dynamic names from DB
-        const combinedMentors = dbMentors.map((dbMentor, index) => ({
-          ...staticMentorsData[index], // Get static data by index
-          id: dbMentor.id,
-          name: dbMentor.name, // Use name from DB
-          email: dbMentor.email,
-          profileImage: dbMentor.profileImage,
-        }));
-        
+
+        // Combine static data with dynamic names
+        const combinedMentors = await Promise.all(
+          dbMentors.map(async (dbMentor, index) => {
+            let isFull = false;
+            try {
+              const fullRes = await axiosInstance.get(`/mentors/${dbMentor.id}/is-full`);
+              isFull = fullRes.data?.isFull ?? false;
+            } catch (err) {
+              console.error(`Failed to fetch isFull for mentor ${dbMentor.id}`, err);
+            }
+
+            return {
+              ...staticMentorsData[index % staticMentorsData.length],
+              id: dbMentor.id,
+              name: dbMentor.name,
+              email: dbMentor.email,
+              profileImage: dbMentor.profileImage,
+              isFull,
+            };
+          })
+        );
+
         setMentors(combinedMentors);
       } catch (error) {
+        console.error(error);
         setMentors([]);
       } finally {
         setIsLoading(false);
@@ -72,13 +86,14 @@ export default function MentorsSection() {
           and know what it takes to succeed in today's job market.
         </p>
       </div>
+
       <div className="w-full max-w-[1200px] flex flex-wrap justify-center gap-x-7 gap-y-8">
         {isLoading ? (
           <div>Loading mentors...</div>
         ) : mentors.length === 0 ? (
           <div>No mentors found.</div>
         ) : (
-          mentors.map((mentor, idx) => (
+          mentors.map((mentor) => (
             <div
               key={mentor.id}
               className="bg-white rounded-[20px] shadow-md flex flex-col items-center w-[312px] min-h-[230px] p-[18px] relative"
@@ -107,20 +122,26 @@ export default function MentorsSection() {
               <div className="mt-4 text-center text-sm text-black mb-6">
                 {mentor.description}
               </div>
+
+              {/* ✅ Conditional Button */}
               <button
                 onClick={() =>
                   document
                     .getElementById("booking")
                     .scrollIntoView({ behavior: "smooth" })
                 }
-                className="w-full bg-[#2AB74A] text-white font-semibold text-[18px] rounded-[10px] py-3 hover:bg-[#21a347] h-[48px]"
+                className={`w-full font-semibold text-[18px] rounded-[10px] py-3 h-[48px]
+                  ${mentor.isFull ? "bg-[#1976d2] hover:bg-[#1253a2]" : "bg-[#2AB74A] hover:bg-[#21a347]"}
+                  text-white
+                `}
               >
-                Book Session
+                {mentor.isFull ? "Join Waitlist" : "Book Session"}
               </button>
             </div>
           ))
         )}
       </div>
+
       <button className="mt-10 w-[312px] h-[48px] rounded-[10px] bg-[#1976d2] text-white text-[20px] font-semibold hover:bg-[#1253a2]">
         All Mentors
       </button>
