@@ -55,7 +55,6 @@ model Session {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   userId    String   @db.ObjectId
   mentorId  String   @db.ObjectId
-  timeSlot  DateTime
   status    String   @default("pending")
   createdAt DateTime @default(now())
 

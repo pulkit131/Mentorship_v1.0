@@ -122,7 +122,7 @@ const Home = () => {
                 onClick={() => scrollToSection("booking")}
                 className="bg-[#2AB74A] text-white px-12 py-4 rounded-full text-lg font-bold hover:bg-[#21e6c1] transform hover:scale-105 transition-all duration-300 flex items-center cursor-pointer border-3 border-white"
               >
-                Book Free Session
+                Book Session
               </button>
               <button
                 onClick={() => scrollToSection("mentors")}

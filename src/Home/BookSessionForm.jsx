@@ -16,7 +16,7 @@ const BookSessionForm = () => {
     const fetchMentors = async () => {
       setMentorsLoading(true);
       try {
-        const res = await axiosInstance.get('/users?role=MENTOR');
+        const res = await axiosInstance.get("/users?role=MENTOR");
         setMentors(res.data);
       } catch (error) {
         setMentors([]);
@@ -44,28 +44,28 @@ const BookSessionForm = () => {
 
   // Simple DOM scroll function
   const scrollToPremiumPlans = () => {
-    console.log('Attempting to scroll to premium plans...');
-    
-    const premiumPlansSection = document.getElementById('premium-plans');
-    console.log('Premium plans section found:', premiumPlansSection);
-    
+    console.log("Attempting to scroll to premium plans...");
+
+    const premiumPlansSection = document.getElementById("premium-plans");
+    console.log("Premium plans section found:", premiumPlansSection);
+
     if (premiumPlansSection) {
       try {
         // Direct DOM scroll
         const targetScroll = premiumPlansSection.offsetTop - 100;
-        console.log('Scrolling to position:', targetScroll);
-        
+        console.log("Scrolling to position:", targetScroll);
+
         document.documentElement.scrollTop = targetScroll;
         document.body.scrollTop = targetScroll;
-        
-        console.log('DOM scroll executed successfully');
+
+        console.log("DOM scroll executed successfully");
         return true;
       } catch (error) {
-        console.error('Scroll failed:', error);
+        console.error("Scroll failed:", error);
       }
     }
-    
-    console.log('Premium plans section not found');
+
+    console.log("Premium plans section not found");
     return false;
   };
 
@@ -75,12 +75,14 @@ const BookSessionForm = () => {
     const mentorId = formData.mentor;
     const userId = localStorage.getItem("userId");
     console.log("Fetched userId from localStorage:", userId);
-    if(!userId){
-      alert("Please login before booking session!");
-      return;
-    }
     // Validate all fields
-    if (!formData.name || !formData.email || !formData.contact || !mentorId || !formData.timeSlot) {
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.contact ||
+      !mentorId
+      // !formData.timeSlot
+    ) {
       return Swal.fire({
         title: "Missing Fields",
         text: "Please fill in all fields and select a mentor and time slot.",
@@ -103,12 +105,12 @@ const BookSessionForm = () => {
       console.log({
         userId,
         mentorId,
-        timeSlot: new Date(formData.timeSlot).toISOString(),
+        //timeSlot: new Date(formData.timeSlot).toISOString(),
       });
       await createBooking({
         userId,
         mentorId,
-        timeSlot: new Date(formData.timeSlot).toISOString(),
+        //timeSlot: new Date(formData.timeSlot).toISOString(),
       });
 
       Swal.fire({
@@ -118,37 +120,46 @@ const BookSessionForm = () => {
         confirmButtonText: "Great!",
       });
 
-      setFormData({ name: "", contact: "", email: "", mentor: "", timeSlot: "" });
+      setFormData({
+        name: "",
+        contact: "",
+        email: "",
+        mentor: "",
+        //timeSlot: "",
+      });
       navigate("/myDashboard");
     } catch (err) {
-      console.log('Booking error caught:', err);
-      console.log('Error response data:', err?.response?.data);
-      
+      console.log("Booking error caught:", err);
+      console.log("Error response data:", err?.response?.data);
+
       // Check if the error is due to payment requirement
       if (err?.response?.data?.requiresPayment) {
-        console.log('Payment required error detected');
+        console.log("Payment required error detected");
         Swal.fire({
           title: "Payment Required",
           text: "Please subscribe to a plan before booking sessions.",
           icon: "info",
           confirmButtonText: "View Plans",
           showCancelButton: true,
-          cancelButtonText: "Cancel"
+          cancelButtonText: "Cancel",
         }).then((result) => {
           if (result.isConfirmed) {
-            console.log('User confirmed, attempting to scroll to premium plans...');
+            console.log(
+              "User confirmed, attempting to scroll to premium plans..."
+            );
             // Wait for dialog to fully close before scrolling
             setTimeout(() => {
-              console.log('Dialog closed, now scrolling...');
+              console.log("Dialog closed, now scrolling...");
               scrollToPremiumPlans();
-              
+
               // Backup scroll attempt after a longer delay
               setTimeout(() => {
-                console.log('Backup scroll attempt...');
-                const premiumPlansSection = document.getElementById('premium-plans');
+                console.log("Backup scroll attempt...");
+                const premiumPlansSection =
+                  document.getElementById("premium-plans");
                 if (premiumPlansSection) {
                   const targetScroll = premiumPlansSection.offsetTop - 100;
-                  console.log('Backup scroll to position:', targetScroll);
+                  console.log("Backup scroll to position:", targetScroll);
                   document.documentElement.scrollTop = targetScroll;
                   document.body.scrollTop = targetScroll;
                 }
@@ -176,10 +187,15 @@ const BookSessionForm = () => {
           </h1>
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
             <p className="text-blue-800 text-sm text-center">
-              💡 <strong>Note:</strong> A subscription is required to book sessions. If you haven't subscribed yet, you'll be scrolled to our premium plans section.
+              💡 <strong>Note:</strong> A subscription is required to book
+              sessions. If you haven't subscribed yet, you'll be scrolled to our
+              premium plans section.
             </p>
           </div>
-          <form onSubmit={handleSubmit} className="bg-white rounded-3xl shadow-lg px-8 py-8 gap-4 flex flex-col">
+          <form
+            onSubmit={handleSubmit}
+            className="bg-white rounded-3xl shadow-lg px-8 py-8 gap-4 flex flex-col"
+          >
             {/* Name and Contact */}
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="relative flex-1">
@@ -195,13 +211,18 @@ const BookSessionForm = () => {
               </div>
               <div className="relative flex-1">
                 <input
-                  type="text"
+                  type="tel"
                   name="contact"
                   value={formData.contact}
                   onChange={handleChange}
                   placeholder="Contact Number"
                   className="w-full border-2 border-black rounded-lg px-4 py-3 pl-12"
+                  minLength={10}
+                  maxLength={10}
+                  pattern="[0-9]{10}"
+                  title="Please enter a valid 10-digit phone number"
                 />
+
                 <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
               </div>
             </div>
@@ -239,7 +260,7 @@ const BookSessionForm = () => {
             </div>
 
             {/* Time Slot */}
-            <div className="relative">
+            {/* <div className="relative">
               <input
                 type="datetime-local"
                 name="timeSlot"
@@ -248,7 +269,7 @@ const BookSessionForm = () => {
                 required
                 className="w-full border-2 border-black rounded-lg px-4 py-3 pl-12"
               />
-            </div>
+            </div> */}
 
             {/* Submit */}
             <button
@@ -257,7 +278,7 @@ const BookSessionForm = () => {
             >
               Book Session
             </button>
-            
+
             {/* Test button for debugging */}
             {/* <button
               type="button"

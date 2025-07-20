@@ -21,31 +21,17 @@ import * as bookingService from '../services/bookingService.js';
  */
 export const bookSession = async (req, res) => {
   try {
-    const { userId, mentorId, timeSlot } = req.body;
+    const { userId, mentorId } = req.body;
 
     // Validate required fields
-    if (!userId || !mentorId || !timeSlot) {
+    if (!userId || !mentorId) {
       return res.status(400).json({
-        error: 'userId, mentorId, and timeSlot are required'
+        error: 'userId and mentorId are required'
       });
     }
 
-    // Validate timeSlot format
-    const timeSlotDate = new Date(timeSlot);
-    if (isNaN(timeSlotDate.getTime())) {
-      return res.status(400).json({
-        error: 'Invalid timeSlot format'
-      });
-    }
-
-    // Check if timeSlot is in the future
-    if (timeSlotDate <= new Date()) {
-      return res.status(400).json({
-        error: 'Time slot must be in the future'
-      });
-    }
-
-    const result = await bookingService.bookSession({ userId, mentorId, timeSlot });
+    // Call booking service (without timeSlot)
+    const result = await bookingService.bookSession({ userId, mentorId });
 
     if (result.success) {
       return res.status(result.statusCode).json({
@@ -68,6 +54,7 @@ export const bookSession = async (req, res) => {
     });
   }
 };
+
 
 /**
  * Get user's sessions

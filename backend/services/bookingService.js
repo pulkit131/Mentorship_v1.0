@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
  * Main booking function - handles all logic
  */
 export const bookSession = async (data) => {
-  const { userId, mentorId, timeSlot } = data;
+  const { userId, mentorId } = data;
 
   try {
     // 1. Get user with current plan info
@@ -26,55 +26,55 @@ export const bookSession = async (data) => {
 
     // 2. Check payment requirement FIRST (before any other checks)
     // Always require a payment record, regardless of plan type
-    console.log('Checking payment for user:', user.email, 'Plan type:', user.planType);
+    // console.log('Checking payment for user:', user.email, 'Plan type:', user.planType);
     
-    const latestPayment = await prisma.payment.findFirst({
-      where: { 
-        userEmail: user.email,
-        status: { in: ['completed', 'success', 'paid'] } // Check multiple possible status values
-      },
-      orderBy: { createdAt: 'desc' }
-    });
+    // const latestPayment = await prisma.payment.findFirst({
+    //   where: { 
+    //     userEmail: user.email,
+    //     status: { in: ['completed', 'success', 'paid'] } // Check multiple possible status values
+    //   },
+    //   orderBy: { createdAt: 'desc' }
+    // });
 
-    console.log('Latest payment found:', latestPayment);
+    // console.log('Latest payment found:', latestPayment);
 
-    // Debug: Check all payments for this user
-    const allPayments = await prisma.payment.findMany({
-      where: { userEmail: user.email },
-      orderBy: { createdAt: 'desc' }
-    });
-    console.log('All payments for user:', allPayments);
+    // // Debug: Check all payments for this user
+    // const allPayments = await prisma.payment.findMany({
+    //   where: { userEmail: user.email },
+    //   orderBy: { createdAt: 'desc' }
+    // });
+    //console.log('All payments for user:', allPayments);
 
-    if (!latestPayment) {
-      console.log('No payment found for user:', user.email);
-      return {
-        success: false,
-        error: 'Payment required. Please subscribe to a plan before booking sessions.',
-        statusCode: 403,
-        requiresPayment: true
-      };
-    }
+    // if (!latestPayment) {
+    //   console.log('No payment found for user:', user.email);
+    //   return {
+    //     success: false,
+    //     error: 'Payment required. Please subscribe to a plan before booking sessions.',
+    //     statusCode: 403,
+    //     requiresPayment: true
+    //   };
+    // }
 
     // Check if payment is still valid (not expired)
-    const now = new Date();
-    if (now > latestPayment.subscriptionEnds) {
-      return {
-        success: false,
-        error: 'Your payment has expired. Please renew your subscription.',
-        statusCode: 403,
-        requiresPayment: true
-      };
-    }
+    // const now = new Date();
+    // if (now > latestPayment.subscriptionEnds) {
+    //   return {
+    //     success: false,
+    //     error: 'Your payment has expired. Please renew your subscription.',
+    //     statusCode: 403,
+    //     requiresPayment: true
+    //   };
+    // }
 
     // 3. Check if user has valid plan type (not BASIC)
-    if (user.planType === 'BASIC') {
-      return {
-        success: false,
-        error: 'Basic plan users cannot book sessions. Please upgrade your plan.',
-        statusCode: 403,
-        requiresPayment: true
-      };
-    }
+    // if (user.planType === 'BASIC') {
+    //   return {
+    //     success: false,
+    //     error: 'Basic plan users cannot book sessions. Please upgrade your plan.',
+    //     statusCode: 403,
+    //     requiresPayment: true
+    //   };
+    // }
 
     // 3. Check if user's plan is active and has sessions left
     // const planCheck = await checkUserPlanStatus(user);
@@ -101,9 +101,9 @@ export const bookSession = async (data) => {
         statusCode: 404
       };
     }
-
+    //change the value to 20 
     // 5. Check if mentor has capacity (less than 20 students)
-    if (mentor.assignedStudents.length >= 20) {
+    if (mentor.assignedStudents.length >= 3) {
       // Add to waitlist for this specific mentor
       const waitlistEntry = await addToWaitlist(userId, mentorId);
       return {
@@ -115,14 +115,14 @@ export const bookSession = async (data) => {
     }
 
     // 6. Check time slot availability
-    const timeConflict = await checkTimeSlotAvailability(mentorId, userId, timeSlot);
-    if (!timeConflict.available) {
-      return {
-        success: false,
-        error: timeConflict.error,
-        statusCode: 409
-      };
-    }
+    //const timeConflict = await checkTimeSlotAvailability(mentorId, userId, timeSlot);
+    // if (!timeConflict.available) {
+    //   return {
+    //     success: false,
+    //     error: timeConflict.error,
+    //     statusCode: 409
+    //   };
+    // }
 
     // 7. Assign user to mentor (if not already assigned)
     if (!user.mentorAssignment) {
@@ -146,7 +146,7 @@ export const bookSession = async (data) => {
         data: {
           userId,
           mentorId,
-          timeSlot: new Date(timeSlot)
+          // timeSlot: new Date(timeSlot)
         },
         include: {
           user: { select: { id: true, name: true, email: true } },
@@ -290,7 +290,7 @@ export const processWaitlistForMentor = async (mentorId) => {
       }
     });
 
-    if (!mentor || mentor.assignedStudents.length >= 20) {
+    if (!mentor || mentor.assignedStudents.length >= 2) {
       return { message: 'Mentor is still full' };
     }
 

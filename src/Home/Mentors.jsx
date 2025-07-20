@@ -4,6 +4,28 @@ import mentor2 from "../assets/mentor/navyaa.png";
 import mentor3 from "../assets/mentor/ravi.png";
 import { axiosInstance } from "../lib/axios";
 
+// Static mentor data (everything except name)
+const staticMentorsData = [
+  {
+    profession: "Software Engineer",
+    company: "Google",
+    description: "Java, Machine Learning, TypeScript",
+    img: mentor2,
+  },
+  {
+    profession: "Software Developer",
+    company: "Ex-Google",
+    description: "React.js, AngularJS, C++",
+    img: mentor3,
+  },
+  {
+    profession: "Software Developer",
+    company: "Trellix",
+    description: "Python, MySQL, DBMS",
+    img: mentor1,
+  }
+];
+
 export default function MentorsSection() {
   const [mentors, setMentors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -13,7 +35,18 @@ export default function MentorsSection() {
       setIsLoading(true);
       try {
         const res = await axiosInstance.get("/users?role=MENTOR");
-        setMentors(res.data);
+        const dbMentors = res.data;
+        
+        // Combine static data with dynamic names from DB
+        const combinedMentors = dbMentors.map((dbMentor, index) => ({
+          ...staticMentorsData[index], // Get static data by index
+          id: dbMentor.id,
+          name: dbMentor.name, // Use name from DB
+          email: dbMentor.email,
+          profileImage: dbMentor.profileImage,
+        }));
+        
+        setMentors(combinedMentors);
       } catch (error) {
         setMentors([]);
       } finally {
@@ -33,10 +66,10 @@ export default function MentorsSection() {
           Connect with Industry-Proven Mentors
         </h2>
         <p className="font-normal text-xl text-[#2AB74A] text-center leading-[31px] mb-6">
-          Gain insights from experts who’ve recently secured positions at
+          Gain insights from experts who've recently secured positions at
           leading tech companies
           <br />
-          and know what it takes to succeed in today’s job market.
+          and know what it takes to succeed in today's job market.
         </p>
       </div>
       <div className="w-full max-w-[1200px] flex flex-wrap justify-center gap-x-7 gap-y-8">
@@ -51,9 +84,9 @@ export default function MentorsSection() {
               className="bg-white rounded-[20px] shadow-md flex flex-col items-center w-[312px] min-h-[230px] p-[18px] relative"
             >
               <div className="flex w-full">
-                {mentor.profileImage ? (
+                {mentor.profileImage || mentor.img ? (
                   <img
-                    src={mentor.profileImage}
+                    src={mentor.profileImage || mentor.img}
                     alt={mentor.name}
                     className="rounded-full w-[70px] h-[70px] object-cover mr-[18px]"
                   />
@@ -67,18 +100,20 @@ export default function MentorsSection() {
                     {mentor.name}
                   </div>
                   <div className="text-[#1976d2] text-[13px] font-semibold leading-[18px]">
-                    {mentor.email}
+                    {mentor.profession} at {mentor.company}
                   </div>
                 </div>
               </div>
-              {/* You can add more mentor info here if available */}
+              <div className="mt-4 text-center text-sm text-black mb-6">
+                {mentor.description}
+              </div>
               <button
                 onClick={() =>
                   document
                     .getElementById("booking")
                     .scrollIntoView({ behavior: "smooth" })
                 }
-                className="w-full mt-[10px] bg-[#2AB74A] text-white font-semibold text-[18px] rounded-[10px] py-3 hover:bg-[#21a347] h-[48px]"
+                className="w-full bg-[#2AB74A] text-white font-semibold text-[18px] rounded-[10px] py-3 hover:bg-[#21a347] h-[48px]"
               >
                 Book Session
               </button>

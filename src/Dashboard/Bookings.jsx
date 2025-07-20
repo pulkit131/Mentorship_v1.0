@@ -29,7 +29,7 @@ const MyBookings = () => {
           Dashboard
         </h1>
         <p className="text-base sm:text-lg text-gray-600 mb-0 text-left">
-          Keep track of your upcoming classes and mentorship sessions. 
+          Keep track of your upcoming classes and mentorship sessions.
         </p>
       </div>
 
@@ -55,13 +55,13 @@ const MyBookings = () => {
                 date={b.timeSlot}
                 status={b.status}
                 isWaitlist={!!b.waitlistEntry}
-                mentorEmail={b.mentor?.email}
+                note="The timings for the session will be informed by the mentor soon"
                 // onDelete={...} // Add if you implement delete
               />
             ))
           )}
         </div>
-        
+
         {/* Waitlist Status Section */}
         <div className="mt-8">
           <WaitlistStatus />

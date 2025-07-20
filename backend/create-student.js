@@ -3,7 +3,7 @@ import axios from 'axios';
 const BASE_URL = 'http://localhost:3000/api/users';
 
 const createStudents = async () => {
-  for (let i = 1; i <= 25; i++) {
+  for (let i = 1; i <= 3; i++) {
     const studentData = {
       name: `student${i}`,
       email: `student${i}@gmail.com`,
