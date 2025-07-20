@@ -26,45 +26,45 @@ export const bookSession = async (data) => {
 
     // 2. Check payment requirement FIRST (before any other checks)
     // Always require a payment record, regardless of plan type
-    console.log('Checking payment for user:', user.email, 'Plan type:', user.planType);
+    // console.log('Checking payment for user:', user.email, 'Plan type:', user.planType);
     
-    const latestPayment = await prisma.payment.findFirst({
-      where: { 
-        userEmail: user.email,
-        status: { in: ['completed', 'success', 'paid'] } // Check multiple possible status values
-      },
-      orderBy: { createdAt: 'desc' }
-    });
+    // const latestPayment = await prisma.payment.findFirst({
+    //   where: { 
+    //     userEmail: user.email,
+    //     status: { in: ['completed', 'success', 'paid'] } // Check multiple possible status values
+    //   },
+    //   orderBy: { createdAt: 'desc' }
+    // });
 
     // console.log('Latest payment found:', latestPayment);
 
-    // Debug: Check all payments for this user
-    const allPayments = await prisma.payment.findMany({
-      where: { userEmail: user.email },
-      orderBy: { createdAt: 'desc' }
-    });
-    console.log('All payments for user:', allPayments);
+    // // Debug: Check all payments for this user
+    // const allPayments = await prisma.payment.findMany({
+    //   where: { userEmail: user.email },
+    //   orderBy: { createdAt: 'desc' }
+    // });
+    //console.log('All payments for user:', allPayments);
 
-    if (!latestPayment) {
-      console.log('No payment found for user:', user.email);
-      return {
-        success: false,
-        error: 'Payment required. Please subscribe to a plan before booking sessions.',
-        statusCode: 403,
-        requiresPayment: true
-      };
-    }
+    // if (!latestPayment) {
+    //   console.log('No payment found for user:', user.email);
+    //   return {
+    //     success: false,
+    //     error: 'Payment required. Please subscribe to a plan before booking sessions.',
+    //     statusCode: 403,
+    //     requiresPayment: true
+    //   };
+    // }
 
     // Check if payment is still valid (not expired)
-    const now = new Date();
-    if (now > latestPayment.subscriptionEnds) {
-      return {
-        success: false,
-        error: 'Your payment has expired. Please renew your subscription.',
-        statusCode: 403,
-        requiresPayment: true
-      };
-    }
+    // const now = new Date();
+    // if (now > latestPayment.subscriptionEnds) {
+    //   return {
+    //     success: false,
+    //     error: 'Your payment has expired. Please renew your subscription.',
+    //     statusCode: 403,
+    //     requiresPayment: true
+    //   };
+    // }
 
     // 3. Check if user has valid plan type (not BASIC)
     if (user.planType === 'BASIC') {
@@ -146,6 +146,7 @@ export const bookSession = async (data) => {
         data: {
           userId,
           mentorId,
+          // timeSlot: new Date(timeSlot)
         },
         include: {
           user: { select: { id: true, name: true, email: true } },
@@ -338,7 +339,7 @@ export const getUserSessions = async (userId) => {
     include: {
       mentor: { select: { id: true, name: true, email: true } }
     },
-    orderBy: { createdAt: 'asc' }
+    orderBy: { timeSlot: 'asc' }
   });
 };
 
@@ -350,8 +351,7 @@ export const getMentorSessions = async (mentorId) => {
     where: { mentorId },
     include: {
       user: { select: { id: true, name: true, email: true } }
-    },
-    orderBy: { createdAt: 'asc' }
+    }
   });
 };
 

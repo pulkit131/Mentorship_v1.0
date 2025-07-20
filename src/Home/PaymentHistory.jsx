@@ -190,12 +190,12 @@ const PaymentHistory = () => {
                     <div className="flex flex-col sm:flex-row md:flex-col gap-2 md:gap-4 md:items-end">
                       <span
                         className={`px-3 py-1 rounded-full text-xs sm:text-sm font-medium border ${
-                          payment.status === "Success"
+                          payment.status === "completed"
                             ? "bg-green-100 text-green-800 border-green-200"
                             : "bg-red-100 text-red-800 border-red-200"
                         }`}
                       >
-                        {payment.status === "Success" ? "Success" : "Failed"}
+                        {payment.status === "completed" ? "Success" : "Failed"}
                       </span>
                     </div>
                   </div>

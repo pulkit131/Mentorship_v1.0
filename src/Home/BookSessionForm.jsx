@@ -77,6 +77,11 @@ const BookSessionForm = () => {
     const mentorId = formData.mentor;
     const userId = localStorage.getItem("userId");
     console.log("Fetched userId from localStorage:", userId);
+    
+    if(!userId){
+      return alert("Not possible ma");
+    }
+    
     // Validate all fields
     if (
       !formData.name ||
