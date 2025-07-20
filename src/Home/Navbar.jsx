@@ -99,6 +99,7 @@ const handleNavigation = (sectionId) => {
           confirmButtonText: "Cool!",
         });
         navigate("/");
+        window.location.reload(); // Force refresh after login
       })
       .catch((error) => {
         console.error(error);
@@ -127,6 +128,7 @@ const handleNavigation = (sectionId) => {
         confirmButtonText: "Okay",
       });
       navigate("/");
+      window.location.reload(); // Force refresh after logout
     } catch (error) {
       console.error("Logout failed:", error);
       Swal.fire({

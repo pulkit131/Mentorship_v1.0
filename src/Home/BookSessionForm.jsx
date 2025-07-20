@@ -8,7 +8,7 @@ import { axiosInstance } from "../lib/axios";
 
 const BookSessionForm = () => {
   const navigate = useNavigate();
-  const { createBooking, getBookingByUser } = useBookingStore();
+  const { createBooking, getBookingByUser, booking } = useBookingStore();
   const { getUserWaitlistEntries } = useWaitlistStore();
 
   const [mentors, setMentors] = useState([]);
@@ -27,6 +27,33 @@ const BookSessionForm = () => {
       }
     };
     fetchMentors();
+
+    // Auto-fill email from localStorage if available
+    const storedEmail = localStorage.getItem("userEmail");
+    if (storedEmail) {
+      setFormData((prev) => ({ ...prev, email: storedEmail }));
+    }
+
+    // Listen for changes to userEmail in localStorage (e.g., after login/logout)
+    const handleStorage = (event) => {
+      if (event.key === "userEmail") {
+        setFormData((prev) => ({ ...prev, email: event.newValue || "" }));
+      }
+    };
+    window.addEventListener("storage", handleStorage);
+
+    // Listen for a custom event to handle logout in the same tab
+    const handleCustomLogout = (event) => {
+      if (event.detail && event.detail.type === "logout") {
+        setFormData((prev) => ({ ...prev, email: "" }));
+      }
+    };
+    window.addEventListener("customUserLogout", handleCustomLogout);
+
+    return () => {
+      window.removeEventListener("storage", handleStorage);
+      window.removeEventListener("customUserLogout", handleCustomLogout);
+    };
   }, []);
 
   const [formData, setFormData] = useState({
@@ -111,6 +138,30 @@ const BookSessionForm = () => {
     //   });
     // }
 
+    // Prevent booking more than one mentor
+    const userBookings = Array.isArray(booking) ? booking : booking ? [booking] : [];
+    if (userBookings.length > 0) {
+      return Swal.fire({
+        title: "Mentor Already Booked",
+        text: "You have already booked a mentor.",
+        icon: "info",
+        confirmButtonText: "Okay",
+      });
+    }
+
+    // Prevent double booking: check if user already booked this mentor
+    const alreadyBooked = userBookings.some(
+      (b) => b.mentor && b.mentor.id === mentorId
+    );
+    if (alreadyBooked) {
+      return Swal.fire({
+        title: "Already Booked",
+        text: "You have already booked this mentor.",
+        icon: "info",
+        confirmButtonText: "Okay",
+      });
+    }
+
     try {
       console.log({
         userId,
@@ -121,6 +172,22 @@ const BookSessionForm = () => {
       await getBookingByUser(userId);
       if (result && result.waitlistEntry) {
         await getUserWaitlistEntries(userId);
+        console.log(result);
+        console.log(result.waitlistEntry)
+        Swal.fire({
+          title: "Waitlist Token Raised",
+          text: "You have been added to the waitlist. Our team will contact you via mail if any vacancy.",
+          icon: "info",
+          confirmButtonText: "Okay",
+        });
+        setFormData({
+          name: "",
+          contact: "",
+          email: "",
+          mentor: "",
+        });
+        navigate("/myDashboard");
+        return;
       }
       Swal.fire({
         title: "Session Booked!",
@@ -160,7 +227,6 @@ const BookSessionForm = () => {
             setTimeout(() => {
               console.log("Dialog closed, now scrolling...");
               scrollToPremiumPlans();
-
               // Backup scroll attempt after a longer delay
               setTimeout(() => {
                 console.log("Backup scroll attempt...");
@@ -239,6 +305,7 @@ const BookSessionForm = () => {
                 onChange={handleChange}
                 placeholder="Email address"
                 className="w-full border-2 border-black rounded-lg px-4 py-3 pl-12"
+                readOnly
               />
               <AtSign className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
             </div>

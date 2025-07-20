@@ -322,8 +322,8 @@ const PaymentHistory = () => {
               </div>
               <p className="text-sm text-gray-700 mb-6">
                 Refunds will be processed within 5–7 business days. Refunds are
-                only available for plans with a successful payment status and
-                must be requested within 14 days of the plan start date.
+                only available for plans with a successful payment status. You can contact 
+                the support team by mail if any issues persist.
               </p>
               <div className="text-right">
                 <button

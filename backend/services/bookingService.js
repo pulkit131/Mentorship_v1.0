@@ -103,7 +103,7 @@ export const bookSession = async (data) => {
     }
     //change the value to 20 
     // 5. Check if mentor has capacity (less than 20 students)
-    if (mentor.assignedStudents.length >= 3) {
+    if (mentor.assignedStudents.length >= 20) {
       // Add to waitlist for this specific mentor
       const waitlistEntry = await addToWaitlist(userId, mentorId);
       return {

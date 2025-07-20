@@ -115,8 +115,11 @@ export default function MentorsSection() {
                     {mentor.name}
                   </div>
                   <div className="text-[#1976d2] text-[13px] font-semibold leading-[18px]">
-                    {mentor.profession} at {mentor.company}
+                    {mentor.profession}
                   </div>
+                  <div className="text-[#00000] text-[13px] font-semibold leading-[18px]">
+                      {mentor.company}
+                    </div>
                 </div>
               </div>
               <div className="mt-4 text-center text-sm text-black mb-6">

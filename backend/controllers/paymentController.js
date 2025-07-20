@@ -48,6 +48,21 @@ export const verifyPaymentController = async (req, res) => {
       return res.status(400).json({ error: 'Invalid planType. Plan not found in database.' });
     }
 
+    const existingPayment = await prisma.payment.findFirst({
+      where: {
+        userEmail: email,
+        planName: planType,
+        status: { in: ['completed', 'success', 'paid'] }
+      }
+    });
+    
+    if (existingPayment) {
+      return res.status(400).json({
+        success: false,
+        message: `You have already purchased the ${planType.replace('_', ' ')} plan. You cannot purchase the same plan twice.`
+      });
+    }
+
     // Save payment record
     await savePaymentRecord({
       userEmail: email,

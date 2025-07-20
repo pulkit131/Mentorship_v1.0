@@ -17,6 +17,7 @@ export const useBookingStore = create((set) => ({
         toast.success(res.data.message || 'Booking created successfully');
       }
       set({ booking: res.data.session || res.data.waitlistEntry });
+      return res.data;
     } catch (error) {
       const errorData = error?.response?.data;
       

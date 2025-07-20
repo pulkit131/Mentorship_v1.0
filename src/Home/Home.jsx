@@ -119,9 +119,13 @@ const Home = () => {
             
             {/* Highlighted Promise */}
             
-<div className="bg-white border-2 border-[#2AB74A] rounded-full p-6 mb-8 max-w-4xl mx-auto shadow-lg">
+            <div className="bg-white/90 border-2 border-[#2AB74A] rounded-full p-6 mb-8 max-w-4xl mx-auto shadow-lg">
   <p className="text-lg md:text-xl font-semibold text-gray-800 text-center">
-    And here's our promise: If after Session 1 you feel it's not the right fit, we'll give you a <span className="font-bold text-[#2AB74A] underline decoration-2">full refund</span> — no questions asked.
+    And here's our promise: If after Session 1 you feel it's not the right fit, we'll give you a{" "}
+    <span className="whitespace-nowrap font-bold uppercase text-[#2AB74A] underline decoration-2">
+      full refund
+    </span>{" "}
+    — no questions asked.
   </p>
 </div>
             

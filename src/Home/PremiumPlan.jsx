@@ -3,7 +3,9 @@ import TickBox from "../assets/TickBox.png";
 import { Star, Users, Target } from "lucide-react";
 import { usePaymentStore } from "../store/usePaymentStore";
 import { useUserStore } from "../store/useUserStore";
+import Swal from "sweetalert2";
 import RazorpayLogo from "../assets/razorpay.png";
+import { axiosInstance } from "../lib/axios";
 
 const PremiumPlans = () => {
   //earlier points
@@ -27,7 +29,10 @@ const PremiumPlans = () => {
 
   const user = useUserStore((state) => state.user);
   const userEmail = localStorage.getItem("userEmail");
-  const checkUserHasPlan = useUserStore((state) => state.checkUserHasPlan);
+  const checkUserHasPlan = async (email, planType) => {
+    const res = await axiosInstance.get(`/payments/has-plan?email=${email}&planType=${planType}`);
+    return res.data.hasPlan;
+  };
 
   const handleSubscribe = async (planType, amount, email) => {
     console.log("user", user);
@@ -41,10 +46,22 @@ const PremiumPlans = () => {
 
     //CHANGE BEFORE LAUNCH
 
-    amount = 1;
+    
 
     //CHANGE BEFORE LAUNCH
     const { createOrder, verifyPayment } = usePaymentStore.getState();
+
+    // Check if user already owns this plan BEFORE creating order
+    const hasPlan = await checkUserHasPlan(email, planType);
+    if (hasPlan) {
+      Swal.fire({
+        icon: "error",
+        title: "Cannot Purchase Plan",
+        text: `You have already purchased the ${planType.replace('_', ' ')} plan. You cannot purchase the same plan twice.`,
+        confirmButtonColor: "#e3342f",
+      });
+      return; // Do not proceed to createOrder or open Razorpay
+    }
 
     const orderData = await createOrder({ amount }); // amount in INR (₹)
     if (!orderData) return;
@@ -67,10 +84,10 @@ const PremiumPlans = () => {
         if (result.success) {
           // check if the user plan
           const userId = localStorage.getItem("userId");
-          const planStatus = await checkUserHasPlan(userId);
+          const planStatus = await checkUserHasPlan(userId, planType);
 
           console.log("Plan status after payment:", planStatus);
-           return Swal.fire({
+           Swal.fire({
             icon: "success",
             title: "Payment Successful!",
             text: "Your plan is now active.",
@@ -78,10 +95,10 @@ const PremiumPlans = () => {
           });
 
         } else {
-          return Swal.fire({
+          Swal.fire({
             icon: "error",
-            title: "Payment Failed",
-            text: "We couldn’t verify your payment. Please try again.",
+            title: "Cannot Purchase Plan",
+            text: result.message || "You cannot purchase this plan.",
             confirmButtonColor: "#e3342f",
           });
 
@@ -106,6 +123,8 @@ const PremiumPlans = () => {
     const razorpay = new window.Razorpay(options);
     razorpay.open();
   };
+
+  
 
   const beginnerFeatures = [
     "4 live sessions in small batches (15–20 students)",
