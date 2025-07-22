@@ -7,6 +7,12 @@ import { axiosInstance } from "../lib/axios";
 // Static mentor data (everything except name)
 const staticMentorsData = [
   {
+    profession: "Software Developer",
+    company: "Trellix",
+    description: "Python, MySQL, DBMS",
+    img: mentor1,
+  },
+  {
     profession: "Software Engineer",
     company: "Google",
     description: "Java, Machine Learning, TypeScript",
@@ -17,12 +23,6 @@ const staticMentorsData = [
     company: "Ex-Google",
     description: "React.js, AngularJS, C++",
     img: mentor3,
-  },
-  {
-    profession: "Software Developer",
-    company: "Trellix",
-    description: "Python, MySQL, DBMS",
-    img: mentor1,
   }
 ];
 

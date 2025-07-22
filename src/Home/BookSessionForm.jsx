@@ -106,7 +106,7 @@ const BookSessionForm = () => {
     
     if(!userId){
       return Swal.fire({
-                title: "Login",
+                title: "Please Login",
                 icon: "error",
                 confirmButtonText: "Okay",
               });
@@ -122,7 +122,7 @@ const BookSessionForm = () => {
     ) {
       return Swal.fire({
         title: "Missing Fields",
-        text: "Please fill in all fields and select a mentor and time slot.",
+        text: "Please fill in all fields.",
         icon: "warning",
         confirmButtonText: "Okay",
       });

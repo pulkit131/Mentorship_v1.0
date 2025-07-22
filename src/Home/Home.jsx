@@ -138,7 +138,7 @@ const Home = () => {
               </button>
               <button
                 onClick={() => scrollToSection("mentors")}
-                className="bg-[#018EE2] text-white px-16 py-4 rounded-full text-lg font-bold hover:bg-white hover:text-blue-600 border-2 border-[#1976d2] transition-all duration-300 cursor-pointer border-3 border-white"
+                className="bg-[#018EE2] text-white px-11 py-4 rounded-full text-lg font-bold hover:bg-white hover:text-blue-600 border-2 border-[#1976d2] transition-all duration-300 cursor-pointer border-3 border-white"
               >
                 View Mentors
               </button>
