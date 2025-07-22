@@ -13,12 +13,11 @@ import mentorRoutes from './routes/mentor/index.js';
 import paymentHistoryRoutes from "./routes/payment.js";
 //import mentorshipRoutes from './routes/mentorship/index.js';
 
-dotenv.config({ path: './.env' });
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors({ origin: 'https://letsgetmentor.com/', credentials: true }));
+app.use(cors({ origin: 'https://letsgetmentor.com', credentials: true }));
 app.use(express.json());
 
 // Route bindings
