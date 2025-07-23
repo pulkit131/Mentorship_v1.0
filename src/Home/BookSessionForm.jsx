@@ -303,7 +303,7 @@ const BookSessionForm = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="Email address"
+                placeholder="Please log in to check Email adress"
                 className="w-full border-2 border-black rounded-lg px-4 py-3 pl-12"
                 readOnly
               />
