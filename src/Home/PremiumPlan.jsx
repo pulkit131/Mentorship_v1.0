@@ -37,12 +37,16 @@ const PremiumPlans = () => {
   const handleSubscribe = async (planType, amount, email) => {
     console.log("user", user);
     if (!user) {
-      alert("no user!");
+      return Swal.fire({
+          title: "Please Login",
+          icon: "error",
+          confirmButtonText: "Okay",
+        });
     }
-    if (!email) {
-      alert("Please log in to subscribe.");
-      return;
-    }
+    // if (!email) {
+    //   alert("Please log in to subscribe.");
+    //   return;
+    // }
 
     //CHANGE BEFORE LAUNCH
 
