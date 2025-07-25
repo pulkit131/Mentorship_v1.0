@@ -8,11 +8,6 @@ const faqs = [
       "Simply fill out the booking form with your details, select your preferred mentor and time slot. You'll receive a confirmation email with the session details.",
   },
   {
-    question: "Are the sessions free?",
-    answer:
-      "Yes! We offer free mentorship sessions to help engineering students. We also have premium plans available for extended support and additional features.",
-  },
-  {
     question: "How long is each session?",
     answer:
       "Each mentorship session is 1 hour long, giving you enough time to discuss your goals, get advice, and ask questions.",
@@ -42,12 +37,7 @@ const faqs = [
     question: "When will the mentors be available ?",
     answer:
       "Mentors are available on weekends only. During these weekend sessions, you’ll have dedicated time to ask any and all of your doubts and get clear, personalized guidance from your mentor.",
-  },
-{
-    question: "What if I don’t like the mentorship after the first session? Will I get a refund?",
-    answer:
-      "Yes — if you feel the mentorship isn’t the right fit after Session 1, you can request a full refund. No questions asked. Just let us know shortly after your first session, and we’ll process it smoothly.",
-  },
+  }
 
 ];
 

@@ -29,7 +29,7 @@ const About = () => {
         >
           <div className="md:p-12 p-6">
             <h2 className="md:hidden text-4xl font-bold text-gray-900 mb-6">
-              About Mentorship Connect
+              About LetsGetMentors
             </h2>
             <p className="text-gray-700 mb-4 text-lg">
               Most students waste months just deciding what to learn DSA or
